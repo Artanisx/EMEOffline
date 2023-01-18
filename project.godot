@@ -21,8 +21,12 @@ _global_script_class_icons={
 [application]
 
 config/name="EME Offline"
-run/main_scene="res://source/Scenes/LoginScene.tscn"
+run/main_scene="res://source/Main/LoginScene.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Globals="*res://source/Main/Globals.gd"
 
 [display]
 

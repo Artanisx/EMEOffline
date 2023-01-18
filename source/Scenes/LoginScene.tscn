@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/art/shaders/StarryBG.gdshader" type="Shader" id=1]
 [ext_resource path="res://assets/art/ui/LogoEME.png" type="Texture" id=2]
+[ext_resource path="res://assets/audio/exodus.mp3" type="AudioStream" id=3]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -77,11 +78,12 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 75, 20 )
 text = "USERNAME:"
 
-[node name="UsernameTextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer/FOOTER"]
+[node name="UsernameLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/FOOTER"]
 margin_left = 542.0
 margin_right = 692.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 150, 25 )
+caret_blink = true
 
 [node name="ServerLabel" type="Label" parent="MarginContainer/VBoxContainer/FOOTER"]
 margin_left = 696.0
@@ -105,11 +107,13 @@ margin_bottom = 22.0
 rect_min_size = Vector2( 75, 20 )
 text = "PASSWORD:"
 
-[node name="PasswordTextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer/FOOTER2"]
+[node name="PasswordLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/FOOTER2"]
 margin_left = 543.0
 margin_right = 693.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 150, 25 )
+secret = true
+caret_blink = true
 
 [node name="StatusLabel" type="Label" parent="MarginContainer/VBoxContainer/FOOTER2"]
 margin_left = 697.0
@@ -131,3 +135,7 @@ margin_right = 700.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 120, 0 )
 text = "CONNECT"
+
+[node name="LoginThemeMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+autoplay = true

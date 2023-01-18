@@ -1,0 +1,133 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/art/shaders/StarryBG.gdshader" type="Shader" id=1]
+[ext_resource path="res://assets/art/ui/LogoEME.png" type="Texture" id=2]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/bg_color = null
+
+[node name="LoginScene" type="ColorRect"]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 1280.0
+margin_bottom = 720.0
+
+[node name="HEADER" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 1280.0
+margin_bottom = 500.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HEADER"]
+margin_left = 390.0
+margin_right = 890.0
+margin_bottom = 500.0
+texture = ExtResource( 2 )
+
+[node name="INFO" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 504.0
+margin_right = 1280.0
+margin_bottom = 518.0
+alignment = 1
+
+[node name="Message" type="Label" parent="MarginContainer/VBoxContainer/INFO"]
+margin_left = 500.0
+margin_right = 779.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0.980392, 1, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+text = "EME Offline EXODUS is coming on March 1. "
+
+[node name="BUTTONS2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 522.0
+margin_right = 1280.0
+margin_bottom = 542.0
+alignment = 1
+
+[node name="SETTINGSButton" type="Button" parent="MarginContainer/VBoxContainer/BUTTONS2"]
+margin_left = 579.0
+margin_right = 651.0
+margin_bottom = 20.0
+text = "SETTINGS"
+
+[node name="QUITButton" type="Button" parent="MarginContainer/VBoxContainer/BUTTONS2"]
+margin_left = 655.0
+margin_right = 700.0
+margin_bottom = 20.0
+text = "QUIT"
+
+[node name="FOOTER" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 546.0
+margin_right = 1280.0
+margin_bottom = 571.0
+alignment = 1
+
+[node name="UsernameLabel" type="Label" parent="MarginContainer/VBoxContainer/FOOTER"]
+margin_left = 463.0
+margin_top = 2.0
+margin_right = 538.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 75, 20 )
+text = "USERNAME:"
+
+[node name="UsernameTextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer/FOOTER"]
+margin_left = 542.0
+margin_right = 692.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 150, 25 )
+
+[node name="ServerLabel" type="Label" parent="MarginContainer/VBoxContainer/FOOTER"]
+margin_left = 696.0
+margin_top = 2.0
+margin_right = 816.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 120, 20 )
+text = "SERVER: CALMNESS"
+
+[node name="FOOTER2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 575.0
+margin_right = 1280.0
+margin_bottom = 600.0
+alignment = 1
+
+[node name="PasswordLabel" type="Label" parent="MarginContainer/VBoxContainer/FOOTER2"]
+margin_left = 462.0
+margin_top = 2.0
+margin_right = 539.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 75, 20 )
+text = "PASSWORD:"
+
+[node name="PasswordTextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer/FOOTER2"]
+margin_left = 543.0
+margin_right = 693.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 150, 25 )
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/VBoxContainer/FOOTER2"]
+margin_left = 697.0
+margin_top = 2.0
+margin_right = 817.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 120, 20 )
+text = "STATUS: READY"
+
+[node name="FOOTER3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 604.0
+margin_right = 1280.0
+margin_bottom = 624.0
+alignment = 1
+
+[node name="CONNECTButton2" type="Button" parent="MarginContainer/VBoxContainer/FOOTER3"]
+margin_left = 580.0
+margin_right = 700.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 120, 0 )
+text = "CONNECT"

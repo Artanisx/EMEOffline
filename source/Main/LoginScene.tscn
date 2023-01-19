@@ -75,15 +75,22 @@ margin_bottom = 534.0
 alignment = 1
 
 [node name="SETTINGSButton" type="Button" parent="MarginContainer/VBoxContainer/BUTTONS2"]
-margin_left = 579.0
-margin_right = 651.0
+margin_left = 555.0
+margin_right = 627.0
 margin_bottom = 20.0
 hint_tooltip = "Click to adjust settings."
 text = "SETTINGS"
 
+[node name="INFOButton" type="Button" parent="MarginContainer/VBoxContainer/BUTTONS2"]
+margin_left = 631.0
+margin_right = 676.0
+margin_bottom = 20.0
+hint_tooltip = "Click to adjust settings."
+text = "INFO"
+
 [node name="QUITButton" type="Button" parent="MarginContainer/VBoxContainer/BUTTONS2"]
-margin_left = 655.0
-margin_right = 700.0
+margin_left = 680.0
+margin_right = 725.0
 margin_bottom = 20.0
 hint_tooltip = "Click to exit the game."
 text = "QUIT"
@@ -199,6 +206,7 @@ margin_right = 110.0
 margin_bottom = 73.0
 
 [connection signal="button_up" from="MarginContainer/VBoxContainer/BUTTONS2/SETTINGSButton" to="." method="_on_SETTINGSButton_button_up"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BUTTONS2/INFOButton" to="." method="_on_INFOButton_pressed"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/BUTTONS2/QUITButton" to="." method="_on_QUITButton_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2" to="." method="_on_CONNECTButton2_button_up"]
 [connection signal="apply_button_pressed" from="SettingsPanel" to="." method="_on_SettingsPanel_apply_button_pressed"]

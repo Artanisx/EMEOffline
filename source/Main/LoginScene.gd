@@ -57,8 +57,13 @@ func load_savegames() -> void:
 	#var file := File.new()	
 	#var error := file.open_encrypted_with_pass (SAVE_VAR, File.READ, "emeOfflineSaves")
 	
+func _input(event):
+	# Make sure the CONNECT button is focused if you press ENTER so logging in is quick
+	if (event.is_action_pressed("ui_accept")):
+		if not _message_box.visible and not _settings_box.visible:
+			$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.grab_focus()			
 
-func _ready():
+func _ready():	
 	# Make sure the window is centered, unless fullscreen
 	if OS.window_fullscreen == false:
 		OS.set_window_position(screen_size*0.5 - window_size*0.5)
@@ -69,6 +74,8 @@ func _ready():
 	## Check if there are savegames
 	load_savegames()
 	
+	# Give focus to the username filed
+	$MarginContainer/VBoxContainer/FOOTER/UsernameLineEdit.grab_focus()	
 
 func _on_QUITButton_button_up():
 	get_tree().quit()
@@ -172,3 +179,7 @@ func load_settings() -> void:
 		
 	# apply settings
 	update_settings(setting_dict)
+
+
+func _on_INFOButton_pressed():
+	show_message_box("AURA", "Welcome to EME Offline, capsuler. This is a very small fan game set in the EVE Online world. The idea is to have fun alone, without other players! Only a extremely small subset of mechanics and locations are present, but it might be just the beginning...", true)		

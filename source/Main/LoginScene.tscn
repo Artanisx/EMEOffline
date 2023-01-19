@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://source/Main/LoginScene.gd" type="Script" id=1]
 [ext_resource path="res://source/UI/SceneTransition.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/art/ui/LogoEME.png" type="Texture" id=4]
 [ext_resource path="res://assets/art/shaders/StarryBG.gdshader" type="Shader" id=5]
 [ext_resource path="res://source/UI/MessageBox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://source/UI/SettingsBox.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
@@ -186,6 +187,18 @@ margin_top = -125.0
 margin_right = 125.0
 margin_bottom = 125.0
 
+[node name="SettingsPanel" parent="." instance=ExtResource( 7 )]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -110.0
+margin_top = -73.0
+margin_right = 110.0
+margin_bottom = 73.0
+
 [connection signal="button_up" from="MarginContainer/VBoxContainer/BUTTONS2/SETTINGSButton" to="." method="_on_SETTINGSButton_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/BUTTONS2/QUITButton" to="." method="_on_QUITButton_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2" to="." method="_on_CONNECTButton2_button_up"]
+[connection signal="apply_button_pressed" from="SettingsPanel" to="." method="_on_SettingsPanel_apply_button_pressed"]

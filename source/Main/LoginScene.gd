@@ -7,8 +7,56 @@ onready var _settings_box := $SettingsPanel
 const SAVE_VAR := "user://users.sav"
 
 var save_exists = false
+var valid_saves = []
 var screen_size = OS.get_screen_size(0)
 var window_size = OS.get_window_size()
+
+func load_savegames() -> void:
+	#First, I need to check if there are any .sav files in the user:// folder
+	
+	# Initialize a variable to track if any ".sav" files are found
+	var sav_found = false
+	
+	# Create a new Directory object
+	var dir = Directory.new()
+	
+	if dir.open("user://") == OK:		
+		# Get a list of all files in the current directory	
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name.ends_with(".sav"):
+				sav_found = true
+				valid_saves.append(file_name.to_lower())				
+			file_name = dir.get_next()
+	else:
+		print("no files found or error accessing user://")	
+
+	if sav_found:
+		print("saves found:")		
+		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.text = "STATUS: READY"
+		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.add_color_override("font_color", Color(1,1,1))
+		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.hint_tooltip = "There are character(s) saved."
+		$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CONNECT"
+		save_exists = true
+	else:
+		print("saves not found")
+		## No save present. Let's put some text in the status
+		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.text = "STATUS: NOT READY"
+		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.add_color_override("font_color", Color(1,0,0))			
+		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.hint_tooltip =  "There is no character saved. Create a new one."
+		$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CREATE"
+		save_exists = false
+	
+	
+	#Open a file
+	#var file := File.new()
+	#var exist = file.file_exists(PATH_2_FILE):	
+	#var error := file.open_encrypted_with_pass (SAVE_VAR, File.READ, "emeOfflineSaves")
+	#Open a file
+	#var file := File.new()	
+	#var error := file.open_encrypted_with_pass (SAVE_VAR, File.READ, "emeOfflineSaves")
+	
 
 func _ready():
 	# Make sure the window is centered, unless fullscreen
@@ -18,45 +66,39 @@ func _ready():
 	# Load Settings if they exists
 	load_settings()
 	
-	## check if a save exists
+	## Check if there are savegames
+	load_savegames()
 	
-	#Open a file
-	var file := File.new()	
-	
-	var error := file.open_encrypted_with_pass (SAVE_VAR, File.READ, "emeOfflineSaves")
-	
-	if error == OK:
-		## We have a save file. This means there are players in here.
-		## We should provide an autocomplete or hint to the account names here
-		## For now, we just say "STATUS: READY"		
-		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.text = "STATUS: READY"
-		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.add_color_override("font_color", Color(0,0,0))
-		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.hint_tooltip = "There are character(s) saved."
-		$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CONNECT"
-		save_exists = true
-	else:
-		## No save present. Let's put some text in the status
-		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.text = "STATUS: NOT READY"
-		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.add_color_override("font_color", Color(1,0,0))			
-		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.hint_tooltip =  "There is no character saved. Create a new one."
-		$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CREATE"
-		save_exists = false
 
 func _on_QUITButton_button_up():
 	get_tree().quit()
 
 func _on_CONNECTButton2_button_up():
-	if $MarginContainer/VBoxContainer/FOOTER/UsernameLineEdit.text == "":
-		show_message_box("LOGGING IN", "Insert a username!", true)	
+	var correct_save_found = false
+	var username = $MarginContainer/VBoxContainer/FOOTER/UsernameLineEdit.text
+	username.to_lower()
+	print(username)
+	if username == "":
+		show_message_box("LOGIN FAILED", "Insert a username!", true)	
 		pass # Show a messagebox telling the player they need to put a username
 	else:
 		if save_exists:
-			show_message_box("LOGGING IN", "OK save exists, I should check if the username is in the save!", true)				
+			print(valid_saves)
+			for name in valid_saves:
+				print(name)
+				if name.get_basename() == username:
+					print("User found in save!")
+					correct_save_found = true
+					break
+			# We have found the corret save, we now need to LOAD PLAYER VALUES!
 			#Globals.set_loaded_true()
 			#_transition_rect.transition_to("res://src/Main/Main.tscn")	
-			pass #check if username is in the savefile, if yes > load. if not > messagebox
+						
+			# Check if we haven't found a correct save after all...		
+			if correct_save_found == false:
+				show_message_box("LOGIN FAILED", "Username not found!", true)
 		else:
-			show_message_box("LOGGING IN", "No save exists, so we should create an empty one and save this account!", true)			
+			show_message_box("CREATING USER", "No save exists, so we should create an empty one and save this account!", true)		
 			#_transition_rect.transition_to("res://src/Main/Main.tscn")
 			pass #since there's no savegame, create a empty save with this account
 

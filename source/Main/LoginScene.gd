@@ -78,59 +78,21 @@ func _ready():
 	# Give focus to the username filed
 	$MarginContainer/VBoxContainer/FOOTER/UsernameLineEdit.grab_focus()	
 
-func _on_QUITButton_button_up():
-	get_tree().quit()
-
-func _on_CONNECTButton2_button_up():
-	var correct_save_found = false
-	var username = $MarginContainer/VBoxContainer/FOOTER/UsernameLineEdit.text
-	
-	# Make username lowercase so we don't have issues with casing
-	username = username.to_lower()
-	print(username)
-	if username == "":
-		show_message_box("LOGIN FAILED", "Insert a username!", true)			
-	else:
-		if save_exists:
-			print(valid_saves)
-			for name in valid_saves:
-				print(name)
-				if name.get_basename() == username:
-					print("User found in save!")
-					correct_save_found = true
-					break
-			# We have found the corret save, we now need to LOAD PLAYER VALUES!
-			#Globals.set_loaded_true()
-			#_transition_rect.transition_to("res://src/Main/Main.tscn")	
-						
-			# Check if we haven't found a correct save after all...		
-			if correct_save_found == false:
-				# Since this user doens't exist, we'll prompt creation of the account
-				create_new_save()
-		else:
-			show_message_box("CREATING USER", "No save exists, so we should create an empty one and save this account!", true)		
-			#_transition_rect.transition_to("res://src/Main/Main.tscn")
-			pass #since there's no savegame, create a empty save with this account
 
 func create_new_save() -> void:
 	show_question_box("CREATING USER", "This account doesn't exists. Do you want to create it?", true, "_on_QB_create_yes", "_on_QB_create_no")
-	#show_message_box("CREATING USER", "This account doesn't exists, so we should create an empty one and save it!", true)	
-	pass
-
-func _on_SETTINGSButton_button_up():
-	_settings_box.refresh()
-	_settings_box.visible = true	
-	
-func _on_QB_create_yes():
-	print("Create YES!")	
-
-func _on_QB_create_no():
-	print("Create NO!")
+	#show_message_box("CREATING USER", "This account doesn't exists, so we should create an empty one and save it!", true)		
 	
 func show_question_box(title, message, centered, callback_yes, callback_no) -> void:
+	# Clear the QuestionBox first (potrebbe essere necessario creare una risorsa per la question box: https://docs.godotengine.org/en/stable/tutorials/scripting/resources.html)
+	#var newQuestionBox = _question_box
+	#_question_box.queue_free()	
+	#get_tree().add_child(newQuestionBox)
+	#_question_box = $QuestionBox
+	
 	# Connect the signals to the specified callbacks
 	_question_box.connect("yes_button_pressed", self, callback_yes)	
-	_question_box.connect("no_button_pressed", self, callback_no)
+	_question_box.connect("no_button_pressed", self, callback_no)	
 	
 	# Show the question box
 	_question_box.set_message(title, message)
@@ -145,13 +107,6 @@ func show_message_box(title, message, centered):
 		_message_box.popup_centered()
 	else:
 		_message_box.popup()
-
-func _on_SettingsPanel_apply_button_pressed(settings):
-	# Update the game settings
-	update_settings(settings)
-	
-	# Finally, hide the settings panel
-	_settings_box.visible = false	
 	
 # We use a dictionary to represent settings because we have few values for now. Also, when you
 # have many more settings, you can replace it with an object without having to refactor the code
@@ -206,6 +161,67 @@ func load_settings() -> void:
 	# apply settings
 	update_settings(setting_dict)
 
-
+# CALLBACKS
 func _on_INFOButton_pressed():
 	show_message_box("AURA", "Welcome to EME Offline, capsuler. This is a very small fan game set in the EVE Online world. The idea is to have fun alone, without other players! Only a extremely small subset of mechanics and locations are present, but it might be just the beginning...", true)		
+
+func _on_SettingsPanel_apply_button_pressed(settings):
+	# Update the game settings
+	update_settings(settings)
+	
+	# Finally, hide the settings panel
+	_settings_box.visible = false	
+	
+# Callbacks for QuestionBox: Create new user - REPLY YES
+func _on_QB_create_yes():
+	print("Create YES!")	
+
+# Callbacks for QuestionBox: Create new user - REPLY NO
+func _on_QB_create_no():
+	print("Create NO!")
+
+#TEST CALLBACKS FOR QUESTIOBOX Per vedere se ci sono problemi a usare più connessioni	
+func _on_QB_goddog_yes():
+	print("God is a dog")
+func _on_QB_goddog_no():
+	print("God is not a dog")
+	
+func _on_SETTINGSButton_button_up():
+	_settings_box.refresh()
+	_settings_box.visible = true	
+	
+func _on_QUITButton_button_up():
+	get_tree().quit()
+
+func _on_CONNECTButton2_button_up():
+	var correct_save_found = false
+	var username = $MarginContainer/VBoxContainer/FOOTER/UsernameLineEdit.text
+	
+	# Make username lowercase so we don't have issues with casing
+	username = username.to_lower()
+	print(username)
+	if username == "":
+		show_message_box("LOGIN FAILED", "Insert a username!", true)	
+		#TEST PER QUESTION BOX		
+		#show_question_box("TEST QUESTIOBOX", "DIo è cane?", true, "_on_QB_goddog_yes", "_on_QB_goddog_no")
+	else:
+		if save_exists:
+			print(valid_saves)
+			for name in valid_saves:
+				print(name)
+				if name.get_basename() == username:
+					print("User found in save!")
+					correct_save_found = true
+					break
+			# We have found the corret save, we now need to LOAD PLAYER VALUES!
+			#Globals.set_loaded_true()
+			#_transition_rect.transition_to("res://src/Main/Main.tscn")	
+						
+			# Check if we haven't found a correct save after all...		
+			if correct_save_found == false:
+				# Since this user doens't exist, we'll prompt creation of the account
+				create_new_save()
+		else:
+			show_message_box("CREATING USER", "No save exists, so we should create an empty one and save this account!", true)		
+			#_transition_rect.transition_to("res://src/Main/Main.tscn")
+			pass #since there's no savegame, create a empty save with this account

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://source/Main/LoginScene.gd" type="Script" id=1]
 [ext_resource path="res://source/UI/SceneTransition.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/art/shaders/StarryBG.gdshader" type="Shader" id=5]
 [ext_resource path="res://source/UI/MessageBox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/UI/SettingsBox.tscn" type="PackedScene" id=7]
+[ext_resource path="res://source/UI/QuestionBox.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
@@ -204,6 +205,8 @@ margin_left = -110.0
 margin_top = -73.0
 margin_right = 110.0
 margin_bottom = 73.0
+
+[node name="QuestionBox" parent="." instance=ExtResource( 8 )]
 
 [connection signal="button_up" from="MarginContainer/VBoxContainer/BUTTONS2/SETTINGSButton" to="." method="_on_SETTINGSButton_button_up"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/BUTTONS2/INFOButton" to="." method="_on_INFOButton_pressed"]

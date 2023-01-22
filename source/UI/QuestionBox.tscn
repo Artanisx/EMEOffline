@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/art/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://source/UI/QuestionBox.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.160784, 0.156863, 0.156863, 0.858824 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.552941, 0.552941, 0.552941, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.0980392, 0.0941176, 0.0941176, 0.858824 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_color = Color( 0.552941, 0.552941, 0.552941, 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 12
+font_data = ExtResource( 1 )
+
+[node name="QuestionBox" type="PopupDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1030.0
+margin_bottom = -470.0
+custom_styles/panel = SubResource( 1 )
+popup_exclusive = true
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -50.0
+
+[node name="TITLELabel" type="Label" parent="VBoxContainer"]
+margin_right = 250.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "BIG MESSAGE LABEL TITLE - SO BIG YET SO"
+autowrap = true
+
+[node name="MessageLabel" type="Label" parent="VBoxContainer"]
+margin_top = 48.0
+margin_right = 250.0
+margin_bottom = 218.0
+rect_min_size = Vector2( 0, 170 )
+custom_fonts/font = SubResource( 4 )
+text = "BIG MESSAGE AND LONG LONG MESSAGE BIG MESSAGE AND LONG LONG MESSAGEBIG MESSAGE AND LONG LONG MESSAGEBIG
+MESSAGE AND LONG LONG MESSAMESSAGE AND LONG  MESSAGE AND LONG LONG 
+"
+autowrap = true
+clip_text = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 222.0
+margin_right = 250.0
+margin_bottom = 242.0
+rect_min_size = Vector2( 0, 20 )
+alignment = 1
+
+[node name="YesButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 91.0
+margin_right = 125.0
+margin_bottom = 20.0
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 129.0
+margin_right = 159.0
+margin_bottom = 20.0
+text = "No"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/YesButton" to="." method="_on_YesButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/NoButton" to="." method="_on_NoButton_pressed"]

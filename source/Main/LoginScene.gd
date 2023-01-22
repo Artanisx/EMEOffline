@@ -2,6 +2,7 @@ extends ColorRect
 
 onready var _transition_rect := $SceneTransition
 onready var _message_box := $MessageBox
+onready var _question_box := $QuestionBox
 onready var _settings_box := $SettingsPanel
 
 const SAVE_VAR := "user://users.sav"
@@ -83,11 +84,12 @@ func _on_QUITButton_button_up():
 func _on_CONNECTButton2_button_up():
 	var correct_save_found = false
 	var username = $MarginContainer/VBoxContainer/FOOTER/UsernameLineEdit.text
-	username.to_lower()
+	
+	# Make username lowercase so we don't have issues with casing
+	username = username.to_lower()
 	print(username)
 	if username == "":
-		show_message_box("LOGIN FAILED", "Insert a username!", true)	
-		pass # Show a messagebox telling the player they need to put a username
+		show_message_box("LOGIN FAILED", "Insert a username!", true)			
 	else:
 		if save_exists:
 			print(valid_saves)
@@ -103,15 +105,39 @@ func _on_CONNECTButton2_button_up():
 						
 			# Check if we haven't found a correct save after all...		
 			if correct_save_found == false:
-				show_message_box("LOGIN FAILED", "Username not found!", true)
+				# Since this user doens't exist, we'll prompt creation of the account
+				create_new_save()
 		else:
 			show_message_box("CREATING USER", "No save exists, so we should create an empty one and save this account!", true)		
 			#_transition_rect.transition_to("res://src/Main/Main.tscn")
 			pass #since there's no savegame, create a empty save with this account
 
+func create_new_save() -> void:
+	show_question_box("CREATING USER", "This account doesn't exists. Do you want to create it?", true, "_on_QB_create_yes", "_on_QB_create_no")
+	#show_message_box("CREATING USER", "This account doesn't exists, so we should create an empty one and save it!", true)	
+	pass
+
 func _on_SETTINGSButton_button_up():
 	_settings_box.refresh()
 	_settings_box.visible = true	
+	
+func _on_QB_create_yes():
+	print("Create YES!")	
+
+func _on_QB_create_no():
+	print("Create NO!")
+	
+func show_question_box(title, message, centered, callback_yes, callback_no) -> void:
+	# Connect the signals to the specified callbacks
+	_question_box.connect("yes_button_pressed", self, callback_yes)	
+	_question_box.connect("no_button_pressed", self, callback_no)
+	
+	# Show the question box
+	_question_box.set_message(title, message)
+	if centered:
+		_question_box.popup_centered()
+	else:
+		_question_box.popup()
 	
 func show_message_box(title, message, centered):
 	_message_box.set_message(title, message)

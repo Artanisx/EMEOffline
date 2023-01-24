@@ -21,6 +21,9 @@ func load_savegames() -> void:
 	# Initalize the valid saves variable
 	valid_saves = []
 	
+	# Initiale a charater name array
+	var valid_names = []
+	
 	# Create a new Directory object
 	var dir = Directory.new()
 	
@@ -32,6 +35,7 @@ func load_savegames() -> void:
 			if file_name.ends_with(".sav"):
 				sav_found = true
 				valid_saves.append(file_name.to_lower())				
+				valid_names.append(file_name.get_basename())	
 			file_name = dir.get_next()
 	else:
 		print("no files found or error accessing user://")	
@@ -40,7 +44,7 @@ func load_savegames() -> void:
 		print("saves found:")		
 		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.text = "STATUS: READY"
 		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.add_color_override("font_color", Color(1,1,1))
-		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.hint_tooltip = "There are character(s) saved."
+		$MarginContainer/VBoxContainer/FOOTER2/StatusLabel.hint_tooltip = "Available character(s):"+str(valid_names)
 		$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CONNECT"
 		save_exists = true
 	else:
@@ -242,6 +246,21 @@ func new_save(username: String) -> bool:
 	show_message_box("ACCOUNT CREATION", "Account " + username + " created", true)
 	return true
 
+func clear_all_saves():
+	# Clear all saved games (madness!)
+	var ext: String = "sav"
+	var dir = Directory.new()
+	dir.open("user://")
+	dir.list_dir_begin()
+	while true:
+		var file = dir.get_next()
+		if file == "":					
+			break
+		elif not file.begins_with(".") and file.right((file.length()-ext.length())) == ext:
+			dir.remove(file)
+	dir.list_dir_end()
+	show_message_box("SAVES CLEARED", "All saved accounts have been cleared. They can't be recovered now.", true)		
+
 # CALLBACKS
 func _on_INFOButton_pressed():
 	show_message_box("AURA", "Welcome to EME Offline, capsuler. This is a very small fan game set in the EVE Online world. The idea is to have fun alone, without other players! Only a extremely small subset of mechanics and locations are present, but it might be just the beginning...", true)		
@@ -273,6 +292,15 @@ func _on_QB_create_yes():
 func _on_QB_create_no():
 	print("Create NO!")
 	
+# Callbacks for QuestionBox: Clear all saves - REPLY YES
+func _on_QB_clear_yes():
+	print("Clear all saves yes")
+	clear_all_saves()
+	
+# Callbacks for QuestionBox: Clear all saves - REPLY NO
+func _on_QB_clear_no():
+	print("Clear all saves no")
+	
 func _on_SETTINGSButton_button_up():
 	_settings_box.refresh()
 	_settings_box.visible = true	
@@ -292,6 +320,9 @@ func _on_CONNECTButton2_button_up():
 	print(username)
 	if username == "":
 		show_message_box("LOGIN FAILED", "Insert a username!", true)		
+	elif username == "clear":
+		show_question_box("CLEAR ALL SAVES", "Are you sure you want to clear all saved accounts?", true, "_on_QB_clear_yes", "_on_QB_clear_no")
+		return
 	else:
 		if save_exists:
 			print(valid_saves)

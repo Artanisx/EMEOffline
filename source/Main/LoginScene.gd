@@ -5,7 +5,7 @@ onready var _message_box := $MessageBox
 onready var _question_box := $QuestionBox
 onready var _settings_box := $SettingsPanel
 
-const SAVE_VAR := "user://users.sav"
+# SAVE path "C:\Users\Fabrizio\AppData\Roaming\Godot\app_userdata\EME Offline"
 
 var save_exists = false
 var valid_saves = []
@@ -81,7 +81,6 @@ func _ready():
 
 func create_new_save() -> void:
 	show_question_box("CREATING USER", "This account doesn't exists. Do you want to create it?", true, "_on_QB_create_yes", "_on_QB_create_no")
-	#show_message_box("CREATING USER", "This account doesn't exists, so we should create an empty one and save it!", true)		
 	
 func show_question_box(title, message, centered, callback_yes, callback_no) -> void:
 	# Clear the QuestionBox singla connections first	
@@ -158,6 +157,45 @@ func load_settings() -> void:
 	# apply settings
 	update_settings(setting_dict)
 
+func new_save(username):
+	# Make sure it's all lowercase
+	username = username.to_lower()
+	
+	# add the extension
+	username += ".sav"
+	
+	print(username)
+	
+	#Open a file
+	var file := File.new()
+	var err := file.open_encrypted_with_pass (username, File.READ, "emeOfflineSaves")
+	
+	if err != OK:		
+		print("ERRORRRR creating save")
+		return false
+	
+	# Create an empty savegame
+	# A savegame has this structure
+	# #########
+	# CREDITS: 0-999999			## How many credits are there
+	# MININGLASER: 1-5			## What is the Mining Laser installed, from 1 to 5
+	# CARGOHOLDEXT: 0-5			## What is the cargo Extender upgrade installed, from 0 to 5.
+	# CARGOVELDSPAR: 0-99999	## How much veldspar is in the cargo hold, if any
+	# POSITION: (0,0)			## The last position. It should be nearby the station at the beginning of the game.
+	# #########
+	
+	file.store_line("0")		# Credits
+	file.store_line("1")		# Mining Laser I
+	file.store_line("0")		# No Cargo Extender
+	file.store_line("0")		# Cargo hold empty
+	file.store_line("(0,0)")	# Starting position
+	
+	print("saved file:")	
+	print(username)	
+	
+	show_message_box("ACCOUNT CREATION", "Account " + username + " created", true)
+	return true
+
 # CALLBACKS
 func _on_INFOButton_pressed():
 	show_message_box("AURA", "Welcome to EME Offline, capsuler. This is a very small fan game set in the EVE Online world. The idea is to have fun alone, without other players! Only a extremely small subset of mechanics and locations are present, but it might be just the beginning...", true)		
@@ -172,6 +210,12 @@ func _on_SettingsPanel_apply_button_pressed(settings):
 # Callbacks for QuestionBox: Create new user - REPLY YES
 func _on_QB_create_yes():
 	print("Create YES!")	
+	var username = $MarginContainer/VBoxContainer/FOOTER/UsernameLineEdit.text
+	var created = new_save(username)	
+	if (created == true):
+		pass # now that the account is created the game should load.		
+	else:
+		show_message_box("ERROR", "Error creating a new account!", true)
 
 # Callbacks for QuestionBox: Create new user - REPLY NO
 func _on_QB_create_no():
@@ -211,6 +255,8 @@ func _on_CONNECTButton2_button_up():
 				# Since this user doens't exist, we'll prompt creation of the account
 				create_new_save()
 		else:
-			show_message_box("CREATING USER", "No save exists, so we should create an empty one and save this account!", true)		
+			# This should happen if there are no user saves!
+			create_new_save()
+			print("CREATING USER as No save exists!")
 			#_transition_rect.transition_to("res://src/Main/Main.tscn")
 			pass #since there's no savegame, create a empty save with this account

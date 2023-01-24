@@ -1,13 +1,15 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://source/Main/LoginScene.gd" type="Script" id=1]
 [ext_resource path="res://source/UI/SceneTransition.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/audio/exodus.mp3" type="AudioStream" id=3]
+[ext_resource path="res://assets/audio/music/exodus.mp3" type="AudioStream" id=3]
 [ext_resource path="res://assets/art/ui/LogoEME.png" type="Texture" id=4]
 [ext_resource path="res://assets/art/shaders/StarryBG.gdshader" type="Shader" id=5]
 [ext_resource path="res://source/UI/MessageBox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/UI/SettingsBox.tscn" type="PackedScene" id=7]
 [ext_resource path="res://source/UI/QuestionBox.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/audio/aura/connecting.mp3" type="AudioStream" id=9]
+[ext_resource path="res://assets/audio/aura/request_denied.mp3" type="AudioStream" id=10]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
@@ -226,10 +228,6 @@ margin_right = 820.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 125, 20 )
 
-[node name="LoginThemeMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-autoplay = true
-
 [node name="SceneTransition" parent="." instance=ExtResource( 2 )]
 
 [node name="MessageBox" parent="." instance=ExtResource( 6 )]
@@ -254,6 +252,16 @@ margin_right = 110.0
 margin_bottom = 73.0
 
 [node name="QuestionBox" parent="." instance=ExtResource( 8 )]
+
+[node name="AURA_Connecting" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="AURA_RequestDenied" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+
+[node name="LoginThemeMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+autoplay = true
 
 [connection signal="button_up" from="MarginContainer/VBoxContainer/BUTTONS2/SETTINGSButton" to="." method="_on_SETTINGSButton_button_up"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/BUTTONS2/INFOButton" to="." method="_on_INFOButton_pressed"]

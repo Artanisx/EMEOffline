@@ -4,6 +4,8 @@ onready var _transition_rect := $SceneTransition
 onready var _message_box := $MessageBox
 onready var _question_box := $QuestionBox
 onready var _settings_box := $SettingsPanel
+onready var _audio_aura_connecting := $AURA_Connecting
+onready var _audio_aura_request_denied := $AURA_RequestDenied
 
 # SAVE path "C:\Users\Fabrizio\AppData\Roaming\Godot\app_userdata\EME Offline"
 
@@ -284,9 +286,13 @@ func _on_QB_create_yes():
 						+ " Cargo Hold: " + str(Globals.get_account_cargohold()) 
 						+ " and position: " + str(Globals.get_account_position()))
 		print("Game should now load...")
+		# SOUND: AURA - "CONNECTING..."
+		_audio_aura_connecting.play()		
+		$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CONNECTING..."
 		pass # now that the account is created the game should load.		
 	else:
 		show_message_box("ERROR", "Error creating a new account!", true)
+		_audio_aura_request_denied.play()
 
 # Callbacks for QuestionBox: Create new user - REPLY NO
 func _on_QB_create_no():
@@ -320,6 +326,7 @@ func _on_CONNECTButton2_button_up():
 	print(username)
 	if username == "":
 		show_message_box("LOGIN FAILED", "Insert a username!", true)
+		_audio_aura_request_denied.play()
 		return		
 	elif username == "clear":
 		show_question_box("CLEAR ALL SAVES", "Are you sure you want to clear all saved accounts?", true, "_on_QB_clear_yes", "_on_QB_clear_no")
@@ -332,6 +339,7 @@ func _on_CONNECTButton2_button_up():
 		var err = dir.remove(username_to_remove)		
 		if err != OK:
 			show_message_box("ERROR", "Error while trying to erase account.", true)
+			_audio_aura_request_denied.play()
 			return
 		else:
 			show_message_box("ACCOUNT REMOVED", "Account " + username_to_remove.get_basename() + " removed.", true)
@@ -356,6 +364,9 @@ func _on_CONNECTButton2_button_up():
 						+ " Cargo Hold: " + str(Globals.get_account_cargohold()) 
 						+ " and position: " + str(Globals.get_account_position()))
 				# Game should now load
+				# SOUND: AURA - "CONNECTING..."
+				_audio_aura_connecting.play()
+				$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CONNECTING..."
 				#_transition_rect.transition_to("res://src/Main/Main.tscn")	
 				pass
 			else:

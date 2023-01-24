@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/incursion.mp3-5d1d383fbf2819dbd53248f992c152b2.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/incursion.mp3"
+dest_files=[ "res://.import/incursion.mp3-5d1d383fbf2819dbd53248f992c152b2.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

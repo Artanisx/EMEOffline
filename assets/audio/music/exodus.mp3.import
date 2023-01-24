@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/exodus.mp3-b49e627f26a902c319ce574b1f978bb5.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/exodus.mp3"
+dest_files=[ "res://.import/exodus.mp3-b49e627f26a902c319ce574b1f978bb5.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -319,9 +319,22 @@ func _on_CONNECTButton2_button_up():
 	username = username.to_lower()
 	print(username)
 	if username == "":
-		show_message_box("LOGIN FAILED", "Insert a username!", true)		
+		show_message_box("LOGIN FAILED", "Insert a username!", true)
+		return		
 	elif username == "clear":
 		show_question_box("CLEAR ALL SAVES", "Are you sure you want to clear all saved accounts?", true, "_on_QB_clear_yes", "_on_QB_clear_no")
+		return
+	elif "remove*" in username:		
+		var username_to_remove: String = username.get_slice("*",1)
+		username_to_remove += ".sav"
+		var dir = Directory.new()
+		dir.open("user://")
+		var err = dir.remove(username_to_remove)		
+		if err != OK:
+			show_message_box("ERROR", "Error while trying to erase account.", true)
+			return
+		else:
+			show_message_box("ACCOUNT REMOVED", "Account " + username_to_remove.get_basename() + " removed.", true)
 		return
 	else:
 		if save_exists:

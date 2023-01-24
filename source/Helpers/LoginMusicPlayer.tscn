@@ -1,0 +1,146 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/audio/exodus.mp3" type="AudioStream" id=1]
+[ext_resource path="res://LoginMusicPlayer.gd" type="Script" id=2]
+[ext_resource path="res://assets/audio/incursion.mp3" type="AudioStream" id=3]
+[ext_resource path="res://assets/audio/crucible.mp3" type="AudioStream" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "FadeFromIncursioToCrucible"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Incursion:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ 0.0, -8.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Incursion:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Crucible:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ -80.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "FromCrucibleToExodus"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Crucible:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ 0.0, -80.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Crucible:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Exodus:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ -80.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "FromExodustoIncursion"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Exodus:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ 0.0, -80.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Incursion:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ -80.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Exodus:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[node name="LoginMusicPlayer" type="Node"]
+script = ExtResource( 2 )
+
+[node name="Exodus" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+autoplay = true
+
+[node name="Incursion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -80.0
+
+[node name="Crucible" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -80.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeFromIncursioToCrucible = SubResource( 1 )
+anims/FromCrucibleToExodus = SubResource( 2 )
+anims/FromExodustoIncursion = SubResource( 3 )

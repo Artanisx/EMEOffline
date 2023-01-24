@@ -15,3 +15,15 @@ func _on_YesButton_pressed():
 func _on_NoButton_pressed():
 	emit_signal("no_button_pressed")
 	hide()
+	
+func clear_connections():
+	var signals = self.get_signal_list()
+	
+	for cur_signal in signals:
+		var connections = self.get_signal_connection_list("yes_button_pressed")
+		for cur_conn in connections:
+			self.disconnect("yes_button_pressed", cur_conn.target, cur_conn.method)
+		
+		connections = self.get_signal_connection_list("no_button_pressed")
+		for cur_conn in connections:
+			self.disconnect("no_button_pressed", cur_conn.target, cur_conn.method)		

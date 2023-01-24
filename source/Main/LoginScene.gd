@@ -84,21 +84,8 @@ func create_new_save() -> void:
 	#show_message_box("CREATING USER", "This account doesn't exists, so we should create an empty one and save it!", true)		
 	
 func show_question_box(title, message, centered, callback_yes, callback_no) -> void:
-	# Clear the QuestionBox first (potrebbe essere necessario creare una risorsa per la question box: https://docs.godotengine.org/en/stable/tutorials/scripting/resources.html)
-	#var newQuestionBox = _question_box
-	#_question_box.queue_free()	
-	#get_tree().add_child(newQuestionBox)
-	#_question_box = $QuestionBox	
-	var signals = _question_box.get_signal_list()
-	
-	for cur_signal in signals:
-		var connections = _question_box.get_signal_connection_list("yes_button_pressed")
-		for cur_conn in connections:
-			_question_box.disconnect("yes_button_pressed", cur_conn.target, cur_conn.method)
-		
-		connections = _question_box.get_signal_connection_list("no_button_pressed")
-		for cur_conn in connections:
-			_question_box.disconnect("no_button_pressed", cur_conn.target, cur_conn.method)		
+	# Clear the QuestionBox singla connections first	
+	_question_box.clear_connections()
 	
 	# Connect the signals to the specified callbacks
 	_question_box.connect("yes_button_pressed", self, callback_yes)	
@@ -189,12 +176,6 @@ func _on_QB_create_yes():
 # Callbacks for QuestionBox: Create new user - REPLY NO
 func _on_QB_create_no():
 	print("Create NO!")
-
-#TEST CALLBACKS FOR QUESTIOBOX Per vedere se ci sono problemi a usare più connessioni	
-func _on_QB_goddog_yes():
-	print("God is a dog")
-func _on_QB_goddog_no():
-	print("God is not a dog")
 	
 func _on_SETTINGSButton_button_up():
 	_settings_box.refresh()
@@ -211,9 +192,7 @@ func _on_CONNECTButton2_button_up():
 	username = username.to_lower()
 	print(username)
 	if username == "":
-		#show_message_box("LOGIN FAILED", "Insert a username!", true)	
-		#TEST PER QUESTION BOX		
-		show_question_box("TEST QUESTIOBOX", "DIo è cane?", true, "_on_QB_goddog_yes", "_on_QB_goddog_no")
+		show_message_box("LOGIN FAILED", "Insert a username!", true)		
 	else:
 		if save_exists:
 			print(valid_saves)

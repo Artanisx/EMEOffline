@@ -110,25 +110,25 @@ margin_bottom = 592.0
 alignment = 1
 
 [node name="UsernameLabel" type="Label" parent="MarginContainer/VBoxContainer/FOOTER"]
-margin_left = 461.0
+margin_left = 460.0
 margin_top = 2.0
-margin_right = 536.0
+margin_right = 537.0
 margin_bottom = 22.0
-rect_min_size = Vector2( 75, 20 )
+rect_min_size = Vector2( 77, 20 )
 text = "USERNAME:"
 
 [node name="UsernameLineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/FOOTER"]
-margin_left = 540.0
-margin_right = 690.0
+margin_left = 541.0
+margin_right = 691.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 150, 25 )
 hint_tooltip = "Put your username here to load your account."
 caret_blink = true
 
 [node name="ServerLabel" type="Label" parent="MarginContainer/VBoxContainer/FOOTER"]
-margin_left = 694.0
+margin_left = 695.0
 margin_top = 2.0
-margin_right = 819.0
+margin_right = 820.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 125, 20 )
 text = "SERVER: CALMNESS"
@@ -171,13 +171,25 @@ margin_right = 1280.0
 margin_bottom = 645.0
 alignment = 1
 
-[node name="CONNECTButton2" type="Button" parent="MarginContainer/VBoxContainer/FOOTER3"]
-margin_left = 580.0
-margin_right = 700.0
+[node name="VSeparator" type="Label" parent="MarginContainer/VBoxContainer/FOOTER3"]
+margin_left = 460.0
+margin_right = 537.0
 margin_bottom = 20.0
-rect_min_size = Vector2( 120, 0 )
+rect_min_size = Vector2( 77, 20 )
+
+[node name="CONNECTButton2" type="Button" parent="MarginContainer/VBoxContainer/FOOTER3"]
+margin_left = 541.0
+margin_right = 691.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 150, 0 )
 hint_tooltip = "Click to enter the game with your account."
 text = "CONNECT"
+
+[node name="VSeparator2" type="Label" parent="MarginContainer/VBoxContainer/FOOTER3"]
+margin_left = 695.0
+margin_right = 820.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 125, 20 )
 
 [node name="LoginThemeMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )

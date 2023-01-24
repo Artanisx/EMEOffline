@@ -133,7 +133,6 @@ __meta__ = {
 
 [node name="Exodus" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
-autoplay = true
 
 [node name="Incursion" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
@@ -147,3 +146,7 @@ volume_db = -80.0
 anims/FadeFromIncursioToCrucible = SubResource( 1 )
 anims/FromCrucibleToExodus = SubResource( 2 )
 anims/FromExodustoIncursion = SubResource( 3 )
+
+[connection signal="finished" from="Exodus" to="." method="_on_Exodus_finished"]
+[connection signal="finished" from="Incursion" to="." method="_on_Incursion_finished"]
+[connection signal="finished" from="Crucible" to="." method="_on_Crucible_finished"]

@@ -6,22 +6,32 @@ onready var _exodus := $Exodus
 onready var _incursion := $Incursion
 onready var _crucible := $Crucible
 
+func _ready() -> void:
+	# at the beginnig, play Exodus
+	$Exodus.play()	
+
 # crossfades to a new audio stream
-func crossfade() -> void:
-	# If both tracks are playing, we're calling the function in the middle of a fade.
-	# We return early to avoid jumps in the sound.
-	if _exodus.playing and _incursion.playing:
-		return
-		
-	# The `playing` property of the stream players tells us which track is active.
-	# If it's track two, we fade to track one, and vice-versa.
-	if _incursion.playing:		
-		_crucible.play()
-		_anim_player.play("FadeFromIncursioToCrucible")
-	elif _crucible.playing:		
-		_exodus.play()
-		_anim_player.play("FromCrucibleToExodus")
-	elif _exodus.playing:		
-		_incursion.play()
-		_anim_player.play("FromExodustoIncursion")
-		
+func crossfade(next_theme: String) -> void:	
+	
+	match next_theme:
+		"incursion":
+			_incursion.play()
+			_anim_player.play("FromExodustoIncursion")
+		"crucible":
+			_crucible.play()
+			_anim_player.play("FadeFromIncursioToCrucible")
+		"exodus":
+			_exodus.play()
+			_anim_player.play("FromCrucibleToExodus")
+
+func _on_Exodus_finished():
+	crossfade("incursion")
+	print("Play incursion next...")
+
+func _on_Incursion_finished():
+	crossfade("crucible")
+	print("Play crucible next...")
+
+func _on_Crucible_finished():
+	crossfade("exodus")
+	print("Play exodus next...")

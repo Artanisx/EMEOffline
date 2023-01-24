@@ -40,11 +40,23 @@ margin_bottom = 354.0
 alignment = 1
 
 [node name="LOGO" type="TextureRect" parent="MarginContainer/VBoxContainer/HEADER"]
-margin_left = 390.0
-margin_right = 890.0
+margin_left = 373.0
+margin_right = 873.0
 margin_bottom = 250.0
 hint_tooltip = "Version prototype 0.01"
 texture = ExtResource( 4 )
+
+[node name="Separator2" type="Label" parent="MarginContainer/VBoxContainer/HEADER"]
+margin_left = 877.0
+margin_top = 101.0
+margin_right = 907.0
+margin_bottom = 149.0
+rect_min_size = Vector2( 30, 48 )
+custom_colors/font_color = Color( 0.980392, 1, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+text = "
+"
+align = 1
 
 [node name="HEADEREMPTY2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 358.0
@@ -60,14 +72,27 @@ margin_bottom = 510.0
 alignment = 1
 
 [node name="Message" type="Label" parent="MarginContainer/VBoxContainer/INFO"]
-margin_left = 521.0
-margin_right = 758.0
+margin_left = 488.0
+margin_right = 738.0
 margin_bottom = 48.0
+rect_min_size = Vector2( 250, 48 )
 custom_colors/font_color = Color( 0.980392, 1, 0, 1 )
 custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
 text = "Welcome to EME -OFFLINE- EXODUS.
 Create a new account or log in.
 "
+align = 1
+
+[node name="Separator" type="Label" parent="MarginContainer/VBoxContainer/INFO"]
+margin_left = 742.0
+margin_right = 792.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 50, 48 )
+custom_colors/font_color = Color( 0.980392, 1, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+text = "
+"
+align = 1
 
 [node name="BUTTONS2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 514.0
@@ -76,25 +101,35 @@ margin_bottom = 534.0
 alignment = 1
 
 [node name="SETTINGSButton" type="Button" parent="MarginContainer/VBoxContainer/BUTTONS2"]
-margin_left = 555.0
-margin_right = 627.0
+margin_left = 481.0
+margin_right = 566.0
 margin_bottom = 20.0
+rect_min_size = Vector2( 85, 0 )
 hint_tooltip = "Click to adjust settings."
 text = "SETTINGS"
 
 [node name="INFOButton" type="Button" parent="MarginContainer/VBoxContainer/BUTTONS2"]
-margin_left = 631.0
-margin_right = 676.0
+margin_left = 570.0
+margin_right = 655.0
 margin_bottom = 20.0
+rect_min_size = Vector2( 85, 0 )
 hint_tooltip = "Click to adjust settings."
 text = "INFO"
 
 [node name="QUITButton" type="Button" parent="MarginContainer/VBoxContainer/BUTTONS2"]
-margin_left = 680.0
-margin_right = 725.0
+margin_left = 659.0
+margin_right = 744.0
 margin_bottom = 20.0
+rect_min_size = Vector2( 85, 0 )
 hint_tooltip = "Click to exit the game."
 text = "QUIT"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/BUTTONS2"]
+margin_left = 748.0
+margin_top = 3.0
+margin_right = 798.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 50, 0 )
 
 [node name="HEADEREMPTY3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 538.0

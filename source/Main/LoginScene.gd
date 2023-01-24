@@ -160,6 +160,44 @@ func load_settings() -> void:
 	# apply settings
 	update_settings(setting_dict)
 
+func load_save(username: String) -> bool:	
+	# Make sure it's all lowercase
+	username = username.to_lower()
+	
+	# add the extension
+	username += ".sav"
+	
+	print(username)
+	
+	#Open a file
+	var file := File.new()
+	var err := file.open_encrypted_with_pass ("user://"+username, File.READ, "emeOfflineSaves")
+	
+	if err != OK:		
+		print("Error loading a new save.")		
+		return false	
+	
+	# A savegame has this structure
+	# #########
+	# CREDITS: 0-999999			## How many credits are there
+	# MININGLASER: 1-5			## What is the Mining Laser installed, from 1 to 5
+	# CARGOHOLDEXT: 0-5			## What is the cargo Extender upgrade installed, from 0 to 5.
+	# CARGOVELDSPAR: 0-99999	## How much veldspar is in the cargo hold, if any
+	# POSITION: (0,0)			## The last position. It should be nearby the station at the beginning of the game.
+	# #########
+	
+	Globals.set_loaded_user(
+		int(str2var(file.get_line())),
+		int(str2var(file.get_line())),
+		int(str2var(file.get_line())),
+		int(str2var(file.get_line())),
+		StringHelper.string_to_vector2(str2var(file.get_line())))
+		
+	Globals.set_loaded_true()
+		
+	print("loaded save")	
+	return true
+
 func new_save(username: String) -> bool:
 	# Make sure it's all lowercase
 	username = username.to_lower()
@@ -196,6 +234,11 @@ func new_save(username: String) -> bool:
 	print("saved file:")	
 	print(username)	
 	
+	# Set these values in the globals
+	Globals.set_loaded_true()
+	Globals.set_loaded_user(0,1,0,0,Vector2.ZERO)
+	
+	# This message box should probably go away
 	show_message_box("ACCOUNT CREATION", "Account " + username + " created", true)
 	return true
 
@@ -216,6 +259,12 @@ func _on_QB_create_yes():
 	var username = $MarginContainer/VBoxContainer/FOOTER/UsernameLineEdit.text
 	var created = new_save(username)	
 	if (created == true):
+		print("So, I have these values in globals. Creds:" + str(Globals.get_account_credits()) 
+						+ " MiningLaser: " + str(Globals.get_account_mininglaser()) 
+						+ " Cargo Extender: " + str(Globals.get_account_cargoextender()) 
+						+ " Cargo Hold: " + str(Globals.get_account_cargohold()) 
+						+ " and position: " + str(Globals.get_account_position()))
+		print("Game should now load...")
 		pass # now that the account is created the game should load.		
 	else:
 		show_message_box("ERROR", "Error creating a new account!", true)
@@ -254,16 +303,22 @@ func _on_CONNECTButton2_button_up():
 					break			
 			
 			if correct_save_found:
-				# We have found the corret save, we now need to LOAD PLAYER VALUES!
-				#Globals.set_loaded_true()
+				# We have found the correct save, we now need to LOAD PLAYER VALUES!
+				print ("LOADING USER as this was found")
+				if load_save(username):
+					print("So, I have these values in globals. Creds:" + str(Globals.get_account_credits()) 
+						+ " MiningLaser: " + str(Globals.get_account_mininglaser()) 
+						+ " Cargo Extender: " + str(Globals.get_account_cargoextender()) 
+						+ " Cargo Hold: " + str(Globals.get_account_cargohold()) 
+						+ " and position: " + str(Globals.get_account_position()))
+				# Game should now load
 				#_transition_rect.transition_to("res://src/Main/Main.tscn")	
 				pass
 			else:
 				# Check if we haven't found a correct save after all...		
 				# Since this user doens't exist, we'll prompt creation of the account
 				create_new_save()
-				print("CREATING USER as this is not a known username!")
-				
+				print("CREATING USER as this is not a known username!")				
 		else:
 			# This should happen if there are no user saves!
 			create_new_save()

@@ -2,6 +2,8 @@ extends Area2D
 
 export(String, "Direct", "RTS") var movement_mode
 export var rotation_speed: float = PI
+export var speed: float = 100
+export var dead_zone: int = 5
 
 onready var target = position
 
@@ -9,7 +11,7 @@ onready var target = position
 var velocity = Vector2()
 
 # Player Stats
-var speed = 100
+
 
 # DEBUGGING
 const max_zoom_out = 10
@@ -42,8 +44,8 @@ func _physics_process(delta):
 		# set ship rotation
 		global_rotation = angle		
 				
-		# Move only if the target is at least 5 units away and after the rotation to look at has finished		
-		if position.distance_to(target) > 5 and rotation == angle:
+		# Move only if the target is at least dead_zone units away and after the rotation to look at has finished		
+		if position.distance_to(target) > dead_zone and rotation == angle:
 			position += velocity * delta
 
 func get_input():

@@ -18,6 +18,9 @@ func load_savegames() -> void:
 	# Initialize a variable to track if any ".sav" files are found
 	var sav_found = false
 	
+	# Initalize the valid saves variable
+	valid_saves = []
+	
 	# Create a new Directory object
 	var dir = Directory.new()
 	
@@ -157,7 +160,7 @@ func load_settings() -> void:
 	# apply settings
 	update_settings(setting_dict)
 
-func new_save(username):
+func new_save(username: String) -> bool:
 	# Make sure it's all lowercase
 	username = username.to_lower()
 	
@@ -168,10 +171,10 @@ func new_save(username):
 	
 	#Open a file
 	var file := File.new()
-	var err := file.open_encrypted_with_pass (username, File.READ, "emeOfflineSaves")
+	var err := file.open_encrypted_with_pass ("user://"+username, File.WRITE, "emeOfflineSaves")
 	
 	if err != OK:		
-		print("ERRORRRR creating save")
+		print("Error creating a new save.")
 		return false
 	
 	# Create an empty savegame
@@ -229,6 +232,9 @@ func _on_QUITButton_button_up():
 	get_tree().quit()
 
 func _on_CONNECTButton2_button_up():
+	# Load saves
+	load_savegames()
+	
 	var correct_save_found = false
 	var username = $MarginContainer/VBoxContainer/FOOTER/UsernameLineEdit.text
 	
@@ -245,15 +251,19 @@ func _on_CONNECTButton2_button_up():
 				if name.get_basename() == username:
 					print("User found in save!")
 					correct_save_found = true
-					break
-			# We have found the corret save, we now need to LOAD PLAYER VALUES!
-			#Globals.set_loaded_true()
-			#_transition_rect.transition_to("res://src/Main/Main.tscn")	
-						
-			# Check if we haven't found a correct save after all...		
-			if correct_save_found == false:
+					break			
+			
+			if correct_save_found:
+				# We have found the corret save, we now need to LOAD PLAYER VALUES!
+				#Globals.set_loaded_true()
+				#_transition_rect.transition_to("res://src/Main/Main.tscn")	
+				pass
+			else:
+				# Check if we haven't found a correct save after all...		
 				# Since this user doens't exist, we'll prompt creation of the account
 				create_new_save()
+				print("CREATING USER as this is not a known username!")
+				
 		else:
 			# This should happen if there are no user saves!
 			create_new_save()

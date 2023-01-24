@@ -88,7 +88,17 @@ func show_question_box(title, message, centered, callback_yes, callback_no) -> v
 	#var newQuestionBox = _question_box
 	#_question_box.queue_free()	
 	#get_tree().add_child(newQuestionBox)
-	#_question_box = $QuestionBox
+	#_question_box = $QuestionBox	
+	var signals = _question_box.get_signal_list()
+	
+	for cur_signal in signals:
+		var connections = _question_box.get_signal_connection_list("yes_button_pressed")
+		for cur_conn in connections:
+			_question_box.disconnect("yes_button_pressed", cur_conn.target, cur_conn.method)
+		
+		connections = _question_box.get_signal_connection_list("no_button_pressed")
+		for cur_conn in connections:
+			_question_box.disconnect("no_button_pressed", cur_conn.target, cur_conn.method)		
 	
 	# Connect the signals to the specified callbacks
 	_question_box.connect("yes_button_pressed", self, callback_yes)	
@@ -201,9 +211,9 @@ func _on_CONNECTButton2_button_up():
 	username = username.to_lower()
 	print(username)
 	if username == "":
-		show_message_box("LOGIN FAILED", "Insert a username!", true)	
+		#show_message_box("LOGIN FAILED", "Insert a username!", true)	
 		#TEST PER QUESTION BOX		
-		#show_question_box("TEST QUESTIOBOX", "DIo è cane?", true, "_on_QB_goddog_yes", "_on_QB_goddog_no")
+		show_question_box("TEST QUESTIOBOX", "DIo è cane?", true, "_on_QB_goddog_yes", "_on_QB_goddog_no")
 	else:
 		if save_exists:
 			print(valid_saves)

@@ -6,6 +6,7 @@ export var speed: float = 100
 export var dead_zone: int = 5
 
 onready var target = position
+onready var _space_dust = $Camera2D/SpaceDust			
 
 # Player velocity vector
 var velocity = Vector2()
@@ -18,6 +19,8 @@ const max_zoom_out = 10
 
 func _physics_process(delta):
 	get_input()
+	
+	_space_dust.global_position = global_position
 	
 	if (movement_mode == "Direct"):		
 		position += velocity * delta
@@ -46,7 +49,12 @@ func _physics_process(delta):
 				
 		# Move only if the target is at least dead_zone units away and after the rotation to look at has finished		
 		if position.distance_to(target) > dead_zone and rotation == angle:
-			position += velocity * delta
+			position += velocity * delta	
+			
+		if velocity.x > 0:
+			_space_dust.direction("Left")
+		elif velocity.x < 0:
+			_space_dust.direction("Right")
 
 func get_input():
 	if (movement_mode == "Direct"):

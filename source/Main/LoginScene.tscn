@@ -344,3 +344,4 @@ anims/PulsatingRedStar = SubResource( 2 )
 [connection signal="button_up" from="MarginContainer/VBoxContainer/BUTTONS2/QUITButton" to="." method="_on_QUITButton_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2" to="." method="_on_CONNECTButton2_button_up"]
 [connection signal="apply_button_pressed" from="SettingsPanel" to="." method="_on_SettingsPanel_apply_button_pressed"]
+[connection signal="finished" from="AURA_Connecting" to="." method="_on_AURA_Connecting_finished"]

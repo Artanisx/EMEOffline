@@ -288,8 +288,7 @@ func _on_QB_create_yes():
 		print("Game should now load...")
 		# SOUND: AURA - "CONNECTING..."
 		_audio_aura_connecting.play()		
-		$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CONNECTING..."
-		pass # now that the account is created the game should load.		
+		$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CONNECTING..."		
 	else:
 		show_message_box("ERROR", "Error creating a new account!", true)
 		_audio_aura_request_denied.play()
@@ -366,9 +365,7 @@ func _on_CONNECTButton2_button_up():
 				# Game should now load
 				# SOUND: AURA - "CONNECTING..."
 				_audio_aura_connecting.play()
-				$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CONNECTING..."
-				#_transition_rect.transition_to("res://src/Main/Main.tscn")	
-				pass
+				$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CONNECTING..."				
 			else:
 				# Check if we haven't found a correct save after all...		
 				# Since this user doens't exist, we'll prompt creation of the account
@@ -378,5 +375,9 @@ func _on_CONNECTButton2_button_up():
 			# This should happen if there are no user saves!
 			create_new_save()
 			print("CREATING USER as No save exists!")
-			#_transition_rect.transition_to("res://src/Main/Main.tscn")
-			pass #since there's no savegame, create a empty save with this account
+			
+
+
+func _on_AURA_Connecting_finished():
+	# When aura finishes sayin "connecting" we should load the game scene
+	_transition_rect.transition_to("res://source/Main/GameWorld.tscn")

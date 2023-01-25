@@ -8,7 +8,7 @@ onready var _anim_player := $AnimationPlayer
 
 func _ready() -> void:
 	# Plays the animation backward to fade in
-	_anim_player.play_backwards("Fade")
+	_anim_player.play_backwards("Fade")	
 	
 func transition_to(_next_scene := next_scene_path) -> void:
 	# Plays the Fade animation and wait until it finishes

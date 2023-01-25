@@ -10,3 +10,4 @@ func _ready() -> void:
 	match starting_theme:
 		"BelowTheAsteroids":
 			$BelowTheAsteroids.play()
+			# Add a fadein effect with animationplayer

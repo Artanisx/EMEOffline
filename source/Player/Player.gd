@@ -1,6 +1,6 @@
 extends Area2D
 
-export(String, "Direct", "RTS") var movement_mode
+export(String, "Direct", "RTS", "Turtle") var movement_mode
 export var rotation_speed: float = PI
 export var speed: float = 100
 export var dead_zone: int = 5
@@ -9,13 +9,39 @@ onready var target = position
 onready var _space_dust = $Camera2D/SpaceDust			
 
 # Player velocity vector
-var velocity = Vector2()
+var velocity := Vector2.ZERO
 
-# Player Stats
-
+# TurtleExample
+const ARRIVE_DISTANCE := 50.0
+const ARRIVED_THRESHOLD := 1.0
+var max_speed := 1000.0
+var target_mouse_position = Vector2.ZERO
 
 # DEBUGGING
 const max_zoom_out = 10
+
+func _process(delta):
+	if movement_mode == "Turtle":
+		if Input.is_action_just_released("left_click"):
+			target_mouse_position  = get_global_mouse_position()		
+		
+		if position.distance_to(target_mouse_position) < ARRIVED_THRESHOLD:
+			return			
+		
+		var desired_velocity = position.direction_to(target_mouse_position) * max_speed
+		
+		var distance_to_mouse = position.distance_to(target_mouse_position)
+		
+		if distance_to_mouse < ARRIVE_DISTANCE:
+			desired_velocity *= distance_to_mouse / ARRIVE_DISTANCE
+		
+		var steering = desired_velocity - velocity
+		velocity += steering / 32.0	
+		
+		velocity = lerp(velocity, velocity * max_speed,  0.1)	
+		position += velocity * delta
+		rotation = velocity.angle()
+		print(velocity.length())
 
 func _physics_process(delta):
 	get_input()

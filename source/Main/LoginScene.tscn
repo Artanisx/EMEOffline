@@ -338,6 +338,7 @@ anims/PulsatingBlueStar = SubResource( 3 )
 anims/PulsatingRedStar = SubResource( 2 )
 
 [node name="LoginMusicPlayer" parent="." instance=ExtResource( 3 )]
+starting_theme = "Exodus"
 
 [connection signal="button_up" from="MarginContainer/VBoxContainer/BUTTONS2/SETTINGSButton" to="." method="_on_SETTINGSButton_button_up"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/BUTTONS2/INFOButton" to="." method="_on_INFOButton_pressed"]

@@ -6,6 +6,7 @@ onready var _question_box := $QuestionBox
 onready var _settings_box := $SettingsPanel
 onready var _audio_aura_connecting := $AURA_Connecting
 onready var _audio_aura_request_denied := $AURA_RequestDenied
+onready var _login_music_player := $LoginMusicPlayer
 
 # SAVE path "C:\Users\Fabrizio\AppData\Roaming\Godot\app_userdata\EME Offline"
 
@@ -287,7 +288,9 @@ func _on_QB_create_yes():
 						+ " and position: " + str(Globals.get_account_position()))
 		print("Game should now load...")
 		# SOUND: AURA - "CONNECTING..."
-		_audio_aura_connecting.play()		
+		_audio_aura_connecting.play()
+		_login_music_player.fade_out() 
+				
 		$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CONNECTING..."		
 	else:
 		show_message_box("ERROR", "Error creating a new account!", true)
@@ -365,6 +368,7 @@ func _on_CONNECTButton2_button_up():
 				# Game should now load
 				# SOUND: AURA - "CONNECTING..."
 				_audio_aura_connecting.play()
+				_login_music_player.fade_out() 
 				$MarginContainer/VBoxContainer/FOOTER3/CONNECTButton2.text = "CONNECTING..."				
 			else:
 				# Check if we haven't found a correct save after all...		

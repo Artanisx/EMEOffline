@@ -71,7 +71,7 @@ func _physics_process(delta):
 		angle = clamp(angle, r - angle_delta, r + angle_delta)
 		
 		# set ship rotation
-		global_rotation = angle		
+		global_rotation = angle	
 				
 		# Move only if the target is at least dead_zone units away and after the rotation to look at has finished		
 		if position.distance_to(target) > dead_zone and rotation == angle:
@@ -81,6 +81,8 @@ func _physics_process(delta):
 			_space_dust.direction("Left")
 		elif velocity.x < 0:
 			_space_dust.direction("Right")
+			
+		print(velocity.length())
 
 func get_input():
 	if (movement_mode == "Direct"):

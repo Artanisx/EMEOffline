@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/below_the_asteroids.mp3-bdf2504acca1157d956a8717b51d2223.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/below_the_asteroids.mp3"
+dest_files=[ "res://.import/below_the_asteroids.mp3-bdf2504acca1157d956a8717b51d2223.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -86,14 +86,16 @@ func _physics_process(delta):
 				
 		# Move only if the target is at least dead_zone units away and after the rotation to look at has finished		
 		if position.distance_to(target) > dead_zone and rotation == angle:
-			position += velocity * delta	
+			position += velocity * delta			
+		else:
+			velocity = Vector2.ZERO				
 			
 		if velocity.x > 0:
 			_space_dust.direction("Left")
 		elif velocity.x < 0:
 			_space_dust.direction("Right")
 			
-		print(velocity.length())
+		print(velocity.length()/5)
 	elif (movement_mode == "Missile"):
 		var accelerat = position.direction_to(target) * speed
 		velocity += accelerat * delta

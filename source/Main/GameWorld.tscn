@@ -28,10 +28,10 @@ script = ExtResource( 6 )
 
 [node name="Background" type="ColorRect" parent="."]
 material = SubResource( 1 )
-margin_left = -30000.0
-margin_top = -30000.0
-margin_right = 30000.0
-margin_bottom = 30000.0
+margin_left = -30712.0
+margin_top = -30586.0
+margin_right = 29288.0
+margin_bottom = 29414.0
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 movement_mode = "RTS"
@@ -280,8 +280,3 @@ scale = Vector2( 0.2, 0.2 )
 starting_theme = "BelowTheAsteroids"
 
 [node name="SpaceUI" parent="." instance=ExtResource( 5 )]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-margin_top = 357.0
-margin_bottom = 357.0

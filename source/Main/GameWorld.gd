@@ -34,6 +34,8 @@ func update_space_ui() -> void:
 	else:
 		_space_ui_action.text = "STOPPED"
 		_space_ui_target.text =  ""		
+		
+	_space_ui_mining_button.hint_tooltip = _player.MINING_LASER.keys()[_player.player_mining_laser] + "\n\nCycle: " + str(_player.player_mining_laser_cycle) + " seconds\nRange: " + str(_player.player_mining_laser_range) + " km\nYield: [" + str(_player.player_mining_laser_yield) + " m3]"
 	
 		
 func _input(event) -> void:

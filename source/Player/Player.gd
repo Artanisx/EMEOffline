@@ -19,6 +19,11 @@ var player_cargo_hold_capacity: int = 1000 # unused yet
 var player_hull_integrity: int = 1000 # unused yet
 var player_top_speed: int = 100	# unused yet
 
+# MINING LASER STAT
+var player_mining_laser_cycle: int = 5
+var player_mining_laser_range: int = 15
+var player_mining_laser_yield: int = 100
+
 # Player velocity vector
 var velocity := Vector2.ZERO
 var first_target_set = false

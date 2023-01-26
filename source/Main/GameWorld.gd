@@ -76,3 +76,10 @@ func _input(event) -> void:
 			cur_zoom = Vector2(cur_zoom.x - 1, cur_zoom.y - 1)
 			_2dcamera.set_zoom(cur_zoom)		
 
+
+## SPACE UI
+func _on_SpaceUI_mining_button_pressed():
+	print("Minign time!")
+	_space_ui_mining_button.get_node("MiningBar").value = 0	
+	_space_ui_mining_button.get_node("MiningBar").max_value = _player.player_mining_laser_cycle
+	_space_ui_mining_button.get_node("MiningCycle").start()

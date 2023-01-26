@@ -9,6 +9,8 @@ onready var _space_ui_hull = $SpaceUI/LowerHUD/HullIntegrity
 onready var _space_ui_action = $SpaceUI/LowerHUD/LabelAction
 onready var _space_ui_target = $SpaceUI/LowerHUD/LabelActionTarget
 onready var _space_ui_mining_button = $SpaceUI/LowerHUD/MiningButton
+onready var _space_ui_overview_table = $SpaceUI/OverviewHUD/VBoxContainer/TABLE
+onready var _props = $Props
 
 # DEBUGGING
 const max_zoom_out = 10
@@ -16,6 +18,9 @@ const max_zoom_out = 10
 func _ready() -> void:
 	# Loads player variables
 	_player.SetPlayer(Globals.get_account_credits(), Globals.get_account_mininglaser(), Globals.get_account_cargoextender(), Globals.get_account_cargohold(), Globals.get_account_position())	
+	
+	# Load overview
+	load_overview()
 	
 func _process(delta) -> void:
 	update_space_ui()
@@ -35,12 +40,25 @@ func update_space_ui() -> void:
 		_space_ui_action.text = "STOPPED"
 		_space_ui_target.text =  ""		
 		
-	_space_ui_mining_button.hint_tooltip = _player.MINING_LASER.keys()[_player.player_mining_laser] + "\n\nCycle: " + str(_player.player_mining_laser_cycle) + " seconds\nRange: " + str(_player.player_mining_laser_range) + " km\nYield: [" + str(_player.player_mining_laser_yield) + " m3]"
+	_space_ui_mining_button.hint_tooltip = _player.MINING_LASER.keys()[_player.player_mining_laser] + "\n\nCycle: " + str(_player.player_mining_laser_cycle) + " seconds\nRange: " + str(_player.player_mining_laser_range) + " km\nYield: [" + str(_player.player_mining_laser_yield) + " m3]"	
 	
+	load_overview()
+
+func load_overview() -> void:
+	var counter = 1
+	for asteroid in _props.get_children():
+		if counter <= 7:
+			var node_name: String = ""
+			var node_distance: String = ""
+			node_name = "NAME"+str(counter)
+			node_distance = "DISTANCE"+str(counter)
+			_space_ui_overview_table.get_node(node_name).text = asteroid.name			
+			_space_ui_overview_table.get_node(node_distance).text = str(round(_player.position.distance_to(asteroid.position))) + " m"
+		counter = counter + 1	
 		
 func _input(event) -> void:
 	if _player.movement_mode == "Turtle":
-		if Input.is_action_just_released("left_click") and _space_ui.mining_button_hover != true:
+		if Input.is_action_just_released("left_click") and _space_ui.hovering_on_gui() != true:
 			_player.target_mouse_position  = get_global_mouse_position()
 	elif (_player.movement_mode == "Direct"):
 		_player.velocity = Vector2()
@@ -60,7 +78,7 @@ func _input(event) -> void:
 		if _player.velocity.length() > 0:
 			_player.velocity = _player.velocity.normalized() * _player.speed
 	elif (_player.movement_mode == "RTS" or _player.movement_mode == "Missile"):
-		if Input.is_action_pressed("left_click") and _space_ui.mining_button_hover != true:
+		if Input.is_action_pressed("left_click") and _space_ui.hovering_on_gui() != true:
 			_player.target = get_global_mouse_position()
 			_player.first_target_set = true #allows the player to be moved. It needs to start false before any input or the player starting position would be accepted as a target to move			
 

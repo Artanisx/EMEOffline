@@ -523,6 +523,8 @@ step = 1.0
 [node name="MiningCycle" type="Timer" parent="LowerHUD/MiningButton"]
 wait_time = 5.0
 
+[connection signal="mouse_entered" from="OverviewHUD" to="." method="_on_OverviewHUD_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD" to="." method="_on_OverviewHUD_mouse_exited"]
 [connection signal="mouse_entered" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_mouse_entered"]
 [connection signal="mouse_exited" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_mouse_exited"]
 [connection signal="pressed" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_pressed"]

@@ -42,31 +42,31 @@ dead_zone = 10
 
 [node name="Props" type="Node" parent="."]
 
-[node name="StaticAsteroid" parent="Props" instance=ExtResource( 3 )]
+[node name="Asteroid (Veldspar)" parent="Props" instance=ExtResource( 3 )]
 position = Vector2( -71, -359 )
 scale = Vector2( 0.2, 0.2 )
 
-[node name="StaticAsteroid2" parent="Props" instance=ExtResource( 3 )]
+[node name="Asteroid (Veldspar)2" parent="Props" instance=ExtResource( 3 )]
 position = Vector2( -274, -257 )
 scale = Vector2( 0.2, 0.2 )
 
-[node name="StaticAsteroid3" parent="Props" instance=ExtResource( 3 )]
+[node name="Asteroid (Veldspar)3" parent="Props" instance=ExtResource( 3 )]
 position = Vector2( 356, -54.0001 )
 scale = Vector2( 0.2, 0.2 )
 
-[node name="StaticAsteroid4" parent="Props" instance=ExtResource( 3 )]
+[node name="Asteroid (Veldspar)4" parent="Props" instance=ExtResource( 3 )]
 position = Vector2( -350, 223 )
 scale = Vector2( 0.2, 0.2 )
 
-[node name="StaticAsteroid5" parent="Props" instance=ExtResource( 3 )]
+[node name="Asteroid (Veldspar)5" parent="Props" instance=ExtResource( 3 )]
 position = Vector2( 495, 299 )
 scale = Vector2( 0.2, 0.2 )
 
-[node name="StaticAsteroid6" parent="Props" instance=ExtResource( 3 )]
+[node name="Asteroid (Veldspar)6" parent="Props" instance=ExtResource( 3 )]
 position = Vector2( 977, -664 )
 scale = Vector2( 0.2, 0.2 )
 
-[node name="StaticAsteroid7" parent="Props" instance=ExtResource( 3 )]
+[node name="Asteroid (Veldspar)7" parent="Props" instance=ExtResource( 3 )]
 position = Vector2( 774, -562 )
 scale = Vector2( 0.2, 0.2 )
 

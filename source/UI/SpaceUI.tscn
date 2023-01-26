@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/art/ui/minig_laser_button_pressed.png" type="Texture" id=1]
 [ext_resource path="res://assets/art/ui/minig_laser_button.png" type="Texture" id=2]
 [ext_resource path="res://assets/art/ui/minig_laser_button_hover.png" type="Texture" id=3]
+[ext_resource path="res://source/UI/SpaceUI.gd" type="Script" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0.45098, 1, 0.211765 )
@@ -37,6 +38,7 @@ border_width_bottom = 1
 border_color = Color( 0, 0.027451, 1, 1 )
 
 [node name="SpaceUI" type="CanvasLayer"]
+script = ExtResource( 4 )
 
 [node name="LowerHUD" type="Panel" parent="."]
 anchor_left = 0.5
@@ -166,3 +168,6 @@ anchor_bottom = 1.0
 margin_top = -14.0
 step = 1.0
 value = 1.0
+
+[connection signal="mouse_entered" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_mouse_entered"]
+[connection signal="mouse_exited" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_mouse_exited"]

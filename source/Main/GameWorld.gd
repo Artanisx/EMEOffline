@@ -21,16 +21,20 @@ func _process(delta) -> void:
 	update_space_ui()
 	
 func update_space_ui() -> void:
-	_space_ui_speed.value = clamp(int($Player.velocity.length()), 0, 100)
-	_space_ui_cargohold.value = clamp($Player.player_cargo_hold, 0, $Player.player_cargo_hold_capacity)
-	_space_ui_hull.value = clamp($Player.player_hull_integrity, 0, 1000)
+	_space_ui_speed.value = clamp(int(_player.velocity.length()), 0, 100)
+	_space_ui_speed.hint_tooltip = "Current Speed is: " + str(_space_ui_speed.value) + " m/s"
+	_space_ui_cargohold.value = clamp(_player.player_cargo_hold, 0, _player.player_cargo_hold_capacity)
+	_space_ui_cargohold.hint_tooltip = "Cargo Hold has: [" + str(_player.player_cargo_hold) + " \\ " + str(_player.player_cargo_hold_capacity) + "m3] of Veldsar"
+	_space_ui_hull.value = clamp(_player.player_hull_integrity, 0, 1000)
+	_space_ui_hull.hint_tooltip = "Hull Integrity is: [" + str(_player.player_hull_integrity) + " \\ 1000]"
 	
-	if $Player.velocity.length() > 0:
+	if _player.velocity.length() > 0:
 		_space_ui_action.text = "MOVING"
-		_space_ui_target.text = "X: "+ str(round($Player.target.x)) + " - Y: " + str(round($Player.target.y))
+		_space_ui_target.text = "X: "+ str(round(_player.target.x)) + " - Y: " + str(round(_player.target.y))
 	else:
 		_space_ui_action.text = "STOPPED"
-		_space_ui_target.text =  ""
+		_space_ui_target.text =  ""		
+	
 		
 func _input(event) -> void:
 	if _player.movement_mode == "Turtle":

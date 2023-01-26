@@ -98,7 +98,10 @@ func _input(event) -> void:
 		if cur_zoom.x > 1:						
 			 #we're not too much zoomed in
 			cur_zoom = Vector2(cur_zoom.x - 1, cur_zoom.y - 1)
-			_2dcamera.set_zoom(cur_zoom)		
+			_2dcamera.set_zoom(cur_zoom)	
+	
+	if Input.is_action_just_released("ui_cancel"):	
+		get_tree().quit()
 
 
 ## SPACE UI

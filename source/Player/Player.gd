@@ -15,6 +15,9 @@ var player_credits: int = 0
 var player_mining_laser: int = 0
 var player_cargo_extender: int = 0
 var player_cargo_hold: int = 0
+var player_cargo_hold_capacity: int = 1000 # unused yet
+var player_hull_integrity: int = 1000 # unused yet
+var player_top_speed: int = 100	# unused yet
 
 # Player velocity vector
 var velocity := Vector2.ZERO

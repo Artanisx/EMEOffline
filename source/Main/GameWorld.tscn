@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/art/shaders/starnest.tres" type="Shader" id=1]
 [ext_resource path="res://source/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://source/Props/StaticAsteroid.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/Helpers/GameMusicPlayer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://source/UI/SpaceUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://source/Main/GameWorld.gd" type="Script" id=6]
 
 [sub_resource type="ShaderMaterial" id=1]
@@ -277,3 +278,10 @@ scale = Vector2( 0.2, 0.2 )
 
 [node name="GameMusicPlayer" parent="." instance=ExtResource( 4 )]
 starting_theme = "BelowTheAsteroids"
+
+[node name="SpaceUI" parent="." instance=ExtResource( 5 )]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+margin_top = 357.0
+margin_bottom = 357.0

@@ -105,6 +105,14 @@ func _physics_process(delta):
 			position += velocity * delta
 		print(velocity.length())
 
+#func _unhandled_input(event):
+#	if (movement_mode == "RTS" or movement_mode == "Missile"):
+#		print("rts or missile")
+#		if event.is_action_just_released("left_click"):
+#			print("leftclick")
+#			target = get_global_mouse_position()
+#			first_target_set = true #allows the player to be moved. It needs to start false before any input or the player starting position would be accepted as a target to move
+
 func get_input():
 	if (movement_mode == "Direct"):
 		velocity = Vector2()

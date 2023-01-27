@@ -3,9 +3,10 @@ extends Area2D
 var target_pos: Vector2 = Vector2.ZERO
 var rotation_tween : Tween = Tween.new()
 var movement_tween : Tween = Tween.new()
-var duration = 5
-var speed = 500
-var rotation_duration = 1.5
+var duration = 0
+export var movement_speed = 500
+#export var rotation_speed = 100
+export var rotation_duration = 0
 
 func _ready() -> void:
 	add_child(rotation_tween)
@@ -23,18 +24,27 @@ func face(target_pos: Vector2) -> void:
 	# stop current movement
 	rotation_tween.remove_all()
 	
+	# stop current movement
+	movement_tween.remove_all()
+	
 	# vector from the ship to the target
-	var v = target_pos - self.global_position
-	print(str(v))
+	var v = target_pos - self.global_position		
 		
 	# get the angle of that vector
-	var angle = v.angle()
-	angle = rad2deg(angle)
-	print(str(angle))
+	var angle = v.angle()	
+	angle = rad2deg(angle)		
 	
-	rotation_tween.interpolate_property(self, "global_rotation_degrees", global_rotation_degrees, angle, rotation_duration, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+#	# Cacolaute the duration the total rotation should take
+#	# The durationg should be fullrotation / rotation_velocity
+#	var full_rotation = angle	
+#	rotation_duration = abs(angle) / rotation_speed	
+#
+#	print("Full rotation: " + str(full_rotation) + "Rotation Duration: " + str(rotation_duration))	
+	
+	#rotation_tween.interpolate_property(self, "rotation_degrees", global_rotation_degrees, angle, rotation_duration, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)	
+	rotation_tween.interpolate_property(self, "rotation_degrees", global_rotation_degrees, angle, rotation_duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)	
 	rotation_tween.start()		
-	
+
 func move(target_pos: Vector2) -> void:	
 	# stop current movement
 	movement_tween.remove_all()
@@ -43,9 +53,9 @@ func move(target_pos: Vector2) -> void:
 	# The duration should be distance / velocity
 	var distance_vector = global_position - target_pos
 	var distance = distance_vector.length()	
-	duration = distance / speed
+	duration = distance / movement_speed
 	
-	print("Distance Vector: " + str(distance_vector) + "Distance: " + str(distance) + "Duration: " + str(duration))	
+	#print("Distance Vector: " + str(distance_vector) + "Distance: " + str(distance) + "Duration: " + str(duration))	
 
 	movement_tween.interpolate_property(self, "position", global_position, target_pos, duration, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 	movement_tween.start()	

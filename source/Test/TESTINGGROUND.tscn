@@ -15,6 +15,7 @@ color = Color( 0.117647, 0.0431373, 0.266667, 1 )
 [node name="Testplayer" type="Area2D" parent="."]
 position = Vector2( 623, 343 )
 script = ExtResource( 1 )
+rotation_duration = 1
 
 [node name="TextureRect" type="Sprite" parent="Testplayer"]
 scale = Vector2( 0.1, 0.1 )

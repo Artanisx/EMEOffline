@@ -7,7 +7,16 @@ var rotation_tween : Tween = Tween.new()
 var movement_tween : Tween = Tween.new()
 var duration = 0
 export var movement_speed = 500
-export var rotation_duration = 1
+var rotation_duration = 0
+## Duration time for a quick rotation
+export var quick_rotation_duration = 0.5
+## Duration time for a slow rotation
+export var slow_rotation_duration = 2
+## Rotation degrees threshold to switch from quick to slow rotation
+export var rotation_thershold = 50
+export var low_distance_rotation_duration = 1
+## How many times the movement_speed is to be considered a long distance voyage
+export var low_distance_scalar = 2
 var last_position: Vector2 = Vector2.ZERO
 var regular_speed = 0
 
@@ -62,8 +71,7 @@ func get_instant_velocity() -> int:
 func map(value, start1, stop1, start2, stop2):
 	return (value - start1) / (stop1 - start1) * (stop2 - start2) + start2
 
-func face(target_pos: Vector2) -> void:		
-	# PROBLEM: If there's no rotation needed (i.e. just a few degrees) it still takes the whole duration doing nothing
+func face(target_pos: Vector2) -> void:	
 	# stop current rotation
 	rotation_tween.remove_all()
 	
@@ -77,11 +85,22 @@ func face(target_pos: Vector2) -> void:
 	var angle = v.angle()	
 	angle = rad2deg(angle)	
 	
+	var real_rotation = abs(global_rotation_degrees-angle)
+	print(str(real_rotation))	
+	
+	# Check if rotation is small
+	if (real_rotation <= rotation_thershold):
+		rotation_duration = quick_rotation_duration
+		print("Quick rotation")
+	else:
+		rotation_duration = slow_rotation_duration
+		print("slow rotation")
+	
+	
 	rotation_tween.interpolate_property(self, "rotation_degrees", global_rotation_degrees, angle, rotation_duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)	
 	rotation_tween.start()	
 
-func move(target_pos: Vector2) -> void:	
-	# PROBLEM: Something's off in calculations. If the distance is very small, it reaches max speed almost instantly. While long distance shows correct behaviour
+func move(target_pos: Vector2) -> void:		
 	# stop current movement
 	movement_tween.remove_all()
 	
@@ -89,9 +108,17 @@ func move(target_pos: Vector2) -> void:
 	# The duration should be distance / velocity
 	var distance_vector = global_position - target_pos
 	var distance = distance_vector.length()	
-	duration = distance / movement_speed
-
-	movement_tween.interpolate_property(self, "position", global_position, target_pos, duration, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+	
+	# If the distance is at least the movement_speed * low_distance_scalar (i.e. distance*2) ...
+	if (movement_speed * low_distance_scalar  <= distance):
+		# Distance is enough that we can calculate it 
+		duration = distance / movement_speed
+		movement_tween.interpolate_property(self, "position", global_position, target_pos, duration, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+	else:
+		# Distance is quite low, set a low dur
+		duration = low_distance_rotation_duration
+		movement_tween.interpolate_property(self, "position", global_position, target_pos, duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)		
+	
 	movement_tween.start()	
 
 func SetPlayer(cred: int, mining: int, cargoxt: int, cargoh: int, pos: Vector2) -> void:

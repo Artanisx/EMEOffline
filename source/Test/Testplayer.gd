@@ -60,7 +60,7 @@ func move(target_pos: Vector2) -> void:
 
 	movement_tween.interpolate_property(self, "position", global_position, target_pos, duration, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 	movement_tween.start()	
-	# PROBLEMA: non riesco a definire la speed instantanea. ma magari vediamo di implementare la rotaziojne per prima cosa e po isi vede
+	
 
 func _on_rotation_tween_completed() -> void:	
 	move(target_pos)	

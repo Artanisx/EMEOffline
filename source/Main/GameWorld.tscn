@@ -36,9 +36,6 @@ margin_right = 29288.0
 margin_bottom = 29414.0
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-movement_mode = "RTS"
-speed = 500.0
-dead_zone = 10
 
 [node name="Props" type="Node" parent="."]
 

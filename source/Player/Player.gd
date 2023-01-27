@@ -1,11 +1,15 @@
 extends Area2D
 
-export(String, "Direct", "RTS", "Turtle", "Missile") var movement_mode
-export var rotation_speed: float = PI
-export var speed: float = 100
-export var dead_zone: int = 5
-onready var target = position
-onready var _space_dust = $Camera2D/SpaceDust			
+onready var _space_dust = $Camera2D/SpaceDust
+
+var target_pos: Vector2 = Vector2.ZERO
+var rotation_tween : Tween = Tween.new()
+var movement_tween : Tween = Tween.new()
+var duration = 0
+export var movement_speed = 500
+export var rotation_duration = 1
+var last_position: Vector2 = Vector2.ZERO
+var regular_speed = 0
 
 # PLAYER ACCOUNT STATS
 enum MINING_LASER {MINING_LASER_I = 1, MINING_LASER_II = 2, MINING_LASER_III = 3, MINING_LASER_IV = 4, MINING_LASER_V = 5}
@@ -25,80 +29,70 @@ var player_mining_laser_range: int = 15
 var player_mining_laser_yield: int = 100
 
 # Player velocity vector
-var velocity := Vector2.ZERO
 var first_target_set = false
 
-# TurtleExample
-const ARRIVE_DISTANCE := 500.0
-const ARRIVED_THRESHOLD := 100.0
-var max_speed := 1500.0
-var target_mouse_position = Vector2.ZERO
+func _ready() -> void:
+	## Add the two tweens needed for rotation and movement
+	add_child(rotation_tween)
+	rotation_tween.connect("tween_all_completed", self, "_on_rotation_tween_completed")		
+	add_child(movement_tween)	
+	rotation_tween.connect("tween_all_completed", self, "_on_movement_tween_completed")	
 
 func _process(delta):
-	_space_dust.global_position = global_position
+	_space_dust.global_position = global_position	
+	calculate_instant_velocity(delta)	
+
+func calculate_instant_velocity(delta: float) -> void:
+	var current_position = self.global_position		
 	
-	if (movement_mode == "Direct"):		
-		position += velocity * delta
-	elif movement_mode == "Turtle":
-		if position.distance_to(target_mouse_position) < ARRIVED_THRESHOLD:
-			return			
+	var instSpeed = (last_position-current_position).length()		
+		
+	# make it so that highest value matches speed in units and lowest min...	
+	if instSpeed != 0:		
+		regular_speed = map(instSpeed, 0, movement_speed/70.86, 0, movement_speed)
+	
+	last_position = current_position	
 
-		var desired_velocity = position.direction_to(target_mouse_position) * max_speed
+func get_instant_velocity() -> int:
+	if int(round(regular_speed)) <= 5:
+		return 0
+	else:
+		return int(round(regular_speed))
 
-		var distance_to_mouse = position.distance_to(target_mouse_position)
+func map(value, start1, stop1, start2, stop2):
+	return (value - start1) / (stop1 - start1) * (stop2 - start2) + start2
 
-		if distance_to_mouse < ARRIVE_DISTANCE:
-			desired_velocity *= distance_to_mouse / ARRIVE_DISTANCE
+func face(target_pos: Vector2) -> void:		
+	# PROBLEM: If there's no rotation needed (i.e. just a few degrees) it still takes the whole duration doing nothing
+	# stop current rotation
+	rotation_tween.remove_all()
+	
+	# stop current movement
+	movement_tween.remove_all()
+	
+	# vector from the ship to the target
+	var v = target_pos - self.global_position		
+		
+	# get the angle of that vector
+	var angle = v.angle()	
+	angle = rad2deg(angle)	
+	
+	rotation_tween.interpolate_property(self, "rotation_degrees", global_rotation_degrees, angle, rotation_duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)	
+	rotation_tween.start()	
 
-		var steering = desired_velocity - velocity
-		velocity += steering / 32.0			
+func move(target_pos: Vector2) -> void:	
+	# PROBLEM: Something's off in calculations. If the distance is very small, it reaches max speed almost instantly. While long distance shows correct behaviour
+	# stop current movement
+	movement_tween.remove_all()
+	
+	# Calculate the duration the total movement should take
+	# The duration should be distance / velocity
+	var distance_vector = global_position - target_pos
+	var distance = distance_vector.length()	
+	duration = distance / movement_speed
 
-		position += velocity * delta
-		rotation = velocity.angle()
-		print(velocity.length())
-	elif (movement_mode == "RTS" and first_target_set == true):
-		velocity = position.direction_to(target) * speed
-		
-		## SMOOTH LOOKAT
-		# vector from the ship to the target
-		var v = target - self.global_position
-		
-		# get the angle of that vector
-		var angle = v.angle()
-		var r = global_rotation
-		
-		# ger toation allowed this frame
-		var angle_delta = rotation_speed * delta
-		
-		#get complete rotation to target
-		angle = lerp_angle(r, angle, 1.0)
-		
-		# limit that rotaiton to what is allowed this frame
-		angle = clamp(angle, r - angle_delta, r + angle_delta)
-		
-		# set ship rotation
-		global_rotation = angle	
-				
-		# Move only if the target is at least dead_zone units away and after the rotation to look at has finished		
-		if position.distance_to(target) > dead_zone and rotation == angle:
-			position += velocity * delta			
-		else:
-			velocity = Vector2.ZERO				
-			
-		if velocity.x > 0:
-			_space_dust.direction("Left")
-		elif velocity.x < 0:
-			_space_dust.direction("Right")
-			
-		print(velocity.length()/5)
-	elif (movement_mode == "Missile"):
-		var accelerat = position.direction_to(target) * speed
-		velocity += accelerat * delta
-		velocity = velocity.clamped(speed)
-		rotation = velocity.angle()
-		if position.distance_to(target) > dead_zone:
-			position += velocity * delta
-		print(velocity.length())
+	movement_tween.interpolate_property(self, "position", global_position, target_pos, duration, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+	movement_tween.start()	
 
 func SetPlayer(cred: int, mining: int, cargoxt: int, cargoh: int, pos: Vector2) -> void:
 	player_credits = cred
@@ -131,3 +125,11 @@ func SetPlayer(cred: int, mining: int, cargoxt: int, cargoh: int, pos: Vector2) 
 			
 	player_cargo_hold = cargoh
 	position = pos
+
+
+## CALLBACKS
+func _on_rotation_tween_completed() -> void:	
+	move(target_pos)	
+	
+func _on_movement_tween_completed() -> void:	
+	pass	

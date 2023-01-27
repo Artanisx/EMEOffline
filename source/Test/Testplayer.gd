@@ -7,6 +7,7 @@ var duration = 0
 export var movement_speed = 500
 #export var rotation_speed = 100
 export var rotation_duration = 0
+var last_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	add_child(rotation_tween)
@@ -62,9 +63,26 @@ func move(target_pos: Vector2) -> void:
 	# PROBLEMA: non riesco a definire la speed instantanea. ma magari vediamo di implementare la rotaziojne per prima cosa e po isi vede
 
 func _on_rotation_tween_completed() -> void:	
-	move(target_pos)
+	move(target_pos)	
 	
-#func _process(delta: float) -> void:
-#		var cur_speed = (tween.tell())
-#		print(str(cur_speed))
+func _process(delta: float) -> void:
+	
+	var current_position = self.global_position		
+	
+	var instSpeed = (last_position-current_position).length()		
+		
+	# make it so that highest value matches speed in units and lowest min...
+	var regular_speed = 0
+	if instSpeed != 0:		
+		
+		regular_speed = map(instSpeed, 0, movement_speed/70.86, 0, movement_speed)
+	
+	print(str(regular_speed))	
+	
+	last_position = current_position		
+
+	
+func map(value, start1, stop1, start2, stop2):
+	return (value - start1) / (stop1 - start1) * (stop2 - start2) + start2
+
 

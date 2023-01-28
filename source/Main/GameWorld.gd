@@ -11,7 +11,14 @@ onready var _space_ui_action = $SpaceUI/LowerHUD/LabelAction
 onready var _space_ui_target = $SpaceUI/LowerHUD/LabelActionTarget
 onready var _space_ui_mining_button = $SpaceUI/LowerHUD/MiningButton
 onready var _space_ui_overview_table = $SpaceUI/OverviewHUD/VBoxContainer/TABLE
+onready var _space_ui_overview_selection_text = $SpaceUI/OverviewHUD/VBoxContainer/SELECTIONBOX/SELECTIONTEXT
 onready var _props = $Props
+
+# OVERVIEW
+var overview = {}
+
+var overview_selected: bool = false
+var overview_selected_index = 0
 
 # DEBUGGING
 const max_zoom_out = 10
@@ -51,6 +58,10 @@ func update_space_ui() -> void:
 	_space_ui_mining_button.hint_tooltip = _player.MINING_LASER.keys()[_player.player_mining_laser] + "\n\nCycle: " + str(_player.player_mining_laser_cycle) + " seconds\nRange: " + str(_player.player_mining_laser_range) + " km\nYield: [" + str(_player.player_mining_laser_yield) + " m3]"	
 	
 	load_overview()
+	
+	# update selection box (distance)	
+	update_overview_selection_text_distance(overview_selected_index)			
+	
 
 func load_overview() -> void:
 	var counter = 1
@@ -60,15 +71,39 @@ func load_overview() -> void:
 			var node_distance: String = ""
 			node_name = "NAME"+str(counter)
 			node_distance = "DISTANCE"+str(counter)
-			_space_ui_overview_table.get_node(node_name).text = asteroid.name			
+			_space_ui_overview_table.get_node(node_name).text = asteroid.name					
 			_space_ui_overview_table.get_node(node_distance).text = str(round(_player.position.distance_to(asteroid.position))) + " m"
+			overview[asteroid.name] = asteroid	#Add node and name to the overview dictionary
 		counter = counter + 1	
+
+func update_overview_selection_text_distance(index: int) -> Node2D:	
+	# This function updates the sleection text in the overview, getting name and calculating distance
+	# We pass an index, the number of the item in the overview from 1 to 7
+	# 0 is not valid, it means nothing is selected
+	
+	if index == 0:
+		return null
+
+	var node_name = "NAME"+str(index)
+
+	# Get the reference node from the overview table
+	var reference = overview[_space_ui_overview_table.get_node(node_name).text]
+
+	# Calculate the distance
+	var distance = str(round(_player.position.distance_to(reference.position))) + " m"
+
+	# Set the selection text to the node name and its distance
+	_space_ui_overview_selection_text.text = _space_ui_overview_table.get_node("NAME1").text + "\nDistance: " + str(distance)
+	
+	return reference
 		
 func _input(event) -> void:#	
 	if Input.is_action_pressed("left_click") and _space_ui.hovering_on_gui() != true:
 		_player.target_pos = get_global_mouse_position()
 		#_player.first_target_set = true #allows the player to be moved. It needs to start false before any input or the player starting position would be accepted as a target to move			
 		_player.face(_player.target_pos)
+		#Set selection bool to false as this is a free move
+		overview_selected = false
 
 	if Input.is_action_just_released("zoom_out"):		
 		#mouse_wheel down, zoom out
@@ -98,3 +133,30 @@ func _on_SpaceUI_mining_button_pressed():
 	_space_ui_mining_button.get_node("MiningBar").value = 0	
 	_space_ui_mining_button.get_node("MiningBar").max_value = _player.player_mining_laser_cycle
 	_space_ui_mining_button.get_node("MiningCycle").start()
+
+func _on_SpaceUI_overview_name1_selected() -> void:	
+	
+	# Set the Selection text with node and distance, plus store a reference to the node itself
+	var reference = update_overview_selection_text_distance(1)
+	
+	# Set the target for player movement to this node (it's selected)
+	_player.target_pos = reference.global_position
+
+	#Set selection bool
+	overview_selected = true
+	
+	#Set the selected index so load_overview knows what to update for the distance	
+	overview_selected_index = 1
+		
+
+func _on_SpaceUI_overview_move_to() -> void:
+	if (overview_selected):
+		_player.face(_player.target_pos)
+	else:
+		# player moved somewhere else, we must refresh the selection first
+		#for now assume selection 1 since it's the only one rigged in
+		_on_SpaceUI_overview_name1_selected()
+		
+		#  now go!
+		_player.face(_player.target_pos)
+	

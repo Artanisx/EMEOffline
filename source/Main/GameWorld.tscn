@@ -279,3 +279,5 @@ scale = Vector2( 0.2, 0.2 )
 starting_theme = "BelowTheAsteroids"
 
 [connection signal="mining_button_pressed" from="SpaceUI" to="." method="_on_SpaceUI_mining_button_pressed"]
+[connection signal="overview_move_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_move_to"]
+[connection signal="overview_name1_selected" from="SpaceUI" to="." method="_on_SpaceUI_overview_name1_selected"]

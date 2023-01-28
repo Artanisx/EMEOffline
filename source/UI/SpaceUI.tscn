@@ -53,7 +53,7 @@ anchor_right = 1.0
 margin_left = -250.0
 margin_top = 5.0
 margin_right = -5.0
-margin_bottom = 271.0
+margin_bottom = 296.0
 custom_styles/panel = ExtResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="OverviewHUD"]
@@ -62,332 +62,360 @@ anchor_bottom = 1.0
 alignment = 1
 
 [node name="SELECTIONBOX" type="HBoxContainer" parent="OverviewHUD/VBoxContainer"]
-margin_top = 5.0
-margin_right = 245.0
-margin_bottom = 69.0
+margin_top = 3.0
+margin_right = 246.0
+margin_bottom = 67.0
 alignment = 1
 
 [node name="SELECTIONICON" type="TextureRect" parent="OverviewHUD/VBoxContainer/SELECTIONBOX"]
-margin_left = 7.0
-margin_right = 71.0
+margin_left = 8.0
+margin_right = 72.0
 margin_bottom = 64.0
 texture = ExtResource( 9 )
 
 [node name="SELECTIONTEXT" type="Label" parent="OverviewHUD/VBoxContainer/SELECTIONBOX"]
-margin_left = 75.0
+margin_left = 76.0
 margin_top = 16.0
-margin_right = 237.0
+margin_right = 238.0
 margin_bottom = 47.0
+rect_min_size = Vector2( 162, 31 )
 text = "Ishukone Refining Station
 Distance: 100 km"
 
 [node name="HSeparator" type="HSeparator" parent="OverviewHUD/VBoxContainer"]
-margin_top = 73.0
-margin_right = 245.0
-margin_bottom = 77.0
+margin_top = 71.0
+margin_right = 246.0
+margin_bottom = 75.0
 
 [node name="BUTTONSBOX" type="HBoxContainer" parent="OverviewHUD/VBoxContainer"]
-margin_top = 81.0
-margin_right = 245.0
-margin_bottom = 113.0
+margin_top = 79.0
+margin_right = 246.0
+margin_bottom = 111.0
 alignment = 1
 
 [node name="MOVETOButton" type="TextureButton" parent="OverviewHUD/VBoxContainer/BUTTONSBOX"]
-margin_left = 52.0
-margin_right = 84.0
+margin_left = 53.0
+margin_right = 85.0
 margin_bottom = 32.0
 texture_normal = ExtResource( 8 )
 
 [node name="WARPTOButton" type="TextureButton" parent="OverviewHUD/VBoxContainer/BUTTONSBOX"]
-margin_left = 88.0
-margin_right = 120.0
+margin_left = 89.0
+margin_right = 121.0
 margin_bottom = 32.0
 texture_normal = ExtResource( 12 )
 
 [node name="DOCK" type="TextureButton" parent="OverviewHUD/VBoxContainer/BUTTONSBOX"]
-margin_left = 124.0
-margin_right = 156.0
+margin_left = 125.0
+margin_right = 157.0
 margin_bottom = 32.0
 texture_normal = ExtResource( 10 )
 
 [node name="MINE" type="TextureButton" parent="OverviewHUD/VBoxContainer/BUTTONSBOX"]
-margin_left = 160.0
-margin_right = 192.0
+margin_left = 161.0
+margin_right = 193.0
 margin_bottom = 32.0
 texture_normal = ExtResource( 11 )
 
 [node name="HSeparator2" type="HSeparator" parent="OverviewHUD/VBoxContainer"]
-margin_top = 117.0
-margin_right = 245.0
-margin_bottom = 121.0
+margin_top = 115.0
+margin_right = 246.0
+margin_bottom = 119.0
 
 [node name="TABLE" type="GridContainer" parent="OverviewHUD/VBoxContainer"]
-margin_top = 125.0
-margin_right = 245.0
-margin_bottom = 261.0
+margin_top = 123.0
+margin_right = 246.0
+margin_bottom = 287.0
 columns = 6
 
 [node name="SPACE1" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
-margin_top = 1.0
-margin_bottom = 15.0
+margin_top = 3.0
+margin_bottom = 17.0
 
 [node name="ICON1" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 4.0
 margin_right = 20.0
-margin_bottom = 16.0
+margin_bottom = 20.0
 texture = ExtResource( 7 )
 
 [node name="VSeparator1a" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 24.0
 margin_right = 28.0
-margin_bottom = 16.0
+margin_bottom = 20.0
 
 [node name="DISTANCE1" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 32.0
-margin_top = 1.0
+margin_top = 3.0
 margin_right = 80.0
-margin_bottom = 15.0
+margin_bottom = 17.0
 text = "100 km"
 
 [node name="VSeparator1b" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 84.0
 margin_right = 88.0
-margin_bottom = 16.0
+margin_bottom = 20.0
 
-[node name="NAME1" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME1" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 92.0
-margin_top = 1.0
-margin_right = 234.0
-margin_bottom = 15.0
+margin_right = 246.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 14 )
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Ishokone Refining Stat"
+flat = true
 align = 2
 
 [node name="SPACE2" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
-margin_top = 21.0
-margin_bottom = 35.0
+margin_top = 27.0
+margin_bottom = 41.0
 
 [node name="ICON2" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 4.0
-margin_top = 20.0
+margin_top = 24.0
 margin_right = 20.0
-margin_bottom = 36.0
+margin_bottom = 44.0
 texture = ExtResource( 7 )
 
 [node name="VSeparator1a2" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 24.0
-margin_top = 20.0
+margin_top = 24.0
 margin_right = 28.0
-margin_bottom = 36.0
+margin_bottom = 44.0
 
 [node name="DISTANCE2" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 32.0
-margin_top = 21.0
+margin_top = 27.0
 margin_right = 80.0
-margin_bottom = 35.0
+margin_bottom = 41.0
 text = "100 m"
 
 [node name="VSeparator1b2" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 84.0
-margin_top = 20.0
+margin_top = 24.0
 margin_right = 88.0
-margin_bottom = 36.0
+margin_bottom = 44.0
 
-[node name="NAME2" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME2" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 92.0
-margin_top = 21.0
-margin_right = 234.0
-margin_bottom = 35.0
+margin_top = 24.0
+margin_right = 246.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 0, 14 )
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Asteroid (Veldspar)"
+flat = true
 align = 2
 
 [node name="SPACE3" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
-margin_top = 41.0
-margin_bottom = 55.0
+margin_top = 51.0
+margin_bottom = 65.0
 
 [node name="ICON3" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 4.0
-margin_top = 40.0
+margin_top = 48.0
 margin_right = 20.0
-margin_bottom = 56.0
+margin_bottom = 68.0
 texture = ExtResource( 7 )
 
 [node name="VSeparator1a3" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 24.0
-margin_top = 40.0
+margin_top = 48.0
 margin_right = 28.0
-margin_bottom = 56.0
+margin_bottom = 68.0
 
 [node name="DISTANCE3" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 32.0
-margin_top = 41.0
+margin_top = 51.0
 margin_right = 80.0
-margin_bottom = 55.0
+margin_bottom = 65.0
 text = "100 m"
 
 [node name="VSeparator1b3" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 84.0
-margin_top = 40.0
+margin_top = 48.0
 margin_right = 88.0
-margin_bottom = 56.0
+margin_bottom = 68.0
 
-[node name="NAME3" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME3" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 92.0
-margin_top = 41.0
-margin_right = 234.0
-margin_bottom = 55.0
+margin_top = 48.0
+margin_right = 246.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 0, 14 )
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Asteroid (Veldspar)"
+flat = true
 align = 2
 
 [node name="SPACE4" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
-margin_top = 61.0
-margin_bottom = 75.0
+margin_top = 75.0
+margin_bottom = 89.0
 
 [node name="ICON4" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 4.0
-margin_top = 60.0
+margin_top = 72.0
 margin_right = 20.0
-margin_bottom = 76.0
+margin_bottom = 92.0
 texture = ExtResource( 7 )
 
 [node name="VSeparator1a4" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 24.0
-margin_top = 60.0
+margin_top = 72.0
 margin_right = 28.0
-margin_bottom = 76.0
+margin_bottom = 92.0
 
 [node name="DISTANCE4" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 32.0
-margin_top = 61.0
+margin_top = 75.0
 margin_right = 80.0
-margin_bottom = 75.0
+margin_bottom = 89.0
 text = "100 m"
 
 [node name="VSeparator1b4" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 84.0
-margin_top = 60.0
+margin_top = 72.0
 margin_right = 88.0
-margin_bottom = 76.0
+margin_bottom = 92.0
 
-[node name="NAME4" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME4" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 92.0
-margin_top = 61.0
-margin_right = 234.0
-margin_bottom = 75.0
+margin_top = 72.0
+margin_right = 246.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 0, 14 )
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Asteroid (Veldspar)"
+flat = true
 align = 2
 
 [node name="SPACE5" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
-margin_top = 81.0
-margin_bottom = 95.0
+margin_top = 99.0
+margin_bottom = 113.0
 
 [node name="ICON5" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 4.0
-margin_top = 80.0
+margin_top = 96.0
 margin_right = 20.0
-margin_bottom = 96.0
+margin_bottom = 116.0
 texture = ExtResource( 7 )
 
 [node name="VSeparator1a5" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 24.0
-margin_top = 80.0
+margin_top = 96.0
 margin_right = 28.0
-margin_bottom = 96.0
+margin_bottom = 116.0
 
 [node name="DISTANCE5" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 32.0
-margin_top = 81.0
+margin_top = 99.0
 margin_right = 80.0
-margin_bottom = 95.0
+margin_bottom = 113.0
 text = "100 m"
 
 [node name="VSeparator1b5" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 84.0
-margin_top = 80.0
+margin_top = 96.0
 margin_right = 88.0
-margin_bottom = 96.0
+margin_bottom = 116.0
 
-[node name="NAME5" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME5" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 92.0
-margin_top = 81.0
-margin_right = 234.0
-margin_bottom = 95.0
+margin_top = 96.0
+margin_right = 246.0
+margin_bottom = 116.0
+rect_min_size = Vector2( 0, 14 )
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Asteroid (Veldspar)"
+flat = true
 align = 2
 
 [node name="SPACE6" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
-margin_top = 101.0
-margin_bottom = 115.0
+margin_top = 123.0
+margin_bottom = 137.0
 
 [node name="ICON6" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 4.0
-margin_top = 100.0
+margin_top = 120.0
 margin_right = 20.0
-margin_bottom = 116.0
+margin_bottom = 140.0
 texture = ExtResource( 7 )
 
 [node name="VSeparator1a6" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 24.0
-margin_top = 100.0
+margin_top = 120.0
 margin_right = 28.0
-margin_bottom = 116.0
+margin_bottom = 140.0
 
 [node name="DISTANCE6" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 32.0
-margin_top = 101.0
+margin_top = 123.0
 margin_right = 80.0
-margin_bottom = 115.0
+margin_bottom = 137.0
 text = "100 m"
 
 [node name="VSeparator1b6" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 84.0
-margin_top = 100.0
+margin_top = 120.0
 margin_right = 88.0
-margin_bottom = 116.0
+margin_bottom = 140.0
 
-[node name="NAME6" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME6" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 92.0
-margin_top = 101.0
-margin_right = 234.0
-margin_bottom = 115.0
+margin_top = 120.0
+margin_right = 246.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 0, 14 )
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Asteroid (Veldspar)"
+flat = true
 align = 2
 
 [node name="SPACE7" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
-margin_top = 121.0
-margin_bottom = 135.0
+margin_top = 147.0
+margin_bottom = 161.0
 
 [node name="ICON7" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 4.0
-margin_top = 120.0
+margin_top = 144.0
 margin_right = 20.0
-margin_bottom = 136.0
+margin_bottom = 164.0
 texture = ExtResource( 7 )
 
 [node name="VSeparator1a7" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 24.0
-margin_top = 120.0
+margin_top = 144.0
 margin_right = 28.0
-margin_bottom = 136.0
+margin_bottom = 164.0
 
 [node name="DISTANCE7" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 32.0
-margin_top = 121.0
+margin_top = 147.0
 margin_right = 80.0
-margin_bottom = 135.0
+margin_bottom = 161.0
 text = "100 m"
 
 [node name="VSeparator1b7" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 84.0
-margin_top = 120.0
+margin_top = 144.0
 margin_right = 88.0
-margin_bottom = 136.0
+margin_bottom = 164.0
 
-[node name="NAME7" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME7" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
 margin_left = 92.0
-margin_top = 121.0
-margin_right = 234.0
-margin_bottom = 135.0
+margin_top = 144.0
+margin_right = 246.0
+margin_bottom = 164.0
+rect_min_size = Vector2( 0, 14 )
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Asteroid (Veldspar)"
+flat = true
 align = 2
 
 [node name="LowerHUD" type="Panel" parent="."]
@@ -537,8 +565,36 @@ step = 1.0
 [node name="MiningCycle" type="Timer" parent="LowerHUD/MiningButton"]
 wait_time = 5.0
 
-[connection signal="mouse_entered" from="OverviewHUD" to="." method="_on_OverviewHUD_mouse_entered"]
-[connection signal="mouse_exited" from="OverviewHUD" to="." method="_on_OverviewHUD_mouse_exited"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/BUTTONSBOX/MOVETOButton" to="." method="_on_OVERVIEWButton_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/BUTTONSBOX/MOVETOButton" to="." method="_on_OVERVIEWButton_mouse_exited"]
+[connection signal="pressed" from="OverviewHUD/VBoxContainer/BUTTONSBOX/MOVETOButton" to="." method="_on_MOVETOButton_pressed"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/BUTTONSBOX/WARPTOButton" to="." method="_on_OVERVIEWButton_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/BUTTONSBOX/WARPTOButton" to="." method="_on_OVERVIEWButton_mouse_exited"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/BUTTONSBOX/DOCK" to="." method="_on_OVERVIEWButton_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/BUTTONSBOX/DOCK" to="." method="_on_OVERVIEWButton_mouse_exited"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/BUTTONSBOX/MINE" to="." method="_on_OVERVIEWButton_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/BUTTONSBOX/MINE" to="." method="_on_OVERVIEWButton_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME1" to="." method="_on_NAME1_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME1" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME1" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME2" to="." method="_on_NAME2_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME2" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME2" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME3" to="." method="_on_NAME3_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME3" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME3" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME4" to="." method="_on_NAME4_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME4" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME4" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME5" to="." method="_on_NAME5_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME5" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME5" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME6" to="." method="_on_NAME6_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME6" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME6" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME7" to="." method="_on_NAME7_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME7" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME7" to="." method="_on_NAME1_7_mouse_exited"]
 [connection signal="mouse_entered" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_mouse_entered"]
 [connection signal="mouse_exited" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_mouse_exited"]
 [connection signal="pressed" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_pressed"]

@@ -284,5 +284,7 @@ starting_theme = "BelowTheAsteroids"
 position = Vector2( -195, -69 )
 
 [connection signal="mining_button_pressed" from="SpaceUI" to="." method="_on_SpaceUI_mining_button_pressed"]
+[connection signal="mining_cycle_completed" from="SpaceUI" to="." method="_on_SpaceUI_mining_cycle_completed"]
 [connection signal="overview_move_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_move_to"]
 [connection signal="overview_name1_selected" from="SpaceUI" to="." method="_on_SpaceUI_overview_name1_selected"]
+[connection signal="asteroid_depleted" from="Asteroid" to="." method="_on_Asteroid_asteroid_depleted"]

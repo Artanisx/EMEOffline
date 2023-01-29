@@ -9,6 +9,7 @@ signal overview_name5_selected
 signal overview_name6_selected
 signal overview_name7_selected
 signal overview_move_to
+signal mining_cycle_completed
 
 onready var _mining_cycle = $LowerHUD/MiningButton/MiningCycle
 onready var _mining_bar = $LowerHUD/MiningButton/MiningBar
@@ -78,7 +79,6 @@ func _on_NAME7_gui_input(event: InputEvent) -> void:
 func _on_MOVETOButton_pressed() -> void:
 	emit_signal("overview_move_to")
 
-
 func _on_OVERVIEWButton_mouse_entered() -> void:
 	overview_panel_hover = true
 	print("OVERVIEW HOVER")
@@ -95,3 +95,6 @@ func _on_NAME1_7_mouse_entered() -> void:
 func _on_NAME1_7_mouse_exited() -> void:
 	overview_panel_hover = false
 	print("OVERVIEW NOT HOVER")
+
+func _on_MiningCycle_timeout() -> void:
+	emit_signal("mining_cycle_completed")

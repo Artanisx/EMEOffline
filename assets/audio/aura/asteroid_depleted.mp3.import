@@ -11,5 +11,5 @@ dest_files=[ "res://.import/asteroid_depleted.mp3-25459f8e19b5948e4ef5bbb83e0013
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

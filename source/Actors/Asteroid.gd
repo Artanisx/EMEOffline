@@ -5,6 +5,9 @@ extends Celestial
 ## It represent an asteroid object, extends Celestial.
 class_name Asteroid
 
+# Signals
+signal asteroid_depleted
+
 # Member variables
 # ----------------
 
@@ -55,7 +58,9 @@ func get_mined(mined_amount: int) -> int:
 		return mined_amount	
 	else:
 		# There's not enough veldspar for this cycle
-		# This asteroid should be destroyed
+		emit_signal("asteroid_depleted")
+		
+		# This asteroid should be destroyed		
 		## TO DO: DESTROY ASTEROID		
 		# Play "The asteroid is Depleted"
 		_audio_aura_depleted.play()

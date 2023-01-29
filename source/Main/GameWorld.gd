@@ -151,7 +151,7 @@ func _on_SpaceUI_mining_button_pressed():
 	print("Minign time!")
 	_space_ui_mining_button.get_node("MiningBar").value = 0	
 	_space_ui_mining_button.get_node("MiningBar").max_value = _player.player_mining_laser_cycle
-	_space_ui_mining_button.get_node("MiningCycle").start()
+	_space_ui_mining_button.get_node("MiningCycle").start()	
 
 func _on_SpaceUI_overview_name1_selected() -> void:	
 	## DEBUGGING
@@ -182,4 +182,13 @@ func _on_SpaceUI_overview_move_to() -> void:
 		
 		#  now go!
 		_player.face(_player.target_pos)
-	
+
+func _on_SpaceUI_mining_cycle_completed() -> void:
+	#DEBUG! Mine the only veldsar!
+	$Asteroid.get_mined(2000)
+	print("Veldspar: " + str($Asteroid.veldspar_amount))
+
+
+## DEBUG! Probably we should link all asteroids (via code not inspectr) to this lone signal
+func _on_Asteroid_asteroid_depleted() -> void:
+	_space_ui_mining_button.get_node("MiningCycle").stop()

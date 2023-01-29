@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "StringHelper",
 "language": "GDScript",
 "path": "res://source/Helpers/StringHelper.gd"
+}, {
+"base": "Asteroid",
+"class": "Veldspar",
+"language": "GDScript",
+"path": "res://source/Actors/Veldspar.gd"
 } ]
 _global_script_class_icons={
 "Asteroid": "",
 "Celestial": "",
 "GitAPI": "",
-"StringHelper": ""
+"StringHelper": "",
+"Veldspar": ""
 }
 
 [application]

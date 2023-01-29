@@ -11,8 +11,8 @@ signal asteroid_depleted
 # Member variables
 # ----------------
 
-## The starting amount of veldspar
-export var start_veldspar_amount: int = 5000
+## The starting amount of ore
+export var start_ore_amount: int = 5000
 
 ## How quickly this asteroid should rotate
 export var rotation_speed = 1
@@ -20,10 +20,21 @@ export var rotation_speed = 1
 ## This should be an AudioStreamPlayer
 onready var _audio_aura_depleted: AudioStreamPlayer = $AURA_Depleted
 
-## This is the quantity of Veldspar it contains
-var veldspar_amount: int = start_veldspar_amount
+## This is the quantity of Ore it contains
+var ore_amount: int = start_ore_amount
 
 ## Kind of Asteroid [CURRENTLY UNUSED]
+enum Kind {
+	EMPTY				= 0,  ## EMPTY ASTEROID
+	VELDSPAR			= 1,  ## Veldspar Asteroid
+	KERNITE				= 2,  ## Kernite Asteroid [UNUSED]
+	SCORDITE			= 3,  ## Scordite Asteroid [UNUSED]
+}
+
+## This asteroid kind (default VELDSPAR)
+export (Kind) var AsteroidKind = Kind.VELDSPAR
+
+## Density of Asteroid [CURRENTLY UNUSED]
 enum Density {
 	NORMAL			= 0,  ## Normal asteroid
 	CONCENTRATED	= 1,  ## Yield incrased by 5%
@@ -31,37 +42,48 @@ enum Density {
 }
 
 ## This asteroid density (default NORMAL) [CURRENTLY UNUSED]
-export (Density) var AsteroidType = Density.NORMAL
+export (Density) var AsteroidDensity = Density.NORMAL
 
 ## Constructor
 # ------------
 func _init():
 	# This is an asteroid so set it's celestial type accordingly
 	CelestialType = Type.ASTEROID
+	
+	# Set the celestial variables for a minable Asteroid
+	warpable_to = false
+	movable_to = true
+	minable = true
+	dockable = false
+	overview_visibile = true
 
 func _ready():
 	# Check if the AudioStream has been set
 	if (_audio_aura_depleted == null):
-		printerr("DEV - You forgot to add the AudioStream to the asteroid.")
+		printerr("DEV - You forgot to add the AudioStream to the asteroid. I'll add it myself.")
+		_audio_aura_depleted = AudioStreamPlayer.new()
+		_audio_aura_depleted.stream = load("res://assets/audio/aura/asteroid_depleted.mp3")
+		add_child(_audio_aura_depleted)
 	
 ## Override _process to slowly rotate the asteroid
 func _process(delta):
 	rotation += rotation_speed * delta
 
 ## This function should be called at the end of a mining cycle to mine it
-func get_mined(mined_amount: int) -> int:
-	if (veldspar_amount > mined_amount):
-		# There's enough veldspar for this cycle
-		veldspar_amount -= mined_amount
+## It returns an amount and the asteroid kind (Veldspar currently)
+func get_mined(mined_amount: int) -> Array:
+	if (ore_amount > mined_amount):
+		# There's enough ore for this cycle
+		ore_amount -= mined_amount
 		
 		# Return this mined amount so it can be added to the cargo hold
-		return mined_amount	
+		return [mined_amount, AsteroidKind]	
 	else:
-		# There's not enough veldspar for this cycle
+		# There's not enough ore for this cycle
 		emit_signal("asteroid_depleted")
 		
 		# This asteroid should be destroyed		
 		## TO DO: DESTROY ASTEROID		
 		# Play "The asteroid is Depleted"
 		_audio_aura_depleted.play()
-		return 0
+		return [0, Kind.EMPTY]

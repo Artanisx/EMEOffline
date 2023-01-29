@@ -21,7 +21,7 @@ export var rotation_speed = 1
 onready var _audio_aura_depleted: AudioStreamPlayer = $AURA_Depleted
 
 ## This is the quantity of Ore it contains
-var ore_amount: int = start_ore_amount
+var ore_amount: int = 0
 
 ## Kind of Asteroid [CURRENTLY UNUSED]
 enum Kind {
@@ -63,7 +63,11 @@ func _ready():
 		printerr("DEV - You forgot to add the AudioStream to the asteroid. I'll add it myself.")
 		_audio_aura_depleted = AudioStreamPlayer.new()
 		_audio_aura_depleted.stream = load("res://assets/audio/aura/asteroid_depleted.mp3")
-		add_child(_audio_aura_depleted)
+		_audio_aura_depleted.connect("finished", self, "on_depleted_finished")	
+		add_child(_audio_aura_depleted)		
+		
+	# Connect the finished signal
+	_audio_aura_depleted.connect("finished", self, "on_depleted_finished")		
 	
 ## Override _process to slowly rotate the asteroid
 func _process(delta):
@@ -82,8 +86,10 @@ func get_mined(mined_amount: int) -> Array:
 		# There's not enough ore for this cycle
 		emit_signal("asteroid_depleted")
 		
-		# This asteroid should be destroyed		
-		## TO DO: DESTROY ASTEROID		
 		# Play "The asteroid is Depleted"
 		_audio_aura_depleted.play()
 		return [0, Kind.EMPTY]
+		
+func on_depleted_finished() -> void:
+	## TO DO: DESTROY ASTEROID ANIMATION		
+	queue_free()	

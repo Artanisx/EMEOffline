@@ -280,10 +280,12 @@ scale = Vector2( 0.2, 0.2 )
 [node name="GameMusicPlayer" parent="." instance=ExtResource( 4 )]
 starting_theme = "BelowTheAsteroids"
 
-[node name="Veldspar Asteroid" parent="." instance=ExtResource( 7 )]
-position = Vector2( -236, -99 )
+[node name="VeldsparAsteroid" parent="." instance=ExtResource( 7 )]
+position = Vector2( -235, -91 )
+start_ore_amount = 300
 
 [connection signal="mining_button_pressed" from="SpaceUI" to="." method="_on_SpaceUI_mining_button_pressed"]
 [connection signal="mining_cycle_completed" from="SpaceUI" to="." method="_on_SpaceUI_mining_cycle_completed"]
 [connection signal="overview_move_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_move_to"]
 [connection signal="overview_name1_selected" from="SpaceUI" to="." method="_on_SpaceUI_overview_name1_selected"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]

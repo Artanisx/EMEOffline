@@ -530,7 +530,6 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_styles/fg = SubResource( 4 )
 max_value = 1000.0
 step = 1.0
-value = 100.0
 
 [node name="LabelHold" type="Label" parent="LowerHUD/CargoHold"]
 margin_right = 40.0

@@ -25,6 +25,7 @@ var overview_selected_index = 0
 const max_zoom_out = 10
 export var proto_overview: bool = true
 var warnings_given: bool = false
+var DEBUG_SPEED_MINING: bool = true
 
 func _ready() -> void:
 	# Loads player variables
@@ -150,7 +151,12 @@ func _input(event) -> void:#
 func _on_SpaceUI_mining_button_pressed():
 	print("Minign time!")
 	_space_ui_mining_button.get_node("MiningBar").value = 0	
-	_space_ui_mining_button.get_node("MiningBar").max_value = _player.player_mining_laser_cycle
+	if (DEBUG_SPEED_MINING == false):
+		_space_ui_mining_button.get_node("MiningBar").max_value = _player.player_mining_laser_cycle
+		_space_ui_mining_button.get_node("MiningCycle").wait_time = _player.player_mining_laser_cycle
+	else:
+		_space_ui_mining_button.get_node("MiningBar").max_value = 1
+		_space_ui_mining_button.get_node("MiningCycle").wait_time = 1
 	_space_ui_mining_button.get_node("MiningCycle").start()	
 
 func _on_SpaceUI_overview_name1_selected() -> void:	
@@ -185,10 +191,12 @@ func _on_SpaceUI_overview_move_to() -> void:
 
 func _on_SpaceUI_mining_cycle_completed() -> void:
 	#DEBUG! Mine the only veldsar!
-	$Asteroid.get_mined(2000)
-	print("Veldspar: " + str($Asteroid.veldspar_amount))
+	$VeldsparAsteroid.get_mined(100)
+	print("Veldspar remaining: " + str($VeldsparAsteroid.ore_amount))
+	_player.player_cargo_hold += 100
 
 
 ## DEBUG! Probably we should link all asteroids (via code not inspectr) to this lone signal
-func _on_Asteroid_asteroid_depleted() -> void:
+func _on_VeldsparAsteroid_asteroid_depleted() -> void:
 	_space_ui_mining_button.get_node("MiningCycle").stop()
+	_space_ui_mining_button.get_node("MiningBar").value = 0

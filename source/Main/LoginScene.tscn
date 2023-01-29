@@ -106,7 +106,7 @@ alignment = 1
 margin_left = 373.0
 margin_right = 873.0
 margin_bottom = 250.0
-hint_tooltip = "Version prototype 0.01"
+hint_tooltip = "Version prototype 0.059"
 texture = ExtResource( 4 )
 
 [node name="Separator2" type="Label" parent="MarginContainer/VBoxContainer/HEADER"]

@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Celestial",
+"class": "Asteroid",
+"language": "GDScript",
+"path": "res://source/Actors/Asteroid.gd"
+}, {
+"base": "Area2D",
+"class": "Celestial",
+"language": "GDScript",
+"path": "res://source/Actors/Celestial.gd"
+}, {
 "base": "",
 "class": "GitAPI",
 "language": "NativeScript",
@@ -20,6 +30,8 @@ _global_script_classes=[ {
 "path": "res://source/Helpers/StringHelper.gd"
 } ]
 _global_script_class_icons={
+"Asteroid": "",
+"Celestial": "",
 "GitAPI": "",
 "StringHelper": ""
 }

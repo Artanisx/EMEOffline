@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://source/Actors/Asteroid.gd" type="Script" id=1]
+[ext_resource path="res://assets/art/ui/veldspar.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/ui/veldspar_icon.png" type="Texture" id=3]
+[ext_resource path="res://assets/audio/aura/asteroid_depleted.mp3" type="AudioStream" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 306.757
+
+[node name="Asteroid" type="Area2D"]
+scale = Vector2( 0.1, 0.1 )
+script = ExtResource( 1 )
+overview_name = "Asteroid (Veldspar)"
+overview_icon = ExtResource( 3 )
+minable = true
+offset_global_position = Vector2( 50, 75 )
+CelestialType = 4
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -20, -20 )
+shape = SubResource( 1 )
+
+[node name="AURA_Depleted" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )

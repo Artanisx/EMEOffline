@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/asteroid_depleted.mp3-25459f8e19b5948e4ef5bbb83e001323.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/aura/asteroid_depleted.mp3"
+dest_files=[ "res://.import/asteroid_depleted.mp3-25459f8e19b5948e4ef5bbb83e001323.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -16,12 +16,15 @@ onready var _props = $Props
 
 # OVERVIEW
 var overview = {}
+#var celestial: Celestial = Celestial.new()
 
 var overview_selected: bool = false
 var overview_selected_index = 0
 
 # DEBUGGING
 const max_zoom_out = 10
+export var proto_overview: bool = true
+var warnings_given: bool = false
 
 func _ready() -> void:
 	# Loads player variables
@@ -31,10 +34,16 @@ func _ready() -> void:
 	set_space_ui()
 	
 	# Load overview
-	load_overview()
+	load_overview_proto()
 	
 func _process(delta) -> void:
 	update_space_ui()
+	
+	### CHECK FOR WARNINGS
+	if proto_overview == false and warnings_given == false:
+		printerr("[WARNING] PROTO OVERVIEW IS DISABLED")
+		warnings_given = true
+		
 
 func set_space_ui() -> void:
 	_space_ui_speed.max_value = _player.movement_speed	
@@ -57,13 +66,18 @@ func update_space_ui() -> void:
 		
 	_space_ui_mining_button.hint_tooltip = _player.MINING_LASER.keys()[_player.player_mining_laser] + "\n\nCycle: " + str(_player.player_mining_laser_cycle) + " seconds\nRange: " + str(_player.player_mining_laser_range) + " km\nYield: [" + str(_player.player_mining_laser_yield) + " m3]"	
 	
-	load_overview()
+	load_overview_proto()
 	
 	# update selection box (distance)	
 	update_overview_selection_text_distance(overview_selected_index)			
 	
 
-func load_overview() -> void:
+func load_overview_proto() -> void:
+	## DEBUGGING
+	if proto_overview == false:		
+		return
+	## END DEBUGGING
+		
 	var counter = 1
 	for asteroid in _props.get_children():
 		if counter <= 7:
@@ -77,6 +91,11 @@ func load_overview() -> void:
 		counter = counter + 1	
 
 func update_overview_selection_text_distance(index: int) -> Node2D:	
+	## DEBUGGING
+	if (proto_overview == false):		
+		return null
+	## END DEBUGGING	
+	
 	# This function updates the sleection text in the overview, getting name and calculating distance
 	# We pass an index, the number of the item in the overview from 1 to 7
 	# 0 is not valid, it means nothing is selected
@@ -135,6 +154,10 @@ func _on_SpaceUI_mining_button_pressed():
 	_space_ui_mining_button.get_node("MiningCycle").start()
 
 func _on_SpaceUI_overview_name1_selected() -> void:	
+	## DEBUGGING
+	if (proto_overview == false):		
+		return
+	## END DEBUGGING	
 	
 	# Set the Selection text with node and distance, plus store a reference to the node itself
 	var reference = update_overview_selection_text_distance(1)

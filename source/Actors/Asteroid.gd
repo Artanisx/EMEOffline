@@ -88,8 +88,9 @@ func get_mined(mined_amount: int) -> Array:
 		
 		# Play "The asteroid is Depleted"
 		_audio_aura_depleted.play()
+		
+		## TO DO: START DESTROY ASTEROID ANIMATION so, when audio is done and the asteroid is queued_free there is not abrupt vanish
 		return [0, Kind.EMPTY]
 		
-func on_depleted_finished() -> void:
-	## TO DO: DESTROY ASTEROID ANIMATION		
+func on_depleted_finished() -> void:			
 	queue_free()	

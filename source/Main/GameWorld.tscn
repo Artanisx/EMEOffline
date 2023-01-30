@@ -282,7 +282,7 @@ starting_theme = "BelowTheAsteroids"
 
 [node name="VeldsparAsteroid" parent="." instance=ExtResource( 7 )]
 position = Vector2( -235, -91 )
-start_ore_amount = 300
+start_ore_amount = 10000
 
 [connection signal="mining_button_pressed" from="SpaceUI" to="." method="_on_SpaceUI_mining_button_pressed"]
 [connection signal="mining_cycle_completed" from="SpaceUI" to="." method="_on_SpaceUI_mining_cycle_completed"]

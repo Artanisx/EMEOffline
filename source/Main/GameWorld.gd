@@ -150,6 +150,15 @@ func _input(event) -> void:#
 ## SPACE UI
 func _on_SpaceUI_mining_button_pressed():
 	print("Minign time!")
+	if ($VeldsparAsteroid == null):
+		print("The asteroid is no more!")
+		return
+	
+	## Before starting the mining cycle, check if the ore hold is full
+	if (_player.player_cargo_hold >= _player.player_cargo_hold_capacity):
+		print("Cargo hold is full")
+		return
+		
 	_space_ui_mining_button.get_node("MiningBar").value = 0	
 	if (DEBUG_SPEED_MINING == false):
 		_space_ui_mining_button.get_node("MiningBar").max_value = _player.player_mining_laser_cycle
@@ -191,9 +200,19 @@ func _on_SpaceUI_overview_move_to() -> void:
 
 func _on_SpaceUI_mining_cycle_completed() -> void:
 	#DEBUG! Mine the only veldsar!
+	if ($VeldsparAsteroid == null):
+		print("The asteroid is no more!")
+		return
 	$VeldsparAsteroid.get_mined(100)
 	print("Veldspar remaining: " + str($VeldsparAsteroid.ore_amount))
-	_player.player_cargo_hold += 100
+	
+	if (_player.player_cargo_hold + 100 <= _player.player_cargo_hold_capacity):
+		_player.player_cargo_hold += 100
+	else:
+		print("Cargo hold full!!!")
+		_space_ui_mining_button.get_node("MiningCycle").stop()
+		_space_ui_mining_button.get_node("MiningBar").value = 0
+		return
 
 
 ## DEBUG! Probably we should link all asteroids (via code not inspectr) to this lone signal

@@ -364,5 +364,7 @@ func update_overview_selected() -> void:
 			# Set the selection text to the node name and its distance
 			_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)
 	else:
-		# nothing has been seleted yet, so ignore this
+		# nothing has been seleted, let's clear this
+		_space_ui_overview_selection_text.text = "Nothing is selected."
+		_space_ui_overview_selection_icon.texture = load("res://assets/art/ui/empty_icon.png")
 		return	

@@ -90,6 +90,9 @@ func get_mined(mined_amount: int) -> Array:
 		_audio_aura_depleted.play()
 		
 		## TO DO: START DESTROY ASTEROID ANIMATION so, when audio is done and the asteroid is queued_free there is not abrupt vanish
+		
+		# For now let's instantly hide it at least
+		hide()
 		return [0, Kind.EMPTY]
 		
 func on_depleted_finished() -> void:			

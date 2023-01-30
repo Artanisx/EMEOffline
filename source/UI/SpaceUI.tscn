@@ -579,7 +579,5 @@ wait_time = 5.0
 [connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME5" to="." method="_on_NAME5_gui_input"]
 [connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME6" to="." method="_on_NAME6_gui_input"]
 [connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME7" to="." method="_on_NAME7_gui_input"]
-[connection signal="mouse_entered" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_mouse_entered"]
-[connection signal="mouse_exited" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_mouse_exited"]
 [connection signal="pressed" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_pressed"]
 [connection signal="timeout" from="LowerHUD/MiningButton/MiningCycle" to="." method="_on_MiningCycle_timeout"]

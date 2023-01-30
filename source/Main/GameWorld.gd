@@ -233,8 +233,6 @@ func _on_VeldsparAsteroid_asteroid_depleted() -> void:
 	_space_ui_mining_button.get_node("MiningBar").value = 0
 	
 func _on_overview_selected(index: int) -> void:
-	print("Button " + str(index) + " pressed")
-	
 	# Store the instance id
 	var instance_id = index
 	
@@ -250,7 +248,7 @@ func _on_overview_selected(index: int) -> void:
 	# Set the selection text	
 	set_overview_selected_instance(instance_id)	
 	
-func set_overview_selected_instance(instance_id: int) -> void:		
+func set_overview_selected_instance(instance_id: int) -> void:
 	# Get the reference node from the overview table
 	var celestial = overview[instance_id]
 	
@@ -258,9 +256,14 @@ func set_overview_selected_instance(instance_id: int) -> void:
 
 	# Calculate the distance
 	var distance = str(round(_player.position.distance_to(celestial.position))) + " m"
-
-	# Set the selection text to the node name and its distance
-	_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)
+	
+	# If this is an asteroid we should also report the ore amount
+	if celestial.minable == true:
+		# Set the selection text to the node name and its distance and its ore contents
+		_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance) + "\nOre: " + str(celestial.ore_amount)		
+	else:
+		# Set the selection text to the node name and its distance
+		_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)
 	
 	# Set the correct icon now
 	_space_ui_overview_selection_icon.texture = celestial.overview_selection_icon
@@ -297,9 +300,14 @@ func update_overview_selected() -> void:
 
 		# Calculate the distance
 		var distance = str(round(_player.position.distance_to(celestial.position))) + " m"
-
-		# Set the selection text to the node name and its distance
-		_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)		
+		
+		# If this is an asteroid we should also report the ore amount
+		if celestial.minable == true:
+			# Set the selection text to the node name and its distance and its ore contents
+			_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance) + "\nOre: " + str(celestial.ore_amount)		
+		else:
+			# Set the selection text to the node name and its distance
+			_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)
 	else:
 		# nothing has been seleted yet, so ignore this
 		return	

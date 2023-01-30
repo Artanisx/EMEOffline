@@ -182,7 +182,16 @@ func _unhandled_input(event) -> void:#
 ## SPACE UI
 func _on_SpaceUI_mining_button_pressed():
 	print("Minign time!")
-	if ($VeldsparAsteroid == null):
+	
+	# First we should check if we have an asteroid selected
+	var celestial = overview[selected_instance_id]
+	
+	if celestial.minable == false:
+		# trying to mine something that isn't minable, really?
+		return
+	
+	# OK we have our asteroid, before going anywhere else let's check if it's still there	
+	if (celestial == null):
 		print("The asteroid is no more!")
 		return
 	
@@ -190,6 +199,10 @@ func _on_SpaceUI_mining_button_pressed():
 	if (_player.player_cargo_hold >= _player.player_cargo_hold_capacity):
 		print("Cargo hold is full")
 		return
+	
+	# TODO Consider RANGE! If out of range, we can't mine! We should move closer instead.	
+	
+	# Ok, so we can get this show on the road after all. Start mining!
 		
 	_space_ui_mining_button.get_node("MiningBar").value = 0	
 	if (DEBUG_SPEED_MINING == false):
@@ -211,16 +224,24 @@ func _on_SpaceUI_overview_move_to() -> void:
 		#  now go!
 		_player.face(_player.target_pos)
 
-func _on_SpaceUI_mining_cycle_completed() -> void:
-	#DEBUG! Mine the only veldsar!
-	if ($VeldsparAsteroid == null):
-		print("The asteroid is no more!")
-		return
-	$VeldsparAsteroid.get_mined(100)
-	print("Veldspar remaining: " + str($VeldsparAsteroid.ore_amount))
+func _on_SpaceUI_mining_cycle_completed() -> void:	
+	# First, get a reference to the selected object which we are mining
+	var celestial = overview[selected_instance_id]
 	
-	if (_player.player_cargo_hold + 100 <= _player.player_cargo_hold_capacity):
-		_player.player_cargo_hold += 100
+	# WARNING! The player might deselect it, and this will mess things up. Keep this in mind!
+	# TODO: Handle deselection
+	
+	if (celestial == null):
+		print("The asteroid is no more!")
+		return	
+		
+	# Time to mine it!
+	celestial.get_mined(_player.player_mining_laser_yield)
+	print("Veldspar remaining: " + str(celestial.ore_amount))
+	
+	# Get the mineral in the ore hold, unless it's full!
+	if (_player.player_cargo_hold + _player.player_mining_laser_yield <= _player.player_cargo_hold_capacity):
+		_player.player_cargo_hold += _player.player_mining_laser_yield
 	else:
 		print("Cargo hold full!!!")
 		_space_ui_mining_button.get_node("MiningCycle").stop()

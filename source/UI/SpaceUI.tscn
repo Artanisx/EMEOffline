@@ -50,112 +50,117 @@ script = ExtResource( 4 )
 [node name="OverviewHUD" type="Panel" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -250.0
+margin_left = -265.0
 margin_top = 5.0
 margin_right = -5.0
-margin_bottom = 296.0
+margin_bottom = 291.0
 custom_styles/panel = ExtResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="OverviewHUD"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_right = 260.0
+margin_bottom = 284.0
 alignment = 1
 
 [node name="SELECTIONBOX" type="HBoxContainer" parent="OverviewHUD/VBoxContainer"]
-margin_top = 3.0
-margin_right = 246.0
-margin_bottom = 67.0
+margin_top = 2.0
+margin_right = 260.0
+margin_bottom = 66.0
 alignment = 1
 
 [node name="SELECTIONICON" type="TextureRect" parent="OverviewHUD/VBoxContainer/SELECTIONBOX"]
-margin_left = 8.0
-margin_right = 72.0
+margin_left = 15.0
+margin_right = 79.0
 margin_bottom = 64.0
 texture = ExtResource( 9 )
 
 [node name="SELECTIONTEXT" type="Label" parent="OverviewHUD/VBoxContainer/SELECTIONBOX"]
-margin_left = 76.0
+margin_left = 83.0
 margin_top = 16.0
-margin_right = 238.0
+margin_right = 245.0
 margin_bottom = 47.0
 rect_min_size = Vector2( 162, 31 )
 text = "Ishukone Refining Station
 Distance: 100 km"
 
 [node name="HSeparator" type="HSeparator" parent="OverviewHUD/VBoxContainer"]
-margin_top = 71.0
-margin_right = 246.0
-margin_bottom = 75.0
+margin_top = 70.0
+margin_right = 260.0
+margin_bottom = 74.0
 
 [node name="BUTTONSBOX" type="HBoxContainer" parent="OverviewHUD/VBoxContainer"]
-margin_top = 79.0
-margin_right = 246.0
-margin_bottom = 111.0
+margin_top = 78.0
+margin_right = 260.0
+margin_bottom = 110.0
 alignment = 1
 
 [node name="MOVETOButton" type="TextureButton" parent="OverviewHUD/VBoxContainer/BUTTONSBOX"]
-margin_left = 53.0
-margin_right = 85.0
+margin_left = 60.0
+margin_right = 92.0
 margin_bottom = 32.0
 texture_normal = ExtResource( 8 )
 
 [node name="WARPTOButton" type="TextureButton" parent="OverviewHUD/VBoxContainer/BUTTONSBOX"]
-margin_left = 89.0
-margin_right = 121.0
+margin_left = 96.0
+margin_right = 128.0
 margin_bottom = 32.0
 texture_normal = ExtResource( 12 )
 
 [node name="DOCK" type="TextureButton" parent="OverviewHUD/VBoxContainer/BUTTONSBOX"]
-margin_left = 125.0
-margin_right = 157.0
+margin_left = 132.0
+margin_right = 164.0
 margin_bottom = 32.0
 texture_normal = ExtResource( 10 )
 
 [node name="MINE" type="TextureButton" parent="OverviewHUD/VBoxContainer/BUTTONSBOX"]
-margin_left = 161.0
-margin_right = 193.0
+margin_left = 168.0
+margin_right = 200.0
 margin_bottom = 32.0
 texture_normal = ExtResource( 11 )
 
 [node name="HSeparator2" type="HSeparator" parent="OverviewHUD/VBoxContainer"]
-margin_top = 115.0
-margin_right = 246.0
-margin_bottom = 119.0
+margin_top = 114.0
+margin_right = 260.0
+margin_bottom = 118.0
 
-[node name="TABLE" type="GridContainer" parent="OverviewHUD/VBoxContainer"]
-margin_top = 123.0
+[node name="ScrollContainer" type="ScrollContainer" parent="OverviewHUD/VBoxContainer"]
+margin_top = 122.0
+margin_right = 260.0
+margin_bottom = 282.0
+rect_min_size = Vector2( 246, 160 )
+
+[node name="TABLE" type="GridContainer" parent="OverviewHUD/VBoxContainer/ScrollContainer"]
 margin_right = 246.0
-margin_bottom = 287.0
+margin_bottom = 164.0
 columns = 6
 
-[node name="SPACE1" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="SPACE1" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_top = 3.0
 margin_bottom = 17.0
 
-[node name="ICON1" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="ICON1" type="TextureRect" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 4.0
 margin_right = 20.0
 margin_bottom = 20.0
 texture = ExtResource( 7 )
 
-[node name="VSeparator1a" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1a" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 24.0
 margin_right = 28.0
 margin_bottom = 20.0
 
-[node name="DISTANCE1" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="DISTANCE1" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 32.0
 margin_top = 3.0
 margin_right = 80.0
 margin_bottom = 17.0
 text = "100 km"
 
-[node name="VSeparator1b" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1b" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 84.0
 margin_right = 88.0
 margin_bottom = 20.0
 
-[node name="NAME1" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME1" type="Button" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 92.0
 margin_right = 246.0
 margin_bottom = 20.0
@@ -166,37 +171,37 @@ text = "Ishokone Refining Stat"
 flat = true
 align = 2
 
-[node name="SPACE2" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="SPACE2" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_top = 27.0
 margin_bottom = 41.0
 
-[node name="ICON2" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="ICON2" type="TextureRect" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 4.0
 margin_top = 24.0
 margin_right = 20.0
 margin_bottom = 44.0
 texture = ExtResource( 7 )
 
-[node name="VSeparator1a2" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1a2" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 24.0
 margin_top = 24.0
 margin_right = 28.0
 margin_bottom = 44.0
 
-[node name="DISTANCE2" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="DISTANCE2" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 32.0
 margin_top = 27.0
 margin_right = 80.0
 margin_bottom = 41.0
 text = "100 m"
 
-[node name="VSeparator1b2" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1b2" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 84.0
 margin_top = 24.0
 margin_right = 88.0
 margin_bottom = 44.0
 
-[node name="NAME2" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME2" type="Button" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 92.0
 margin_top = 24.0
 margin_right = 246.0
@@ -208,37 +213,37 @@ text = "Asteroid (Veldspar)"
 flat = true
 align = 2
 
-[node name="SPACE3" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="SPACE3" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_top = 51.0
 margin_bottom = 65.0
 
-[node name="ICON3" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="ICON3" type="TextureRect" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 4.0
 margin_top = 48.0
 margin_right = 20.0
 margin_bottom = 68.0
 texture = ExtResource( 7 )
 
-[node name="VSeparator1a3" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1a3" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 24.0
 margin_top = 48.0
 margin_right = 28.0
 margin_bottom = 68.0
 
-[node name="DISTANCE3" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="DISTANCE3" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 32.0
 margin_top = 51.0
 margin_right = 80.0
 margin_bottom = 65.0
 text = "100 m"
 
-[node name="VSeparator1b3" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1b3" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 84.0
 margin_top = 48.0
 margin_right = 88.0
 margin_bottom = 68.0
 
-[node name="NAME3" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME3" type="Button" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 92.0
 margin_top = 48.0
 margin_right = 246.0
@@ -250,37 +255,37 @@ text = "Asteroid (Veldspar)"
 flat = true
 align = 2
 
-[node name="SPACE4" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="SPACE4" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_top = 75.0
 margin_bottom = 89.0
 
-[node name="ICON4" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="ICON4" type="TextureRect" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 4.0
 margin_top = 72.0
 margin_right = 20.0
 margin_bottom = 92.0
 texture = ExtResource( 7 )
 
-[node name="VSeparator1a4" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1a4" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 24.0
 margin_top = 72.0
 margin_right = 28.0
 margin_bottom = 92.0
 
-[node name="DISTANCE4" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="DISTANCE4" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 32.0
 margin_top = 75.0
 margin_right = 80.0
 margin_bottom = 89.0
 text = "100 m"
 
-[node name="VSeparator1b4" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1b4" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 84.0
 margin_top = 72.0
 margin_right = 88.0
 margin_bottom = 92.0
 
-[node name="NAME4" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME4" type="Button" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 92.0
 margin_top = 72.0
 margin_right = 246.0
@@ -292,37 +297,37 @@ text = "Asteroid (Veldspar)"
 flat = true
 align = 2
 
-[node name="SPACE5" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="SPACE5" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_top = 99.0
 margin_bottom = 113.0
 
-[node name="ICON5" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="ICON5" type="TextureRect" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 4.0
 margin_top = 96.0
 margin_right = 20.0
 margin_bottom = 116.0
 texture = ExtResource( 7 )
 
-[node name="VSeparator1a5" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1a5" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 24.0
 margin_top = 96.0
 margin_right = 28.0
 margin_bottom = 116.0
 
-[node name="DISTANCE5" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="DISTANCE5" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 32.0
 margin_top = 99.0
 margin_right = 80.0
 margin_bottom = 113.0
 text = "100 m"
 
-[node name="VSeparator1b5" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1b5" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 84.0
 margin_top = 96.0
 margin_right = 88.0
 margin_bottom = 116.0
 
-[node name="NAME5" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME5" type="Button" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 92.0
 margin_top = 96.0
 margin_right = 246.0
@@ -334,37 +339,37 @@ text = "Asteroid (Veldspar)"
 flat = true
 align = 2
 
-[node name="SPACE6" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="SPACE6" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_top = 123.0
 margin_bottom = 137.0
 
-[node name="ICON6" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="ICON6" type="TextureRect" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 4.0
 margin_top = 120.0
 margin_right = 20.0
 margin_bottom = 140.0
 texture = ExtResource( 7 )
 
-[node name="VSeparator1a6" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1a6" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 24.0
 margin_top = 120.0
 margin_right = 28.0
 margin_bottom = 140.0
 
-[node name="DISTANCE6" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="DISTANCE6" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 32.0
 margin_top = 123.0
 margin_right = 80.0
 margin_bottom = 137.0
 text = "100 m"
 
-[node name="VSeparator1b6" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1b6" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 84.0
 margin_top = 120.0
 margin_right = 88.0
 margin_bottom = 140.0
 
-[node name="NAME6" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME6" type="Button" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 92.0
 margin_top = 120.0
 margin_right = 246.0
@@ -376,37 +381,37 @@ text = "Asteroid (Veldspar)"
 flat = true
 align = 2
 
-[node name="SPACE7" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="SPACE7" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_top = 147.0
 margin_bottom = 161.0
 
-[node name="ICON7" type="TextureRect" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="ICON7" type="TextureRect" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 4.0
 margin_top = 144.0
 margin_right = 20.0
 margin_bottom = 164.0
 texture = ExtResource( 7 )
 
-[node name="VSeparator1a7" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1a7" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 24.0
 margin_top = 144.0
 margin_right = 28.0
 margin_bottom = 164.0
 
-[node name="DISTANCE7" type="Label" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="DISTANCE7" type="Label" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 32.0
 margin_top = 147.0
 margin_right = 80.0
 margin_bottom = 161.0
 text = "100 m"
 
-[node name="VSeparator1b7" type="VSeparator" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="VSeparator1b7" type="VSeparator" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 84.0
 margin_top = 144.0
 margin_right = 88.0
 margin_bottom = 164.0
 
-[node name="NAME7" type="Button" parent="OverviewHUD/VBoxContainer/TABLE"]
+[node name="NAME7" type="Button" parent="OverviewHUD/VBoxContainer/ScrollContainer/TABLE"]
 margin_left = 92.0
 margin_top = 144.0
 margin_right = 246.0
@@ -573,27 +578,27 @@ wait_time = 5.0
 [connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/BUTTONSBOX/DOCK" to="." method="_on_OVERVIEWButton_mouse_exited"]
 [connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/BUTTONSBOX/MINE" to="." method="_on_OVERVIEWButton_mouse_entered"]
 [connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/BUTTONSBOX/MINE" to="." method="_on_OVERVIEWButton_mouse_exited"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME1" to="." method="_on_NAME1_gui_input"]
-[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME1" to="." method="_on_NAME1_7_mouse_entered"]
-[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME1" to="." method="_on_NAME1_7_mouse_exited"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME2" to="." method="_on_NAME2_gui_input"]
-[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME2" to="." method="_on_NAME1_7_mouse_entered"]
-[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME2" to="." method="_on_NAME1_7_mouse_exited"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME3" to="." method="_on_NAME3_gui_input"]
-[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME3" to="." method="_on_NAME1_7_mouse_entered"]
-[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME3" to="." method="_on_NAME1_7_mouse_exited"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME4" to="." method="_on_NAME4_gui_input"]
-[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME4" to="." method="_on_NAME1_7_mouse_entered"]
-[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME4" to="." method="_on_NAME1_7_mouse_exited"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME5" to="." method="_on_NAME5_gui_input"]
-[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME5" to="." method="_on_NAME1_7_mouse_entered"]
-[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME5" to="." method="_on_NAME1_7_mouse_exited"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME6" to="." method="_on_NAME6_gui_input"]
-[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME6" to="." method="_on_NAME1_7_mouse_entered"]
-[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME6" to="." method="_on_NAME1_7_mouse_exited"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/TABLE/NAME7" to="." method="_on_NAME7_gui_input"]
-[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/TABLE/NAME7" to="." method="_on_NAME1_7_mouse_entered"]
-[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/TABLE/NAME7" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME1" to="." method="_on_NAME1_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME1" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME1" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME2" to="." method="_on_NAME2_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME2" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME2" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME3" to="." method="_on_NAME3_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME3" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME3" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME4" to="." method="_on_NAME4_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME4" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME4" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME5" to="." method="_on_NAME5_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME5" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME5" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME6" to="." method="_on_NAME6_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME6" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME6" to="." method="_on_NAME1_7_mouse_exited"]
+[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME7" to="." method="_on_NAME7_gui_input"]
+[connection signal="mouse_entered" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME7" to="." method="_on_NAME1_7_mouse_entered"]
+[connection signal="mouse_exited" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME7" to="." method="_on_NAME1_7_mouse_exited"]
 [connection signal="mouse_entered" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_mouse_entered"]
 [connection signal="mouse_exited" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_mouse_exited"]
 [connection signal="pressed" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_pressed"]

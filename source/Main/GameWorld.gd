@@ -73,7 +73,8 @@ func update_space_ui() -> void:
 		
 	_space_ui_mining_button.hint_tooltip = _player.MINING_LASER.keys()[_player.player_mining_laser] + "\n\nCycle: " + str(_player.player_mining_laser_cycle) + " seconds\nRange: " + str(_player.player_mining_laser_range) + " km\nYield: [" + str(_player.player_mining_laser_yield) + " m3]"	
 	
-	load_overview_proto()
+	# Update the overview
+	update_overview_ui()
 	
 	# update selection box (distance)	
 	update_overview_selection_text_distance(overview_selected_index)			
@@ -111,6 +112,7 @@ func create_overview_ui() -> void:
 		var vsep_xa := VSeparator.new()
 		var distance_x := Label.new()
 		distance_x.text = str(round(_player.position.distance_to(celestial.position))) + " m"
+		distance_x.name = str(celestial.get_instance_id()) + "distance"		# give the distance_x node a name reachable with the instance id
 		distance_x.margin_left = 32
 		distance_x.margin_top = 2
 		distance_x.margin_right = 80
@@ -135,45 +137,12 @@ func create_overview_ui() -> void:
 		_space_ui_overview_table.add_child(distance_x)
 		_space_ui_overview_table.add_child(vsep_xb)
 		_space_ui_overview_table.add_child(name_x)	
-	
-	# Create the correct number of  overview rows
-#	for i in celestial_number:
-#		var space_label_x := Label.new()
-#		space_label_x.text = ""
-#		var icon := TextureRect.new()
-#		icon.texture = load("res://16icon.png")
-#		icon.margin_right = 20
-#		icon.margin_bottom = 20	
-#		icon.rect_position.x = 4
-#		icon.rect_size.x = 16
-#		icon.rect_size.y = 20
-#		var vsep_xa := VSeparator.new()
-#		var distance_x := Label.new()
-#		distance_x.text = "100m"
-#		distance_x.margin_left = 32
-#		distance_x.margin_top = 2
-#		distance_x.margin_right = 80
-#		distance_x.margin_bottom = 17
-#		distance_x.rect_size.x = 48
-#		distance_x.rect_size.y = 14
-#		var vsep_xb := VSeparator.new()
-#		var name_x := Button.new()
-#		name_x.text = "TEST[" + str(i) + "]"
-#		name_x.flat = true
-#		name_x.margin_left = 92
-#		name_x.margin_right = 246
-#		name_x.margin_bottom = 20
-#		name_x.rect_position.x = 92
-#		name_x.rect_size.x = 154
-#		name_x.rect_size.y = 20
-#		name_x.rect_min_size.y = 14		
-#		name_x.connect("pressed", self, "_on_overview_selected", [i])	
-#		_space_ui_overview_table.add_child(space_label_x)
-#		_space_ui_overview_table.add_child(icon)
-#		_space_ui_overview_table.add_child(vsep_xa)
-#		_space_ui_overview_table.add_child(distance_x)
-#		_space_ui_overview_table.add_child(vsep_xb)
-#		_space_ui_overview_table.add_child(name_x)	
+
+func update_overview_ui() -> void:
+	for celestial in overview.values():
+		var node = "SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + str(celestial.get_instance_id()) + "distance"		
+		var label = get_node(node) # the correct distance label in the overview
+		label.text = str(round(_player.position.distance_to(celestial.position))) + " m"
 
 func load_overview_proto() -> void:
 	## DEBUGGING

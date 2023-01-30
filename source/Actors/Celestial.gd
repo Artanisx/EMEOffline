@@ -16,6 +16,9 @@ export var overview_name: String = ""
 ## This is the icon of this celestial as it will show in the Overview.
 export var overview_icon: Resource = load("res://icon.png")
 
+## This is the icon of this celestial as it will show in the Overview Selection box.
+export var overview_selection_icon: Resource = load("res://icon.png")
+
 ## Is this celestial warpable to? Default: false
 export var warpable_to: bool = false
 

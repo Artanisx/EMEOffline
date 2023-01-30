@@ -12,6 +12,7 @@ onready var _space_ui_target = $SpaceUI/LowerHUD/LabelActionTarget
 onready var _space_ui_mining_button = $SpaceUI/LowerHUD/MiningButton
 onready var _space_ui_overview_table = $SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE
 onready var _space_ui_overview_selection_text = $SpaceUI/OverviewHUD/VBoxContainer/SELECTIONBOX/SELECTIONTEXT
+onready var _space_ui_overview_selection_icon = $SpaceUI/OverviewHUD/VBoxContainer/SELECTIONBOX/SELECTIONICON
 onready var _props = $Props
 
 # OVERVIEW
@@ -260,6 +261,9 @@ func set_overview_selected_instance(instance_id: int) -> void:
 
 	# Set the selection text to the node name and its distance
 	_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)
+	
+	# Set the correct icon now
+	_space_ui_overview_selection_icon.texture = celestial.overview_selection_icon
 	
 	# Set the instance id of the selected overview item
 	selected_instance_id = instance_id

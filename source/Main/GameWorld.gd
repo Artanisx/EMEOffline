@@ -23,6 +23,7 @@ var overview_selected: bool = false
 var overview_selected_index = 0
 var button_clicked: bool = false
 var selected_instance_id: int = 0	#when an item is selceted in the overview, this holds the instance_id of the node
+var player_is_mining: bool = false
 
 # DEBUGGING
 const max_zoom_out = 10
@@ -57,10 +58,10 @@ func update_space_ui() -> void:
 	_space_ui_hull.value = clamp(_player.player_hull_integrity, 0, 1000)
 	_space_ui_hull.hint_tooltip = "Hull Integrity is: [" + str(_player.player_hull_integrity) + " \\ 1000]"
 	
-	if _player.get_instant_velocity() > 0:
+	if _player.get_instant_velocity() > 0 and not player_is_mining:
 		_space_ui_action.text = "MOVING"
 		_space_ui_target.text = "X: "+ str(round(_player.target_pos.x)) + " - Y: " + str(round(_player.target_pos.y))
-	else:
+	elif _player.get_instant_velocity() <= 0 and not player_is_mining:
 		_space_ui_action.text = "STOPPED"
 		_space_ui_target.text =  ""		
 		
@@ -212,6 +213,13 @@ func _on_SpaceUI_mining_button_pressed():
 		_space_ui_mining_button.get_node("MiningBar").max_value = 1
 		_space_ui_mining_button.get_node("MiningCycle").wait_time = 1
 	_space_ui_mining_button.get_node("MiningCycle").start()	
+	
+	# Udpat ethe UI to show the action
+	_space_ui_action.text = "MINING"
+	var mining_what = overview[selected_instance_id].overview_name
+	_space_ui_target.text = mining_what	
+	
+	player_is_mining = true
 
 func _on_SpaceUI_overview_move_to() -> void:
 	if (overview_selected):
@@ -258,6 +266,9 @@ func _on_VeldsparAsteroid_asteroid_depleted() -> void:
 			
 	#deselect
 	selected_instance_id = 0
+	
+	# not mining anymore
+	player_is_mining = false
 	
 func erase_element_from_overview(instance: int) -> void:
 	# remove it from the overview dictionary	

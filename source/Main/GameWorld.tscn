@@ -36,6 +36,7 @@ margin_left = -30712.0
 margin_top = -30586.0
 margin_right = 29288.0
 margin_bottom = 29414.0
+mouse_filter = 2
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 

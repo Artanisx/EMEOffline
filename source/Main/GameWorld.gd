@@ -20,6 +20,7 @@ var overview = {}
 
 var overview_selected: bool = false
 var overview_selected_index = 0
+var button_clicked: bool = false
 
 # DEBUGGING
 const max_zoom_out = 10
@@ -27,7 +28,7 @@ export var proto_overview: bool = true
 var warnings_given: bool = false
 var DEBUG_SPEED_MINING: bool = true
 
-func _ready() -> void:
+func _ready() -> void:	
 	# Loads player variables
 	_player.SetPlayer(Globals.get_account_credits(), Globals.get_account_mininglaser(), Globals.get_account_cargoextender(), Globals.get_account_cargohold(), Globals.get_account_position())	
 	
@@ -165,13 +166,16 @@ func update_overview_selection_text_distance(index: int) -> Node2D:
 	
 	return reference
 		
-func _input(event) -> void:#	
-	if Input.is_action_pressed("left_click") and _space_ui.hovering_on_gui() != true:
+func _unhandled_input(event) -> void:#	
+	if Input.is_action_pressed("left_click"):# and _space_ui.hovering_on_gui() != true and button_clicked == false:
 		_player.target_pos = get_global_mouse_position()
 		#_player.first_target_set = true #allows the player to be moved. It needs to start false before any input or the player starting position would be accepted as a target to move			
 		_player.face(_player.target_pos)
 		#Set selection bool to false as this is a free move
 		overview_selected = false
+	
+	if Input.is_action_pressed("ui_left"):
+		print("LEFTTT")
 
 	if Input.is_action_just_released("zoom_out"):		
 		#mouse_wheel down, zoom out
@@ -270,3 +274,5 @@ func _on_VeldsparAsteroid_asteroid_depleted() -> void:
 	
 func _on_overview_selected(index: int) -> void:
 	print("Button " + str(index) + " pressed")
+	button_clicked = true # so it doesn't move the ship?
+	

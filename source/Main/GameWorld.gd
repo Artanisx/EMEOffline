@@ -21,10 +21,10 @@ var overview = {}
 var overview_selected: bool = false
 var overview_selected_index = 0
 var button_clicked: bool = false
+var selected_instance_id: int = 0	#when an item is selceted in the overview, this holds the instance_id of the node
 
 # DEBUGGING
 const max_zoom_out = 10
-export var proto_overview: bool = true
 var warnings_given: bool = false
 var DEBUG_SPEED_MINING: bool = true
 
@@ -41,16 +41,8 @@ func _ready() -> void:
 	# Create Overview UI, adding rows as required
 	create_overview_ui()
 	
-	# Load overview
-	load_overview_proto()
-	
 func _process(delta) -> void:
 	update_space_ui()
-	
-	### CHECK FOR WARNINGS
-	if proto_overview == false and warnings_given == false:
-		printerr("[WARNING] PROTO OVERVIEW IS DISABLED")
-		warnings_given = true		
 
 func set_space_ui() -> void:
 	_space_ui_speed.max_value = _player.movement_speed	
@@ -76,8 +68,8 @@ func update_space_ui() -> void:
 	# Update the overview
 	update_overview_ui()
 	
-	# update selection box (distance)	
-	update_overview_selection_text_distance(overview_selected_index)			
+	# update selection box (distance)
+	update_overview_selected()		
 
 func create_overview_dictionary() -> void:
 	# We need to add to overview dictionary all celestials that will compose our overview
@@ -101,18 +93,20 @@ func create_overview_ui() -> void:
 		# Create a new row for the overview
 		var space_label_x := Label.new()
 		space_label_x.text = ""
-		var icon := TextureRect.new()
-		print(celestial.overview_icon)
+		space_label_x.name = str(celestial.get_instance_id()) + "_space_label"	# give the node a name reachable with the instance id (ID_node)
+		var icon := TextureRect.new()				
 		icon.texture = celestial.overview_icon
 		icon.margin_right = 20
 		icon.margin_bottom = 20	
 		icon.rect_position.x = 4
 		icon.rect_size.x = 16
 		icon.rect_size.y = 20
+		icon.name = str(celestial.get_instance_id()) + "_icon_texture"	# give the node a name reachable with the instance id (ID_node)
 		var vsep_xa := VSeparator.new()
+		vsep_xa.name = str(celestial.get_instance_id()) + "_vsep_a"	# give the node a name reachable with the instance id (ID_node)
 		var distance_x := Label.new()
 		distance_x.text = str(round(_player.position.distance_to(celestial.position))) + " m"
-		distance_x.name = str(celestial.get_instance_id()) + "distance"		# give the distance_x node a name reachable with the instance id
+		distance_x.name = str(celestial.get_instance_id()) + "_distance_label"		# give the distance_x node a name reachable with the instance id
 		distance_x.margin_left = 32
 		distance_x.margin_top = 2
 		distance_x.margin_right = 80
@@ -120,8 +114,10 @@ func create_overview_ui() -> void:
 		distance_x.rect_size.x = 48
 		distance_x.rect_size.y = 14
 		var vsep_xb := VSeparator.new()
+		vsep_xb.name = str(celestial.get_instance_id()) + "_vsep_b"	# give the node a name reachable with the instance id (ID_node)
 		var name_x := Button.new()
 		name_x.text = celestial.overview_name
+		name_x.name = str(celestial.get_instance_id()) + "_name_label"	# give the node a name reachable with the instance id (ID_node)
 		name_x.flat = true
 		name_x.margin_left = 92
 		name_x.margin_right = 246
@@ -140,53 +136,14 @@ func create_overview_ui() -> void:
 
 func update_overview_ui() -> void:
 	for celestial in overview.values():
-		var node = "SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + str(celestial.get_instance_id()) + "distance"		
+		var node = "SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + str(celestial.get_instance_id()) + "_distance_label"		
 		var label = get_node(node) # the correct distance label in the overview
-		label.text = str(round(_player.position.distance_to(celestial.position))) + " m"
-
-func load_overview_proto() -> void:
-	## DEBUGGING
-	if proto_overview == false:		
-		return
-	## END DEBUGGING
 		
-	var counter = 1
-	for asteroid in _props.get_children():
-		if counter <= 7:
-			var node_name: String = ""
-			var node_distance: String = ""
-			node_name = "NAME"+str(counter)
-			node_distance = "DISTANCE"+str(counter)
-			_space_ui_overview_table.get_node(node_name).text = asteroid.name					
-			_space_ui_overview_table.get_node(node_distance).text = str(round(_player.position.distance_to(asteroid.position))) + " m"
-			overview[asteroid.name] = asteroid	#Add node and name to the overview dictionary
-		counter = counter + 1	
-
-func update_overview_selection_text_distance(index: int) -> Node2D:	
-	## DEBUGGING
-	if (proto_overview == false):		
-		return null
-	## END DEBUGGING	
-	
-	# This function updates the sleection text in the overview, getting name and calculating distance
-	# We pass an index, the number of the item in the overview from 1 to 7
-	# 0 is not valid, it means nothing is selected
-	
-	if index == 0:
-		return null
-
-	var node_name = "NAME"+str(index)
-
-	# Get the reference node from the overview table
-	var reference = overview[_space_ui_overview_table.get_node(node_name).text]
-
-	# Calculate the distance
-	var distance = str(round(_player.position.distance_to(reference.position))) + " m"
-
-	# Set the selection text to the node name and its distance
-	_space_ui_overview_selection_text.text = _space_ui_overview_table.get_node("NAME1").text + "\nDistance: " + str(distance)
-	
-	return reference
+		if label != null:
+			label.text = str(round(_player.position.distance_to(celestial.position))) + " m"
+		else:
+			# this node can't be found, maybe it's a mined asteroid?
+			printerr("The label for this celestial can't be found. Is it still around? Maybe it should be cleaned up? Celestial: " + str(celestial))
 		
 func _unhandled_input(event) -> void:#	
 	if Input.is_action_pressed("left_click"):# and _space_ui.hovering_on_gui() != true and button_clicked == false:
@@ -242,32 +199,13 @@ func _on_SpaceUI_mining_button_pressed():
 		_space_ui_mining_button.get_node("MiningCycle").wait_time = 1
 	_space_ui_mining_button.get_node("MiningCycle").start()	
 
-func _on_SpaceUI_overview_name1_selected() -> void:	
-	## DEBUGGING
-	if (proto_overview == false):		
-		return
-	## END DEBUGGING	
-	
-	# Set the Selection text with node and distance, plus store a reference to the node itself
-	var reference = update_overview_selection_text_distance(1)
-	
-	# Set the target for player movement to this node (it's selected)
-	_player.target_pos = reference.global_position
-
-	#Set selection bool
-	overview_selected = true
-	
-	#Set the selected index so load_overview knows what to update for the distance	
-	overview_selected_index = 1
-		
-
 func _on_SpaceUI_overview_move_to() -> void:
 	if (overview_selected):
 		_player.face(_player.target_pos)
 	else:
-		# player moved somewhere else, we must refresh the selection first
-		#for now assume selection 1 since it's the only one rigged in
-		_on_SpaceUI_overview_name1_selected()
+		# player moved somewhere else manually, we need to 
+		# refresh the target_pos to the previously (and currently) selected overview 
+		set_player_target_to_selected_overview()
 		
 		#  now go!
 		_player.face(_player.target_pos)
@@ -295,5 +233,69 @@ func _on_VeldsparAsteroid_asteroid_depleted() -> void:
 	
 func _on_overview_selected(index: int) -> void:
 	print("Button " + str(index) + " pressed")
-	button_clicked = true # so it doesn't move the ship?
 	
+	# Store the instance id
+	var instance_id = index
+	
+	# Get the reference to the celestial
+	var celestial = overview[instance_id]
+	
+	# Set the target for player movement to this node (it's selected)
+	_player.target_pos = celestial.global_position
+
+	# Set selection bool
+	overview_selected = true
+	
+	# Set the selection text	
+	set_overview_selected_instance(instance_id)	
+	
+func set_overview_selected_instance(instance_id: int) -> void:		
+	# Get the reference node from the overview table
+	var celestial = overview[instance_id]
+	
+	var name = 	celestial.overview_name
+
+	# Calculate the distance
+	var distance = str(round(_player.position.distance_to(celestial.position))) + " m"
+
+	# Set the selection text to the node name and its distance
+	_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)
+	
+	# Set the instance id of the selected overview item
+	selected_instance_id = instance_id
+
+func set_player_target_to_selected_overview() -> void:
+	if selected_instance_id != 0:
+		# we have selected something	
+		
+		# Get the reference node from the overview table
+		var celestial = overview[selected_instance_id]
+		
+		# Set the target for player movement to this node (it's selected)
+		_player.target_pos = celestial.global_position
+		
+		# Set selection bool
+		overview_selected = true
+	else:
+		# nothing has been seleted yet, so ignore this
+		return	
+	
+func update_overview_selected() -> void:
+	# This function will update whatever distance it finds in the node
+	# Basically rather than setting a new slection given a intance id, this will update whatever is already there
+	if selected_instance_id != 0:
+		# we have selected something, update it
+		
+		# Get the reference node from the overview table
+		var celestial = overview[selected_instance_id]
+	
+		var name = 	celestial.overview_name
+
+		# Calculate the distance
+		var distance = str(round(_player.position.distance_to(celestial.position))) + " m"
+
+		# Set the selection text to the node name and its distance
+		_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)		
+	else:
+		# nothing has been seleted yet, so ignore this
+		return	

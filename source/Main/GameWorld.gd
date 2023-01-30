@@ -35,8 +35,11 @@ func _ready() -> void:
 	# Set initial space_ui
 	set_space_ui()
 	
-	# Create Overview
-	create_overview()
+	# Populate OVERVIEW dictionary as needed
+	create_overview_dictionary()
+	
+	# Create Overview UI, adding rows as required
+	create_overview_ui()
 	
 	# Load overview
 	load_overview_proto()
@@ -74,8 +77,15 @@ func update_space_ui() -> void:
 	
 	# update selection box (distance)	
 	update_overview_selection_text_distance(overview_selected_index)			
+
+func create_overview_dictionary() -> void:
+	# We need to add to overview dictionary all celestials that will compose our overview
+	var celestials = get_tree().get_nodes_in_group("celestials")
 	
-func create_overview() -> void:
+	for celestial in celestials:
+		overview[celestial.get_instance_id()] = celestial #Add node reference and instance id to the overview dictionary	
+	
+func create_overview_ui() -> void:
 	# This function will create the "TABLE" portion of the overview, creating as much items as needed
 	# As the behaviour to read celestial isn't there yet, for now we'll programmatically create 10 elements instead
 	
@@ -83,12 +93,16 @@ func create_overview() -> void:
 	for n in _space_ui_overview_table.get_children():
 		_space_ui_overview_table.remove_child(n)		
 	
-	# create 10 overview rows
-	for i in 10:
+	# First, get how many celestials we have
+	#var celestial_number = overview.size()	
+	
+	for celestial in overview.values():
+		# Create a new row for the overview
 		var space_label_x := Label.new()
 		space_label_x.text = ""
 		var icon := TextureRect.new()
-		icon.texture = load("res://16icon.png")
+		print(celestial.overview_icon)
+		icon.texture = celestial.overview_icon
 		icon.margin_right = 20
 		icon.margin_bottom = 20	
 		icon.rect_position.x = 4
@@ -96,7 +110,7 @@ func create_overview() -> void:
 		icon.rect_size.y = 20
 		var vsep_xa := VSeparator.new()
 		var distance_x := Label.new()
-		distance_x.text = "100m"
+		distance_x.text = str(round(_player.position.distance_to(celestial.position))) + " m"
 		distance_x.margin_left = 32
 		distance_x.margin_top = 2
 		distance_x.margin_right = 80
@@ -105,7 +119,7 @@ func create_overview() -> void:
 		distance_x.rect_size.y = 14
 		var vsep_xb := VSeparator.new()
 		var name_x := Button.new()
-		name_x.text = "TEST[" + str(i) + "]"
+		name_x.text = celestial.overview_name
 		name_x.flat = true
 		name_x.margin_left = 92
 		name_x.margin_right = 246
@@ -114,13 +128,52 @@ func create_overview() -> void:
 		name_x.rect_size.x = 154
 		name_x.rect_size.y = 20
 		name_x.rect_min_size.y = 14		
-		name_x.connect("pressed", self, "_on_overview_selected", [i])	
+		name_x.connect("pressed", self, "_on_overview_selected", [celestial.get_instance_id()])		#instance id is the index for the signal callback
 		_space_ui_overview_table.add_child(space_label_x)
 		_space_ui_overview_table.add_child(icon)
 		_space_ui_overview_table.add_child(vsep_xa)
 		_space_ui_overview_table.add_child(distance_x)
 		_space_ui_overview_table.add_child(vsep_xb)
 		_space_ui_overview_table.add_child(name_x)	
+	
+	# Create the correct number of  overview rows
+#	for i in celestial_number:
+#		var space_label_x := Label.new()
+#		space_label_x.text = ""
+#		var icon := TextureRect.new()
+#		icon.texture = load("res://16icon.png")
+#		icon.margin_right = 20
+#		icon.margin_bottom = 20	
+#		icon.rect_position.x = 4
+#		icon.rect_size.x = 16
+#		icon.rect_size.y = 20
+#		var vsep_xa := VSeparator.new()
+#		var distance_x := Label.new()
+#		distance_x.text = "100m"
+#		distance_x.margin_left = 32
+#		distance_x.margin_top = 2
+#		distance_x.margin_right = 80
+#		distance_x.margin_bottom = 17
+#		distance_x.rect_size.x = 48
+#		distance_x.rect_size.y = 14
+#		var vsep_xb := VSeparator.new()
+#		var name_x := Button.new()
+#		name_x.text = "TEST[" + str(i) + "]"
+#		name_x.flat = true
+#		name_x.margin_left = 92
+#		name_x.margin_right = 246
+#		name_x.margin_bottom = 20
+#		name_x.rect_position.x = 92
+#		name_x.rect_size.x = 154
+#		name_x.rect_size.y = 20
+#		name_x.rect_min_size.y = 14		
+#		name_x.connect("pressed", self, "_on_overview_selected", [i])	
+#		_space_ui_overview_table.add_child(space_label_x)
+#		_space_ui_overview_table.add_child(icon)
+#		_space_ui_overview_table.add_child(vsep_xa)
+#		_space_ui_overview_table.add_child(distance_x)
+#		_space_ui_overview_table.add_child(vsep_xb)
+#		_space_ui_overview_table.add_child(name_x)	
 
 func load_overview_proto() -> void:
 	## DEBUGGING
@@ -265,7 +318,6 @@ func _on_SpaceUI_mining_cycle_completed() -> void:
 		_space_ui_mining_button.get_node("MiningCycle").stop()
 		_space_ui_mining_button.get_node("MiningBar").value = 0
 		return
-
 
 ## DEBUG! Probably we should link all asteroids (via code not inspectr) to this lone signal
 func _on_VeldsparAsteroid_asteroid_depleted() -> void:

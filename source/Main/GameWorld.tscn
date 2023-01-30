@@ -285,8 +285,18 @@ starting_theme = "BelowTheAsteroids"
 position = Vector2( -235, -91 )
 start_ore_amount = 10000
 
+[node name="VeldsparAsteroid2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 260, -235 )
+start_ore_amount = 10000
+
+[node name="VeldsparAsteroid3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 224, 173 )
+start_ore_amount = 10000
+
 [connection signal="mining_button_pressed" from="SpaceUI" to="." method="_on_SpaceUI_mining_button_pressed"]
 [connection signal="mining_cycle_completed" from="SpaceUI" to="." method="_on_SpaceUI_mining_cycle_completed"]
 [connection signal="overview_move_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_move_to"]
 [connection signal="overview_name1_selected" from="SpaceUI" to="." method="_on_SpaceUI_overview_name1_selected"]
 [connection signal="asteroid_depleted" from="VeldsparAsteroid" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid2" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid3" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]

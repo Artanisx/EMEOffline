@@ -12,7 +12,7 @@ func _init():
 	# This is a Veldspar asteroid
 	AsteroidKind = Kind.VELDSPAR	
 	overview_name = "Asteroid (Veldspar)" 
-	overview_icon = load("res://assets/art/ui/veldspar_icon.png")
+	overview_icon = load("res://assets/art/ui/veldspar_icon_overview.png")
 	
 func _ready() -> void:
 	# Set the start ore amount. It must be done here or any editor udpated value would be ignored

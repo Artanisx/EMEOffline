@@ -136,7 +136,7 @@ func create_overview_ui() -> void:
 		_space_ui_overview_table.add_child(name_x)	
 
 func update_overview_ui() -> void:
-	for celestial in overview.values():
+	for celestial in overview.values():		
 		var node = "SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + str(celestial.get_instance_id()) + "_distance_label"		
 		var label = get_node(node) # the correct distance label in the overview
 		
@@ -252,6 +252,40 @@ func _on_SpaceUI_mining_cycle_completed() -> void:
 func _on_VeldsparAsteroid_asteroid_depleted() -> void:
 	_space_ui_mining_button.get_node("MiningCycle").stop()
 	_space_ui_mining_button.get_node("MiningBar").value = 0
+		
+	#remove this asteroid from the overview - it shoudl be the selected_instance_id
+	erase_element_from_overview(selected_instance_id)
+			
+	#deselect
+	selected_instance_id = 0
+	
+func erase_element_from_overview(instance: int) -> void:
+	# remove it from the overview dictionary	
+	overview.erase(instance)
+	
+	var name_node_to_remove = str(instance) + "_name_label"
+	var node_to_remove = get_node("SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + name_node_to_remove)	
+	node_to_remove.queue_free()
+	
+	name_node_to_remove = str(instance) + "_space_label"
+	node_to_remove = get_node("SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + name_node_to_remove)	
+	node_to_remove.queue_free()
+	
+	name_node_to_remove = str(instance) + "_icon_texture"
+	node_to_remove = get_node("SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + name_node_to_remove)	
+	node_to_remove.queue_free()
+	
+	name_node_to_remove = str(instance) + "_vsep_a"
+	node_to_remove = get_node("SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + name_node_to_remove)	
+	node_to_remove.queue_free()
+	
+	name_node_to_remove = str(instance) + "_distance_label"
+	node_to_remove = get_node("SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + name_node_to_remove)	
+	node_to_remove.queue_free()
+	
+	name_node_to_remove = str(instance) + "_vsep_b"
+	node_to_remove = get_node("SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + name_node_to_remove)	
+	node_to_remove.queue_free()
 	
 func _on_overview_selected(index: int) -> void:
 	# Store the instance id

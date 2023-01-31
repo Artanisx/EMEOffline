@@ -375,8 +375,13 @@ func update_overview_selected() -> void:
 		else:
 			# Set the selection text to the node name and its distance
 			_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)
+			
+		# Now we must set the Selection Box Buttons
+		_space_ui.set_selection_buttons(celestial.movable_to, celestial.warpable_to, celestial.dockable, celestial.minable)
+		
 	else:
 		# nothing has been seleted, let's clear this
 		_space_ui_overview_selection_text.text = "Nothing is selected."
 		_space_ui_overview_selection_icon.texture = load("res://assets/art/ui/empty_icon.png")
+		_space_ui.set_selection_buttons(false, false, false, false)
 		return	

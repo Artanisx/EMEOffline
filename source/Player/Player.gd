@@ -40,7 +40,7 @@ var player_top_speed: int = 100	# unused yet
 
 # MINING LASER STAT
 var player_mining_laser_cycle: int = 5
-var player_mining_laser_range: int = 150
+var player_mining_laser_range: int = 500
 var player_mining_laser_yield: int = 100
 
 # Player velocity vector

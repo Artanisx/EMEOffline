@@ -78,7 +78,7 @@ func update_space_ui() -> void:
 		_space_ui_target.text =  ""		
 		_player.warping(false)
 		
-	_space_ui_mining_button.hint_tooltip = _player.MINING_LASER.keys()[_player.player_mining_laser] + "\n\nCycle: " + str(_player.player_mining_laser_cycle) + " seconds\nRange: " + str(_player.player_mining_laser_range) + " km\nYield: [" + str(_player.player_mining_laser_yield) + " m3]"	
+	_space_ui_mining_button.hint_tooltip = _player.MINING_LASER.keys()[_player.player_mining_laser] + "\n\nCycle: " + str(_player.player_mining_laser_cycle) + " seconds\nRange: " + str(_player.player_mining_laser_range) + " m\nYield: [" + str(_player.player_mining_laser_yield) + " m3]"	
 	
 	# Update the overview
 	update_overview_ui()
@@ -437,6 +437,14 @@ func set_overview_selected_instance(instance_id: int) -> void:
 	
 	# Set the instance id of the selected overview item
 	selected_instance_id = instance_id
+	
+	# If it's an asteroid, select it
+	if (celestial.minable):
+		#Deselect previously selected asteroids
+		deselect_asteroids()
+		
+		# Selec this one
+		celestial.selected(true)
 
 func set_player_target_to_selected_overview() -> void:
 	if selected_instance_id != 0:
@@ -469,9 +477,9 @@ func update_overview_selected() -> void:
 		var distance = str(round(_player.position.distance_to(celestial.position))) + " m"
 		
 		# If this is an asteroid we should also report the ore amount
-		if celestial.minable == true:
+		if celestial.minable == true:			
 			# Set the selection text to the node name and its distance and its ore contents
-			_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance) + "\nOre: " + str(celestial.ore_amount)		
+			_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance) + "\nOre: " + str(celestial.ore_amount)					
 		else:
 			# Set the selection text to the node name and its distance
 			_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)
@@ -492,7 +500,15 @@ func update_overview_selected() -> void:
 		_space_ui_overview_selection_text.text = "Nothing is selected."
 		_space_ui_overview_selection_icon.texture = load("res://assets/art/ui/empty_icon.png")
 		_space_ui.set_selection_buttons(false, false, false, false)
+		deselect_asteroids()		
 		return	
+
+func deselect_asteroids() -> void:
+	var celestials = get_tree().get_nodes_in_group("celestials")
+	
+	for celestial in celestials:
+		if celestial.minable and celestial.is_selected():
+			celestial.selected(false)
 
 func get_selected_celestial() -> Celestial:
 	if selected_instance_id != 0:

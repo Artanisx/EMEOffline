@@ -18,3 +18,10 @@ func _init():
 func _ready() -> void:
 	# Set the start ore amount. It must be done here or any editor udpated value would be ignored
 	ore_amount = start_ore_amount
+	
+func selected(selected: bool) -> void:
+	#Toggle selection circle visibility
+	$SelectionCircle.visible = selected
+	
+	#Set the selected variable (from Asteroid)
+	self.selected = selected

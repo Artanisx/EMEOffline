@@ -44,6 +44,8 @@ enum Density {
 ## This asteroid density (default NORMAL) [CURRENTLY UNUSED]
 export (Density) var AsteroidDensity = Density.NORMAL
 
+var selected: bool = false
+
 ## Constructor
 # ------------
 func _init():
@@ -97,3 +99,6 @@ func get_mined(mined_amount: int) -> Array:
 		
 func on_depleted_finished() -> void:			
 	queue_free()	
+	
+func is_selected() -> bool:
+	return selected

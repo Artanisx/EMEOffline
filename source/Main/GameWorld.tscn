@@ -302,7 +302,9 @@ start_ore_amount = 400
 
 [node name="CELESTIALS" type="Node" parent="."]
 
-[node name="AsteroidBelt1" type="Area2D" parent="CELESTIALS"]
+[node name="AsteroidBelts" type="Node" parent="CELESTIALS"]
+
+[node name="AsteroidBelt1" type="Area2D" parent="CELESTIALS/AsteroidBelts"]
 position = Vector2( -15960, -23638 )
 script = ExtResource( 8 )
 overview_name = "Asteroid Belt I"
@@ -311,7 +313,7 @@ overview_selection_icon = ExtResource( 10 )
 warpable_to = true
 movable_to = false
 
-[node name="AsteroidBelt2" type="Area2D" parent="CELESTIALS"]
+[node name="AsteroidBelt2" type="Area2D" parent="CELESTIALS/AsteroidBelts"]
 position = Vector2( 24023, 23970 )
 script = ExtResource( 8 )
 overview_name = "Asteroid Belt II"
@@ -320,7 +322,7 @@ overview_selection_icon = ExtResource( 10 )
 warpable_to = true
 movable_to = false
 
-[node name="AsteroidBelt0" type="Area2D" parent="CELESTIALS"]
+[node name="AsteroidBelt0" type="Area2D" parent="CELESTIALS/AsteroidBelts"]
 position = Vector2( -10, 3 )
 script = ExtResource( 8 )
 overview_name = "Asteroid Belt 0"

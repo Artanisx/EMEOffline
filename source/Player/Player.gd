@@ -24,6 +24,8 @@ var last_position: Vector2 = Vector2.ZERO
 var regular_speed = 0
 var warp_move_action: bool = false
 
+signal movement_completed
+
 # PLAYER ACCOUNT STATS
 enum MINING_LASER {MINING_LASER_I = 1, MINING_LASER_II = 2, MINING_LASER_III = 3, MINING_LASER_IV = 4, MINING_LASER_V = 5}
 enum CARGO_EXTENDER {NO_CARGO_EXTENDER = 0, CARGO_EXTENDER_I = 1, CARGO_EXTENDER_II = 2, CARGO_EXTENDER_III = 3, CARGO_EXTENDER_IV = 4, CARGO_EXTENDER_V = 5}
@@ -38,7 +40,7 @@ var player_top_speed: int = 100	# unused yet
 
 # MINING LASER STAT
 var player_mining_laser_cycle: int = 5
-var player_mining_laser_range: int = 15
+var player_mining_laser_range: int = 150
 var player_mining_laser_yield: int = 100
 
 # Player velocity vector
@@ -49,7 +51,7 @@ func _ready() -> void:
 	add_child(rotation_tween)
 	rotation_tween.connect("tween_all_completed", self, "_on_rotation_tween_completed")		
 	add_child(movement_tween)	
-	rotation_tween.connect("tween_all_completed", self, "_on_movement_tween_completed")	
+	movement_tween.connect("tween_all_completed", self, "_on_movement_tween_completed")	
 
 func _process(delta):
 	_space_dust.global_position = global_position	
@@ -95,15 +97,15 @@ func face(target_pos: Vector2, is_this_warp_action: bool = false) -> void:
 	angle = rad2deg(angle)	
 	
 	var real_rotation = abs(global_rotation_degrees-angle)
-	print(str(real_rotation))	
+	#print(str(real_rotation))	
 	
 	# Check if rotation is small
 	if (real_rotation <= rotation_thershold):
 		rotation_duration = quick_rotation_duration
-		print("Quick rotation")
+		#print("Quick rotation")
 	else:
 		rotation_duration = slow_rotation_duration
-		print("slow rotation")
+		#print("slow rotation")
 	
 	
 	rotation_tween.interpolate_property(self, "rotation_degrees", global_rotation_degrees, angle, rotation_duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)	
@@ -179,4 +181,4 @@ func _on_rotation_tween_completed() -> void:
 	move(target_pos)	
 	
 func _on_movement_tween_completed() -> void:	
-	pass	
+	emit_signal("movement_completed")

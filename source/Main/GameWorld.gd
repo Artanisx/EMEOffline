@@ -27,7 +27,7 @@ var player_is_mining: bool = false
 var player_is_warping: bool = false
 
 ## Celestial over this distance will not be shown in the overview
-export var overview_range: int = 5000 
+export var overview_range: int = 5000
 
 # DEBUGGING
 const max_zoom_out = 10
@@ -231,16 +231,25 @@ func update_overview_ui() -> void:
 			if (distance < overview_range):
 				celestial.overview_visibile = true
 				create_new_overview_line_ui(celestial)	#add it again to the overview, maybe it was now back in range				
+
+func move_player_manually(target_position = Vector2.ZERO) -> void:
+	if (target_position == Vector2.ZERO):		
+		# Called without arguments, get mouse pos
+		_player.target_pos = get_global_mouse_position()
+	else:
+		# Called with argument, get the passed position
+		_player.target_pos = target_position
+		
+	#_player.first_target_set = true #allows the player to be moved. It needs to start false before any input or the player starting position would be accepted as a target to move			
+	_player.face(_player.target_pos)
+	#Set selection bool to false as this is a free move
+	overview_selected = false		
+	# Player is definitely not warping
+	player_is_warping = false	
 		
 func _unhandled_input(event) -> void:#	
 	if Input.is_action_pressed("left_click"):# and _space_ui.hovering_on_gui() != true and button_clicked == false:
-		_player.target_pos = get_global_mouse_position()
-		#_player.first_target_set = true #allows the player to be moved. It needs to start false before any input or the player starting position would be accepted as a target to move			
-		_player.face(_player.target_pos)
-		#Set selection bool to false as this is a free move
-		overview_selected = false		
-		# Player is definitely not warping
-		player_is_warping = false
+		move_player_manually()		
 	
 	if Input.is_action_pressed("ui_left"):
 		print("LEFTTT")
@@ -271,6 +280,10 @@ func _unhandled_input(event) -> void:#
 func _on_SpaceUI_mining_button_pressed():
 	print("Minign time!")
 	
+	if (selected_instance_id == 0):
+		# you can't mine without sleceting something first
+		return
+	
 	# First we should check if we have an asteroid selected
 	var celestial = overview[selected_instance_id]
 	
@@ -288,8 +301,17 @@ func _on_SpaceUI_mining_button_pressed():
 		print("Cargo hold is full")
 		return
 	
-	# TODO Consider RANGE! If out of range, we can't mine! We should move closer instead.	
+	# Consider RANGE! If out of range, we can't mine! We should move closer instead.
+	if (get_distance_from_celestial(celestial) >= _player.player_mining_laser_range):
+		# this si too far, we can mine yet, move closer first	
+		
+		# before we start mining we need to wait until we're there!
+		print("Moving to asteroid...")				
+		move_player_manually(celestial.global_position)
+		yield(_player, "movement_completed")
+		print("Asteroid reached...")			
 	
+	print("Moved to an asteroid, now it can mineeeee it")
 	# Ok, so we can get this show on the road after all. Start mining!
 		
 	_space_ui_mining_button.get_node("MiningBar").value = 0	
@@ -340,7 +362,7 @@ func _on_VeldsparAsteroid_asteroid_depleted() -> void:
 	_space_ui_mining_button.get_node("MiningBar").value = 0
 		
 	#remove this asteroid from the overview - it shoudl be the selected_instance_id
-	erase_element_from_overview(selected_instance_id)
+	erase_element_from_overview(selected_instance_id, true)
 			
 	#deselect
 	selected_instance_id = 0

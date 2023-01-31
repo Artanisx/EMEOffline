@@ -275,9 +275,7 @@ func _unhandled_input(event) -> void:#
 	if Input.is_action_just_released("ui_cancel"):	
 		get_tree().quit()
 
-
-## SPACE UI
-func _on_SpaceUI_mining_button_pressed():
+func mine_asteroid() -> void:
 	print("Minign time!")
 	
 	if (selected_instance_id == 0):
@@ -330,7 +328,9 @@ func _on_SpaceUI_mining_button_pressed():
 	
 	player_is_mining = true
 
-
+## SPACE UI
+func _on_SpaceUI_mining_button_pressed():
+	mine_asteroid()
 
 func _on_SpaceUI_mining_cycle_completed() -> void:	
 	# First, get a reference to the selected object which we are mining
@@ -532,16 +532,7 @@ func _on_SpaceUI_overview_dock_to() -> void:
 
 
 func _on_SpaceUI_overview_mine_to() -> void:
-	# First check if the selected celestial is minable
-	
-	# Then check if it's in range
-	
-	# if it is, start mining
-	
-	# if it isn't, move to until it is in range
-	
-	# and then mine it
-	pass
+	mine_asteroid()
 
 func _on_SpaceUI_overview_warp_to() -> void:
 	#First checkif the selected celestial is warpable

@@ -46,6 +46,7 @@ __meta__ = {
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 warp_movement_speed = 7500
+offset_distance = 120.0
 
 [node name="Props" type="Node" parent="."]
 

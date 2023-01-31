@@ -35,8 +35,8 @@ export var dockable: bool = false
 export var overview_visibile: bool = true
 
 ## Global position offset. This get's added to the base global_position.
-## If you want it to coincide with global_position, leave it to Vector2.ZERO
-export var offset_global_position: Vector2 = Vector2.ZERO
+## If you want it to coincide with global_position, leave it to 0
+export var offset_global_position: float = 0
 
 ## Kind of Celestial
 enum Type {
@@ -54,14 +54,14 @@ export (Type) var CelestialType = Type.CELESTIAL
 ## Constructor
 # ------------
 func _ready():
-	# Check if the offset_global_position has been set
-	if offset_global_position != Vector2.ZERO:
-		# There's an offset, change it so it matches the global_position PLUS this offset
-		# This is needed to properly "MOVE TO" on a celestial
-		offset_global_position = global_position + offset_global_position
-	else:
-		# There's no offset, so it should match the actual global position
-		offset_global_position = global_position
+#	# Check if the offset_global_position has been set
+#	if offset_global_position != 0:
+#		# There's an offset, change it so it matches the global_position PLUS this offset
+#		# This is needed to properly "MOVE TO" on a celestial
+#		offset_global_position = global_position + offset_global_position
+#	else:
+#		# There's no offset, so it should match the actual global position
+#		offset_global_position = global_position
 		
 	## Add this note to the group "celestial"
 	add_to_group("celestials")

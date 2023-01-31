@@ -46,6 +46,9 @@ var player_mining_laser_yield: int = 100
 # Player velocity vector
 var first_target_set = false
 
+# This will offset any movement by this amount, stopping before it's reached. WIth a 0 it reaches dead center of the target global position
+export var offset_distance: float = 100
+
 func _ready() -> void:
 	## Add the two tweens needed for rotation and movement
 	add_child(rotation_tween)
@@ -54,8 +57,19 @@ func _ready() -> void:
 	movement_tween.connect("tween_all_completed", self, "_on_movement_tween_completed")	
 
 func _process(delta):
-	_space_dust.global_position = global_position	
+	_space_dust.global_position = global_position		
 	calculate_instant_velocity(delta)	
+
+func calculate_offset_target_position(target_pos: Vector2) -> Vector2:	
+	# Check if there's an offset set
+	if offset_distance > 0:
+		# There's an offset
+		var direction = (self.global_position - target_pos).normalized()
+				
+		return target_pos + direction * offset_distance
+	else:
+		return target_pos			
+								
 
 func calculate_instant_velocity(delta: float) -> void:
 	var current_position = self.global_position		
@@ -111,9 +125,12 @@ func face(target_pos: Vector2, is_this_warp_action: bool = false) -> void:
 	rotation_tween.interpolate_property(self, "rotation_degrees", global_rotation_degrees, angle, rotation_duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)	
 	rotation_tween.start()	
 
-func move(target_pos: Vector2) -> void:		
+func move(target_pos: Vector2) -> void:	
 	# stop current movement
 	movement_tween.remove_all()
+	
+	# Calcualte the offset
+	target_pos = calculate_offset_target_position(target_pos)
 	
 	# Calculate the duration the total movement should take
 	# The duration should be distance / velocity

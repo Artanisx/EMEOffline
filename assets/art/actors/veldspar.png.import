@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/veldspar.png-48dd52259b3cd172a20326c15952bc24.stex"
+path="res://.import/veldspar.png-9859449465e54d4a4554d402f278fe84.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/ui/veldspar.png"
-dest_files=[ "res://.import/veldspar.png-48dd52259b3cd172a20326c15952bc24.stex" ]
+source_file="res://assets/art/actors/veldspar.png"
+dest_files=[ "res://.import/veldspar.png-9859449465e54d4a4554d402f278fe84.stex" ]
 
 [params]
 

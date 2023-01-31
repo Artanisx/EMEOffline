@@ -320,6 +320,15 @@ overview_selection_icon = ExtResource( 10 )
 warpable_to = true
 movable_to = false
 
+[node name="AsteroidBelt0" type="Area2D" parent="CELESTIALS"]
+position = Vector2( -10, 3 )
+script = ExtResource( 8 )
+overview_name = "Asteroid Belt 0"
+overview_icon = ExtResource( 9 )
+overview_selection_icon = ExtResource( 10 )
+warpable_to = true
+movable_to = false
+
 [node name="AUDIO" type="Node" parent="."]
 
 [node name="AURA_WARPDRIVEACTIVE" type="AudioStreamPlayer" parent="AUDIO"]

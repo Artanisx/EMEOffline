@@ -26,6 +26,9 @@ var selected_instance_id: int = 0	#when an item is selceted in the overview, thi
 var player_is_mining: bool = false
 var player_is_warping: bool = false
 
+## Celestial over this distance will not be shown in the overview
+export var overview_range: int = 5000 
+
 # DEBUGGING
 const max_zoom_out = 10
 var warnings_given: bool = false
@@ -89,6 +92,52 @@ func create_overview_dictionary() -> void:
 	
 	for celestial in celestials:
 		overview[celestial.get_instance_id()] = celestial #Add node reference and instance id to the overview dictionary	
+
+func create_new_overview_line_ui(celestial: Celestial) -> void:
+	# Create a new row for the overview
+	var space_label_x := Label.new()
+	space_label_x.text = ""		
+	space_label_x.name = str(celestial.get_instance_id()) + "_space_label"	# give the node a name reachable with the instance id (ID_node)
+	var icon := TextureRect.new()				
+	icon.texture = celestial.overview_icon
+	icon.margin_right = 20
+	icon.margin_bottom = 20	
+	icon.rect_position.x = 4
+	icon.rect_size.x = 16
+	icon.rect_size.y = 20
+	icon.name = str(celestial.get_instance_id()) + "_icon_texture"	# give the node a name reachable with the instance id (ID_node)
+	var vsep_xa := VSeparator.new()
+	vsep_xa.name = str(celestial.get_instance_id()) + "_vsep_a"	# give the node a name reachable with the instance id (ID_node)
+	var distance_x := Label.new()
+	distance_x.text = str(round(_player.position.distance_to(celestial.position))) + " m"
+	distance_x.name = str(celestial.get_instance_id()) + "_distance_label"		# give the distance_x node a name reachable with the instance id
+	distance_x.margin_left = 32
+	distance_x.margin_top = 2
+	distance_x.margin_right = 80
+	distance_x.margin_bottom = 17
+	distance_x.rect_size.x = 48
+	distance_x.rect_size.y = 14
+	var vsep_xb := VSeparator.new()
+	vsep_xb.name = str(celestial.get_instance_id()) + "_vsep_b"	# give the node a name reachable with the instance id (ID_node)
+	var name_x := Button.new()
+	name_x.text = celestial.overview_name
+	name_x.name = str(celestial.get_instance_id()) + "_name_label"	# give the node a name reachable with the instance id (ID_node)
+	name_x.flat = true
+	name_x.align = Button.ALIGN_LEFT
+	name_x.margin_left = 92
+	name_x.margin_right = 246
+	name_x.margin_bottom = 20
+	name_x.rect_position.x = 92
+	name_x.rect_size.x = 154
+	name_x.rect_size.y = 20
+	name_x.rect_min_size.y = 14		
+	name_x.connect("pressed", self, "_on_overview_selected", [celestial.get_instance_id()])		#instance id is the index for the signal callback
+	_space_ui_overview_table.add_child(space_label_x)
+	_space_ui_overview_table.add_child(icon)
+	_space_ui_overview_table.add_child(vsep_xa)
+	_space_ui_overview_table.add_child(distance_x)
+	_space_ui_overview_table.add_child(vsep_xb)
+	_space_ui_overview_table.add_child(name_x)	
 	
 func create_overview_ui() -> void:
 	# This function will create the "TABLE" portion of the overview, creating as much items as needed
@@ -148,15 +197,40 @@ func create_overview_ui() -> void:
 		_space_ui_overview_table.add_child(name_x)	
 
 func update_overview_ui() -> void:
-	for celestial in overview.values():		
-		var node = "SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + str(celestial.get_instance_id()) + "_distance_label"		
-		var label = get_node(node) # the correct distance label in the overview
-		
-		if label != null:
-			label.text = str(round(_player.position.distance_to(celestial.position))) + " m"
+	for celestial in overview.values():	
+		if (celestial.overview_visibile):
+			var node = "SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + str(celestial.get_instance_id()) + "_distance_label"		
+			var label = get_node(node) # the correct distance label in the overview
+			
+			var distance = get_distance_from_celestial(celestial)
+			
+			if label != null:
+				# Check if it's a Warpable Celestial. Celestial are always shown
+				if (celestial.warpable_to):
+					label.text = str(distance) + " m"				
+				else:
+					#this is not a warpable celestial. As such, it should be visible only if it's under the overview_range
+					if distance >= overview_range:
+						# too far away, it should not be shown	
+						celestial.overview_visibile = false				
+						erase_element_from_overview(celestial.get_instance_id(), false)
+					else:
+						label.text = str(distance) + " m"					
+			else:
+				# We're trying to update the distance of a node not in the overview, maybe it's because it is now back in range
+				if (distance < overview_range):
+					celestial.overview_visibile = true
+					create_new_overview_line_ui(celestial)	#add it again to the overview, maybe it was now back in range
+				else:
+					# It's out of range, it shouldn't be added yet, but check if it exists still
+					# TODO CHECK IF THIS NEEDS TO BE REMOVED FOR GOOD
+					pass
 		else:
-			# this node can't be found, maybe it's a mined asteroid?
-			printerr("The label for this celestial can't be found. Is it still around? Maybe it should be cleaned up? Celestial: " + str(celestial))
+			# overview is not visible, but maybe it should?
+			var distance = get_distance_from_celestial(celestial)
+			if (distance < overview_range):
+				celestial.overview_visibile = true
+				create_new_overview_line_ui(celestial)	#add it again to the overview, maybe it was now back in range				
 		
 func _unhandled_input(event) -> void:#	
 	if Input.is_action_pressed("left_click"):# and _space_ui.hovering_on_gui() != true and button_clicked == false:
@@ -274,9 +348,10 @@ func _on_VeldsparAsteroid_asteroid_depleted() -> void:
 	# not mining anymore
 	player_is_mining = false
 	
-func erase_element_from_overview(instance: int) -> void:
-	# remove it from the overview dictionary	
-	overview.erase(instance)
+func erase_element_from_overview(instance: int, also_erase_from_dictionary: bool = false) -> void:
+	if (also_erase_from_dictionary):
+		# remove it from the overview dictionary	
+		overview.erase(instance)
 	
 	var name_node_to_remove = str(instance) + "_name_label"
 	var node_to_remove = get_node("SpaceUI/OverviewHUD/VBoxContainer/ScrollContainer/TABLE/" + name_node_to_remove)	
@@ -435,7 +510,7 @@ func _on_SpaceUI_overview_dock_to() -> void:
 
 
 func _on_SpaceUI_overview_mine_to() -> void:
-	# First check if the selected celestial is movable
+	# First check if the selected celestial is minable
 	
 	# Then check if it's in range
 	

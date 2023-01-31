@@ -16,15 +16,16 @@ onready var beam_particles := $BeamParticles2D
 onready var line_width: float = fill.width
 
 var beam_target = Vector2.RIGHT
+var direction = Vector2.RIGHT
 
 
 func _ready() -> void:
 	set_physics_process(false)
-	fill.points[1] = Vector2.ZERO
+	fill.points[1] = Vector2.ZERO	
 
 func _physics_process(delta: float) -> void:
-	#cast_to = (cast_to + beam_target * cast_speed * delta).clamped(max_length)
-	var direction = (beam_target - self.global_position).normalized()	
+	#cast_to = (cast_to + beam_target * cast_speed * delta).clamped(max_length)	
+	direction = (beam_target - self.global_position).normalized()	
 	cast_to = cast_to + direction * cast_speed * delta 
 	cast_beam()	
 	
@@ -61,7 +62,7 @@ func disappear() -> void:
 func set_is_casting(cast: bool) -> void:
 	is_casting = cast
 	
-	if is_casting:
+	if is_casting:		
 		cast_to = Vector2.ZERO
 		fill.points[1] = cast_to
 		appear()

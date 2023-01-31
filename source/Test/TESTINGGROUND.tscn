@@ -23,7 +23,7 @@ margin_bottom = 720.0
 color = Color( 0.117647, 0.0431373, 0.266667, 1 )
 
 [node name="Testplayer" type="Area2D" parent="."]
-position = Vector2( 623, 343 )
+position = Vector2( 447, 251 )
 script = ExtResource( 1 )
 rotation_duration = 1
 
@@ -31,11 +31,11 @@ rotation_duration = 1
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
 
-[node name="LaserBeam2D" parent="Testplayer" instance=ExtResource( 3 )]
-position = Vector2( 23, -1 )
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Testplayer/LaserBeam2D"]
-environment = SubResource( 1 )
-
 [node name="VeldsparAsteroid" parent="." instance=ExtResource( 4 )]
 position = Vector2( 827, 589 )
+
+[node name="LaserBeam2D" parent="." instance=ExtResource( 3 )]
+position = Vector2( 470, 250 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LaserBeam2D"]
+environment = SubResource( 1 )

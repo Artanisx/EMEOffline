@@ -15,6 +15,8 @@ func _ready() -> void:
 	add_child(movement_tween)	
 	#movement_tween.connect("tween_all_completed", self, "_on_movement_tween_completed")
 
+
+
 func _input(event) -> void:
 	if Input.is_action_just_released("left_click"):
 		target_pos = get_global_mouse_position()

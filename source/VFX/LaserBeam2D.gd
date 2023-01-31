@@ -15,13 +15,17 @@ onready var beam_particles := $BeamParticles2D
 
 onready var line_width: float = fill.width
 
+var beam_target = Vector2.RIGHT
+
 
 func _ready() -> void:
 	set_physics_process(false)
 	fill.points[1] = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
-	cast_to = (cast_to + Vector2.RIGHT * cast_speed * delta).clamped(max_length)
+	#cast_to = (cast_to + beam_target * cast_speed * delta).clamped(max_length)
+	var direction = (beam_target - self.global_position).normalized()	
+	cast_to = cast_to + direction * cast_speed * delta 
 	cast_beam()	
 	
 func cast_beam() -> void:
@@ -67,12 +71,5 @@ func set_is_casting(cast: bool) -> void:
 	set_physics_process(is_casting)	
 	casting_particles.emitting = is_casting	
 	beam_particles.emitting = is_casting
+	collision_particles.emitting = is_casting
 		
-func _unhandled_input(event: InputEvent) -> void:
-	 # Turn on casting if Enter or Space is pressed.
-	if event.is_action_pressed("ui_accept"):
-		set_is_casting(true)
-
-	# Stop casting the beam upon releasing the key.
-	elif event.is_action_released("ui_accept"):
-		set_is_casting(false)

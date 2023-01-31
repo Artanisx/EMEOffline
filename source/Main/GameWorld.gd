@@ -64,13 +64,16 @@ func update_space_ui() -> void:
 		_space_ui_target.text = "X: "+ str(round(_player.target_pos.x)) + " - Y: " + str(round(_player.target_pos.y))
 	elif _player.get_instant_velocity() <= 15 and not player_is_mining and not player_is_warping:
 		_space_ui_action.text = "STOPPED"
-		_space_ui_target.text =  ""		
+		_space_ui_target.text =  ""	
+		_player.warping(false)	
 	elif _player.get_instant_velocity() > 15 and player_is_warping:
 		_space_ui_action.text = "WARPING TO"
 		_space_ui_target.text = get_selected_celestial().overview_name
+		_player.warping(true)	
 	elif not player_is_mining:
 		_space_ui_action.text = "STOPPED"
 		_space_ui_target.text =  ""		
+		_player.warping(false)
 		
 	_space_ui_mining_button.hint_tooltip = _player.MINING_LASER.keys()[_player.player_mining_laser] + "\n\nCycle: " + str(_player.player_mining_laser_cycle) + " seconds\nRange: " + str(_player.player_mining_laser_range) + " km\nYield: [" + str(_player.player_mining_laser_yield) + " m3]"	
 	
@@ -408,6 +411,7 @@ func _on_SpaceUI_overview_move_to() -> void:
 	if (overview_selected and get_selected_celestial().movable_to == true):
 		_player.face(_player.target_pos)
 		player_is_warping = false
+		_player.warping(false)
 	else:
 		# player moved somewhere else manually, we need to 
 		# refresh the target_pos to the previously (and currently) selected overview 
@@ -416,6 +420,7 @@ func _on_SpaceUI_overview_move_to() -> void:
 		#  now go!
 		_player.face(_player.target_pos)
 		player_is_warping = false
+		_player.warping(false)
 
 func _on_SpaceUI_overview_dock_to() -> void:
 	# first check if the selected celestial is dockable
@@ -450,6 +455,7 @@ func _on_SpaceUI_overview_warp_to() -> void:
 			# initaite warp
 			$AUDIO/AURA_WARPDRIVEACTIVE.play()
 			player_is_warping = true
+			_player.warping(true)
 			_player.face(_player.target_pos, true)			
 		else:
 			# can't warp, it's too close

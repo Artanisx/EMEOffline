@@ -170,6 +170,9 @@ func SetPlayer(cred: int, mining: int, cargoxt: int, cargoh: int, pos: Vector2) 
 	player_cargo_hold = cargoh
 	position = pos
 
+## Emit warp particles
+func warping(is_warping: bool):
+	$Camera2D/WarpDust.enable_warp_dust(is_warping)	
 
 ## CALLBACKS
 func _on_rotation_tween_completed() -> void:	

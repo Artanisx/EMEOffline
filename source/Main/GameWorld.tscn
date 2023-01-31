@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/art/shaders/starnest.tres" type="Shader" id=1]
 [ext_resource path="res://source/Player/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,9 @@
 [ext_resource path="res://source/UI/SpaceUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://source/Main/GameWorld.gd" type="Script" id=6]
 [ext_resource path="res://source/Actors/VeldsparAsteroid.tscn" type="PackedScene" id=7]
+[ext_resource path="res://source/Actors/Celestial.gd" type="Script" id=8]
+[ext_resource path="res://assets/art/ui/asteroid_belt_icon_overview.png" type="Texture" id=9]
+[ext_resource path="res://assets/art/ui/asteroid_belt_icon.png" type="Texture" id=10]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -291,6 +294,26 @@ start_ore_amount = 300
 [node name="VeldsparAsteroid3" parent="." instance=ExtResource( 7 )]
 position = Vector2( 224, 173 )
 start_ore_amount = 400
+
+[node name="CELESTIALS" type="Node" parent="."]
+
+[node name="AsteroidBelt1" type="Area2D" parent="CELESTIALS"]
+position = Vector2( -9353, -8734 )
+script = ExtResource( 8 )
+overview_name = "DODIXIE - Moon 8 - Asteroid Belt I"
+overview_icon = ExtResource( 9 )
+overview_selection_icon = ExtResource( 10 )
+warpable_to = true
+movable_to = false
+
+[node name="AsteroidBelt2" type="Area2D" parent="CELESTIALS"]
+position = Vector2( 22260, 9912 )
+script = ExtResource( 8 )
+overview_name = "DODIXIE - Moon 12 - Asteroid Belt I"
+overview_icon = ExtResource( 9 )
+overview_selection_icon = ExtResource( 10 )
+warpable_to = true
+movable_to = false
 
 [connection signal="mining_button_pressed" from="SpaceUI" to="." method="_on_SpaceUI_mining_button_pressed"]
 [connection signal="mining_cycle_completed" from="SpaceUI" to="." method="_on_SpaceUI_mining_cycle_completed"]

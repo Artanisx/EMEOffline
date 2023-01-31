@@ -94,7 +94,7 @@ func create_overview_ui() -> void:
 	for celestial in overview.values():
 		# Create a new row for the overview
 		var space_label_x := Label.new()
-		space_label_x.text = ""
+		space_label_x.text = ""		
 		space_label_x.name = str(celestial.get_instance_id()) + "_space_label"	# give the node a name reachable with the instance id (ID_node)
 		var icon := TextureRect.new()				
 		icon.texture = celestial.overview_icon
@@ -121,6 +121,7 @@ func create_overview_ui() -> void:
 		name_x.text = celestial.overview_name
 		name_x.name = str(celestial.get_instance_id()) + "_name_label"	# give the node a name reachable with the instance id (ID_node)
 		name_x.flat = true
+		name_x.align = Button.ALIGN_LEFT
 		name_x.margin_left = 92
 		name_x.margin_right = 246
 		name_x.margin_bottom = 20

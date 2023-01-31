@@ -305,10 +305,21 @@ func mine_asteroid() -> void:
 		
 		# before we start mining we need to wait until we're there!
 		print("Moving to asteroid...")				
+		#Change the offset distance to the player mining laser range
+		
+		# First save the current offset
+		var current_offset = _player.offset_distance
+		
+		# Then update it to be the mining laser range
+		_player.offset_distance = _player.player_mining_laser_range
+		
 		move_player_manually(celestial.global_position)
 		yield(_player, "movement_completed")
 		print("Asteroid reached...")			
-	
+		
+		# retore previous offset
+		_player.offset_distance = current_offset 
+		
 	print("Moved to an asteroid, now it can mineeeee it")
 	# Ok, so we can get this show on the road after all. Start mining!
 		

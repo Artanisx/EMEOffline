@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/warpdrive_active.mp3-7caf3079a04b96da6247a25d3e7a41cd.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/aura/warpdrive_active.mp3"
+dest_files=[ "res://.import/warpdrive_active.mp3-7caf3079a04b96da6247a25d3e7a41cd.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

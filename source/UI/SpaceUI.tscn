@@ -588,12 +588,8 @@ step = 1.0
 wait_time = 5.0
 
 [connection signal="pressed" from="OverviewHUD/VBoxContainer/BUTTONSBOX/MOVETOButton" to="." method="_on_MOVETOButton_pressed"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME1" to="." method="_on_NAME1_gui_input"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME2" to="." method="_on_NAME2_gui_input"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME3" to="." method="_on_NAME3_gui_input"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME4" to="." method="_on_NAME4_gui_input"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME5" to="." method="_on_NAME5_gui_input"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME6" to="." method="_on_NAME6_gui_input"]
-[connection signal="gui_input" from="OverviewHUD/VBoxContainer/ScrollContainer/TABLE/NAME7" to="." method="_on_NAME7_gui_input"]
+[connection signal="pressed" from="OverviewHUD/VBoxContainer/BUTTONSBOX/WARPTOButton" to="." method="_on_WARPTOButton_pressed"]
+[connection signal="pressed" from="OverviewHUD/VBoxContainer/BUTTONSBOX/DOCK" to="." method="_on_DOCK_pressed"]
+[connection signal="pressed" from="OverviewHUD/VBoxContainer/BUTTONSBOX/MINE" to="." method="_on_MINE_pressed"]
 [connection signal="pressed" from="LowerHUD/MiningButton" to="." method="_on_MiningButton_pressed"]
 [connection signal="timeout" from="LowerHUD/MiningButton/MiningCycle" to="." method="_on_MiningCycle_timeout"]

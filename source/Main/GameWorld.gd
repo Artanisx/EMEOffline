@@ -24,6 +24,7 @@ var overview_selected_index = 0
 var button_clicked: bool = false
 var selected_instance_id: int = 0	#when an item is selceted in the overview, this holds the instance_id of the node
 var player_is_mining: bool = false
+var player_is_warping: bool = false
 
 # DEBUGGING
 const max_zoom_out = 10
@@ -58,10 +59,16 @@ func update_space_ui() -> void:
 	_space_ui_hull.value = clamp(_player.player_hull_integrity, 0, 1000)
 	_space_ui_hull.hint_tooltip = "Hull Integrity is: [" + str(_player.player_hull_integrity) + " \\ 1000]"
 	
-	if _player.get_instant_velocity() > 0 and not player_is_mining:
-		_space_ui_action.text = "MOVING"
+	if _player.get_instant_velocity() > 15 and not player_is_mining and not player_is_warping:
+		_space_ui_action.text = "MOVING TO"
 		_space_ui_target.text = "X: "+ str(round(_player.target_pos.x)) + " - Y: " + str(round(_player.target_pos.y))
-	elif _player.get_instant_velocity() <= 0 and not player_is_mining:
+	elif _player.get_instant_velocity() <= 15 and not player_is_mining and not player_is_warping:
+		_space_ui_action.text = "STOPPED"
+		_space_ui_target.text =  ""		
+	elif _player.get_instant_velocity() > 15 and player_is_warping:
+		_space_ui_action.text = "WARPING TO"
+		_space_ui_target.text = get_selected_celestial().overview_name
+	elif not player_is_mining:
 		_space_ui_action.text = "STOPPED"
 		_space_ui_target.text =  ""		
 		
@@ -154,7 +161,9 @@ func _unhandled_input(event) -> void:#
 		#_player.first_target_set = true #allows the player to be moved. It needs to start false before any input or the player starting position would be accepted as a target to move			
 		_player.face(_player.target_pos)
 		#Set selection bool to false as this is a free move
-		overview_selected = false
+		overview_selected = false		
+		# Player is definitely not warping
+		player_is_warping = false
 	
 	if Input.is_action_pressed("ui_left"):
 		print("LEFTTT")
@@ -222,20 +231,11 @@ func _on_SpaceUI_mining_button_pressed():
 	
 	player_is_mining = true
 
-func _on_SpaceUI_overview_move_to() -> void:
-	if (overview_selected):
-		_player.face(_player.target_pos)
-	else:
-		# player moved somewhere else manually, we need to 
-		# refresh the target_pos to the previously (and currently) selected overview 
-		set_player_target_to_selected_overview()
-		
-		#  now go!
-		_player.face(_player.target_pos)
+
 
 func _on_SpaceUI_mining_cycle_completed() -> void:	
 	# First, get a reference to the selected object which we are mining
-	var celestial = overview[selected_instance_id]
+	var celestial = get_selected_celestial()
 	
 	# WARNING! The player might deselect it, and this will mess things up. Keep this in mind!
 	# TODO: Handle deselection
@@ -343,7 +343,7 @@ func set_player_target_to_selected_overview() -> void:
 		# we have selected something	
 		
 		# Get the reference node from the overview table
-		var celestial = overview[selected_instance_id]
+		var celestial = get_selected_celestial()
 		
 		# Set the target for player movement to this node (it's selected)
 		_player.target_pos = celestial.global_position
@@ -361,11 +361,11 @@ func update_overview_selected() -> void:
 		# we have selected something, update it
 		
 		# Get the reference node from the overview table
-		var celestial = overview[selected_instance_id]
+		var celestial = get_selected_celestial()
 	
 		var name = 	celestial.overview_name
 
-		# Calculate the distance
+		# Calculate the distance		
 		var distance = str(round(_player.position.distance_to(celestial.position))) + " m"
 		
 		# If this is an asteroid we should also report the ore amount
@@ -377,7 +377,15 @@ func update_overview_selected() -> void:
 			_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)
 			
 		# Now we must set the Selection Box Buttons
-		_space_ui.set_selection_buttons(celestial.movable_to, celestial.warpable_to, celestial.dockable, celestial.minable)
+		
+		# Check if a warpable celestial is "far enough" to initiate a warp
+		var truly_warpable = false
+		if (celestial.warpable_to == true and get_distance_from_celestial(celestial) >= _player.warp_threashold):
+			truly_warpable = true
+		else:
+			truly_warpable = false
+							
+		_space_ui.set_selection_buttons(celestial.movable_to, truly_warpable, celestial.dockable, celestial.minable)
 		
 	else:
 		# nothing has been seleted, let's clear this
@@ -385,3 +393,65 @@ func update_overview_selected() -> void:
 		_space_ui_overview_selection_icon.texture = load("res://assets/art/ui/empty_icon.png")
 		_space_ui.set_selection_buttons(false, false, false, false)
 		return	
+
+func get_selected_celestial() -> Celestial:
+	if selected_instance_id != 0:
+		return overview[selected_instance_id]
+	else:		
+		return null
+		
+func get_distance_from_celestial(celestial: Celestial) -> int:	
+	return int(round(_player.position.distance_to(celestial.position)))	
+
+## OVERVIEW CALLBACKS
+func _on_SpaceUI_overview_move_to() -> void:
+	if (overview_selected and get_selected_celestial().movable_to == true):
+		_player.face(_player.target_pos)
+		player_is_warping = false
+	else:
+		# player moved somewhere else manually, we need to 
+		# refresh the target_pos to the previously (and currently) selected overview 
+		set_player_target_to_selected_overview()
+		
+		#  now go!
+		_player.face(_player.target_pos)
+		player_is_warping = false
+
+func _on_SpaceUI_overview_dock_to() -> void:
+	# first check if the selected celestial is dockable
+	
+	# if it is, check the distance.
+	
+	# if it's too far, Warp to it first, then dock
+	
+	# if it close (500m?) dock right away
+	
+	pass # Replace with function body.
+
+
+func _on_SpaceUI_overview_mine_to() -> void:
+	# First check if the selected celestial is movable
+	
+	# Then check if it's in range
+	
+	# if it is, start mining
+	
+	# if it isn't, move to until it is in range
+	
+	# and then mine it
+	pass
+
+func _on_SpaceUI_overview_warp_to() -> void:
+	#First checkif the selected celestial is warpable
+	if (overview_selected and get_selected_celestial().warpable_to == true):
+		# THen check if it's distant enough to initiate a warp sequence
+		var distance = round(_player.position.distance_to(get_selected_celestial().position))
+		if distance >= _player.warp_threashold:
+			# initaite warp
+			$AUDIO/AURA_WARPDRIVEACTIVE.play()
+			player_is_warping = true
+			_player.face(_player.target_pos, true)			
+		else:
+			# can't warp, it's too close
+			print("Attempting to warp to a too closeby celestial.")
+			return

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/art/shaders/starnest.tres" type="Shader" id=1]
 [ext_resource path="res://source/Player/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://source/Actors/Celestial.gd" type="Script" id=8]
 [ext_resource path="res://assets/art/ui/asteroid_belt_icon_overview.png" type="Texture" id=9]
 [ext_resource path="res://assets/art/ui/asteroid_belt_icon.png" type="Texture" id=10]
+[ext_resource path="res://assets/audio/aura/warpdrive_active.mp3" type="AudioStream" id=11]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -300,7 +301,7 @@ start_ore_amount = 400
 [node name="AsteroidBelt1" type="Area2D" parent="CELESTIALS"]
 position = Vector2( -9353, -8734 )
 script = ExtResource( 8 )
-overview_name = "DODIXIE - Moon 8 - Asteroid Belt I"
+overview_name = "Asteroid Belt I"
 overview_icon = ExtResource( 9 )
 overview_selection_icon = ExtResource( 10 )
 warpable_to = true
@@ -309,15 +310,23 @@ movable_to = false
 [node name="AsteroidBelt2" type="Area2D" parent="CELESTIALS"]
 position = Vector2( 22260, 9912 )
 script = ExtResource( 8 )
-overview_name = "DODIXIE - Moon 12 - Asteroid Belt I"
+overview_name = "Asteroid Belt II"
 overview_icon = ExtResource( 9 )
 overview_selection_icon = ExtResource( 10 )
 warpable_to = true
 movable_to = false
 
+[node name="AUDIO" type="Node" parent="."]
+
+[node name="AURA_WARPDRIVEACTIVE" type="AudioStreamPlayer" parent="AUDIO"]
+stream = ExtResource( 11 )
+
 [connection signal="mining_button_pressed" from="SpaceUI" to="." method="_on_SpaceUI_mining_button_pressed"]
 [connection signal="mining_cycle_completed" from="SpaceUI" to="." method="_on_SpaceUI_mining_cycle_completed"]
+[connection signal="overview_dock_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_dock_to"]
+[connection signal="overview_mine_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_mine_to"]
 [connection signal="overview_move_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_move_to"]
+[connection signal="overview_warp_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_warp_to"]
 [connection signal="asteroid_depleted" from="VeldsparAsteroid" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
 [connection signal="asteroid_depleted" from="VeldsparAsteroid2" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
 [connection signal="asteroid_depleted" from="VeldsparAsteroid3" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]

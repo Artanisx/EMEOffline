@@ -15,7 +15,9 @@ signal asteroid_depleted
 export var start_ore_amount: float = 5000
 
 ## How quickly this asteroid should rotate
-export var rotation_speed = 1
+var rotation_speed = 1
+export var min_speed = -2.5
+export var max_speed = 2.5
 
 ## This should be an AudioStreamPlayer
 onready var _audio_aura_depleted: AudioStreamPlayer = $AURA_Depleted
@@ -48,6 +50,7 @@ enum Density {
 export (Density) var AsteroidDensity = Density.NORMAL
 
 var selected: bool = false
+var rng = RandomNumberGenerator.new()
 
 ## Constructor
 # ------------
@@ -77,6 +80,22 @@ func _ready():
 	# Add the tween and its signal
 	add_child(scale_tween)	
 	#scale_tween.connect("tween_all_completed", self, "_on_scale_tween_completed")	 #might not be needed
+	
+	# Set random rotation (based upon ore mount and export speeds)
+	rng.randomize()
+		
+	if start_ore_amount > 4000:
+		max_speed = max_speed / 3
+		min_speed = min_speed / 3
+	elif start_ore_amount > 2000:
+		max_speed = max_speed / 2
+		min_speed = min_speed / 2
+	elif start_ore_amount > 1000:
+		max_speed = max_speed / 1.5	
+		min_speed = min_speed / 1.5	
+	
+	var my_random_number = rng.randf_range(min_speed, max_speed)
+	rotation_speed = my_random_number
 	
 ## Override _process to slowly rotate the asteroid
 func _process(delta):

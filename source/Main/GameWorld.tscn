@@ -288,18 +288,15 @@ scale = Vector2( 0.2, 0.2 )
 position = Vector2( 472.001, -746 )
 scale = Vector2( 0.2, 0.2 )
 
-[node name="GameMusicPlayer" parent="." instance=ExtResource( 4 )]
-starting_theme = "BelowTheAsteroids"
-
 [node name="VeldsparAsteroid" parent="." instance=ExtResource( 7 )]
-position = Vector2( -235, -91 )
+position = Vector2( -245, -88 )
 
 [node name="VeldsparAsteroid2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 260, -235 )
+position = Vector2( 250, -232 )
 start_ore_amount = 2500.0
 
 [node name="VeldsparAsteroid3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 224, 173 )
+position = Vector2( 214, 176 )
 start_ore_amount = 300.0
 
 [node name="CELESTIALS" type="Node" parent="."]
@@ -340,6 +337,9 @@ stream = ExtResource( 11 )
 
 [node name="AURA_INSUFFICIENTPOWER" type="AudioStreamPlayer" parent="AUDIO"]
 stream = ExtResource( 12 )
+
+[node name="GameMusicPlayer" parent="." instance=ExtResource( 4 )]
+starting_theme = "BelowTheAsteroids"
 
 [node name="LaserBeam2D" parent="." instance=ExtResource( 13 )]
 

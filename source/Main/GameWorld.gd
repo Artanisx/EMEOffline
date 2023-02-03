@@ -25,6 +25,7 @@ var button_clicked: bool = false
 var selected_instance_id: int = 0	#when an item is selceted in the overview, this holds the instance_id of the node
 var player_is_mining: bool = false
 var player_is_warping: bool = false
+var asteroid_being_mined: Celestial = null
 
 ## Celestial over this distance will not be shown in the overview
 export var overview_range: int = 5000
@@ -233,6 +234,9 @@ func update_overview_ui() -> void:
 				create_new_overview_line_ui(celestial)	#add it again to the overview, maybe it was now back in range				
 
 func move_player_manually(target_position = Vector2.ZERO) -> void:
+	if player_is_mining:	# you shouldn't move while mining
+		return
+		
 	if (target_position == Vector2.ZERO):		
 		# Called without arguments, get mouse pos
 		_player.target_pos = get_global_mouse_position()
@@ -247,12 +251,9 @@ func move_player_manually(target_position = Vector2.ZERO) -> void:
 	# Player is definitely not warping
 	player_is_warping = false	
 		
-func _unhandled_input(event) -> void:#	
-	if Input.is_action_pressed("left_click"):# and _space_ui.hovering_on_gui() != true and button_clicked == false:
-		move_player_manually()		
-	
-	if Input.is_action_pressed("ui_left"):
-		print("LEFTTT")
+func _unhandled_input(event) -> void:	
+	if Input.is_action_pressed("left_click") and not player_is_mining: # Don't move if you're mining.
+		move_player_manually()				
 
 	if Input.is_action_just_released("zoom_out"):		
 		#mouse_wheel down, zoom out
@@ -276,21 +277,21 @@ func _unhandled_input(event) -> void:#
 		get_tree().quit()
 
 func mine_asteroid() -> void:
-	print("Minign time!")
+	print("Minign time!")	
 	
 	if (selected_instance_id == 0):
 		# you can't mine without sleceting something first
 		return
 	
 	# First we should check if we have an asteroid selected
-	var celestial = overview[selected_instance_id]
+	asteroid_being_mined = overview[selected_instance_id]	
 	
-	if celestial.minable == false:
+	if asteroid_being_mined.minable == false:
 		# trying to mine something that isn't minable, really?
 		return
 	
 	# OK we have our asteroid, before going anywhere else let's check if it's still there	
-	if (celestial == null):
+	if (asteroid_being_mined == null):
 		print("The asteroid is no more!")
 		return
 	
@@ -300,7 +301,7 @@ func mine_asteroid() -> void:
 		return
 	
 	# Consider RANGE! If out of range, we can't mine! We should move closer instead.
-	if (get_distance_from_celestial(celestial) >= _player.player_mining_laser_range):
+	if (get_distance_from_celestial(asteroid_being_mined) >= _player.player_mining_laser_range):
 		# this si too far, we can mine yet, move closer first	
 		
 		# before we start mining we need to wait until we're there!
@@ -313,7 +314,7 @@ func mine_asteroid() -> void:
 		# Then update it to be the mining laser range
 		_player.offset_distance = _player.player_mining_laser_range
 		
-		move_player_manually(celestial.global_position)
+		move_player_manually(asteroid_being_mined.global_position)
 		yield(_player, "movement_completed")
 		print("Asteroid reached...")			
 		
@@ -334,7 +335,7 @@ func mine_asteroid() -> void:
 	
 	# Udpat ethe UI to show the action
 	_space_ui_action.text = "MINING"
-	var mining_what = overview[selected_instance_id].overview_name
+	var mining_what = overview[asteroid_being_mined.get_instance_id()].overview_name
 	_space_ui_target.text = mining_what	
 	
 	player_is_mining = true
@@ -532,6 +533,11 @@ func get_distance_from_celestial(celestial: Celestial) -> int:
 
 ## OVERVIEW CALLBACKS
 func _on_SpaceUI_overview_move_to() -> void:
+	if (player_is_mining):
+		#the player is mining, an official move to action should abort the mining process
+		print("Now we should abort mining and do nothing else")
+		return
+	
 	if (overview_selected and get_selected_celestial().movable_to == true):
 		_player.face(_player.target_pos)
 		player_is_warping = false

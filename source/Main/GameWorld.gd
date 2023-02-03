@@ -342,7 +342,12 @@ func mine_asteroid() -> void:
 
 ## SPACE UI
 func _on_SpaceUI_mining_button_pressed():
-	mine_asteroid()
+	if (not player_is_mining):
+		mine_asteroid()
+	else:
+		# player is mining and wants to stop
+		_space_ui_mining_button.get_node("MiningCycle").stop()
+		player_is_mining = false
 
 func _on_SpaceUI_mining_cycle_completed() -> void:	
 	# First, get a reference to the selected object which we are mining

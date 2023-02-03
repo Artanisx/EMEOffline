@@ -34,7 +34,7 @@ export var overview_range: int = 5000
 # DEBUGGING
 const max_zoom_out = 10
 var warnings_given: bool = false
-var DEBUG_SPEED_MINING: bool = false
+var DEBUG_SPEED_MINING: bool = true
 
 func _ready() -> void:	
 	# Loads player variables
@@ -389,6 +389,7 @@ func _on_SpaceUI_mining_cycle_completed() -> void:
 	
 	if (celestial == null):
 		print("The asteroid is no more!")
+		laser_beam_2d.set_is_casting(false)	
 		return	
 		
 	# Time to mine it!
@@ -400,6 +401,7 @@ func _on_SpaceUI_mining_cycle_completed() -> void:
 		_player.player_cargo_hold += _player.player_mining_laser_yield
 	else:
 		print("Cargo hold full!!!")
+		laser_beam_2d.set_is_casting(false)	
 		_space_ui.show_mid_message("Cargo hold is full.")
 		_space_ui_mining_button.get_node("MiningCycle").stop()
 		_space_ui_mining_button.get_node("MiningBar").value = 0

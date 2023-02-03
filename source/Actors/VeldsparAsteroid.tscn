@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/art/ui/selection_circle.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 306.757
+radius = 181.108
 
 [node name="VeldsparAsteroid" type="Area2D"]
 scale = Vector2( 0.1, 0.1 )

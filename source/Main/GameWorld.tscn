@@ -293,15 +293,14 @@ starting_theme = "BelowTheAsteroids"
 
 [node name="VeldsparAsteroid" parent="." instance=ExtResource( 7 )]
 position = Vector2( -235, -91 )
-start_ore_amount = 200
 
 [node name="VeldsparAsteroid2" parent="." instance=ExtResource( 7 )]
 position = Vector2( 260, -235 )
-start_ore_amount = 300
+start_ore_amount = 2500.0
 
 [node name="VeldsparAsteroid3" parent="." instance=ExtResource( 7 )]
 position = Vector2( 224, 173 )
-start_ore_amount = 400
+start_ore_amount = 300.0
 
 [node name="CELESTIALS" type="Node" parent="."]
 

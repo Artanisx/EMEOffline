@@ -19,6 +19,15 @@ func _ready() -> void:
 	# Set the start ore amount. It must be done here or any editor udpated value would be ignored
 	ore_amount = start_ore_amount
 	
+	if start_ore_amount > 5000:
+		scale = Vector2(0.5, 0.5)
+	elif start_ore_amount > 2500:
+		scale = Vector2(0.25, 0.25)
+	elif start_ore_amount > 1000:
+		scale = Vector2(0.1, 0.1)
+	else:
+		scale = Vector2(0.05, 0.05)
+	
 func selected(selected: bool) -> void:
 	#Toggle selection circle visibility
 	$SelectionCircle.visible = selected

@@ -12,7 +12,7 @@ signal asteroid_depleted
 # ----------------
 
 ## The starting amount of ore
-export var start_ore_amount: int = 5000
+export var start_ore_amount: float = 5000
 
 ## How quickly this asteroid should rotate
 export var rotation_speed = 1
@@ -21,7 +21,7 @@ export var rotation_speed = 1
 onready var _audio_aura_depleted: AudioStreamPlayer = $AURA_Depleted
 
 ## This is the quantity of Ore it contains
-var ore_amount: int = 0
+var ore_amount: float = 0
 
 ## This is the tween to be used to scale down the asteroid while its being mined
 var scale_tween : Tween = Tween.new()
@@ -89,15 +89,21 @@ func get_mined(mined_amount: int) -> Array:
 		# There's enough ore for this cycle
 		ore_amount -= mined_amount
 		
-		var percentage_left = 100 / (start_ore_amount / ore_amount)
-		var scale_to = 0
+		var percentage_left: float = float(100 / (start_ore_amount / ore_amount))
 		
-		if percentage_left > 10:
-			scale_to = 0.9
-		else:
-			scale_to = 0.1
+#		var scale_to = 0
+#
+#		if percentage_left > 10:
+#			scale_to = 0.9
+#		else:
+#			scale_to = 0.1
+
+		var scale_to = percentage_left / 100
 		
-		scale_tween.interpolate_property(self, "scale", scale, scale*scale_to, 0.5, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+		var vec_scale_to = Vector2(scale.x * scale_to, scale.y * scale_to)
+		
+		
+		scale_tween.interpolate_property(self, "scale", scale, vec_scale_to, 0.5, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 		scale_tween.start()				
 		
 		# Return this mined amount so it can be added to the cargo hold

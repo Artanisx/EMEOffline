@@ -23,6 +23,9 @@ onready var _audio_aura_depleted: AudioStreamPlayer = $AURA_Depleted
 ## This is the quantity of Ore it contains
 var ore_amount: int = 0
 
+## This is the tween to be used to scale down the asteroid while its being mined
+var scale_tween : Tween = Tween.new()
+
 ## Kind of Asteroid [CURRENTLY UNUSED]
 enum Kind {
 	EMPTY				= 0,  ## EMPTY ASTEROID
@@ -69,7 +72,11 @@ func _ready():
 		add_child(_audio_aura_depleted)		
 		
 	# Connect the finished signal
-	_audio_aura_depleted.connect("finished", self, "on_depleted_finished")		
+	_audio_aura_depleted.connect("finished", self, "on_depleted_finished")	
+	
+	# Add the tween and its signal
+	add_child(scale_tween)	
+	#scale_tween.connect("tween_all_completed", self, "_on_scale_tween_completed")	 #might not be needed
 	
 ## Override _process to slowly rotate the asteroid
 func _process(delta):
@@ -82,19 +89,29 @@ func get_mined(mined_amount: int) -> Array:
 		# There's enough ore for this cycle
 		ore_amount -= mined_amount
 		
+		var percentage_left = 100 / (start_ore_amount / ore_amount)
+		var scale_to = 0
+		
+		if percentage_left > 10:
+			scale_to = 0.9
+		else:
+			scale_to = 0.1
+		
+		scale_tween.interpolate_property(self, "scale", scale, scale*scale_to, 0.5, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+		scale_tween.start()				
+		
 		# Return this mined amount so it can be added to the cargo hold
 		return [mined_amount, AsteroidKind]	
 	else:
 		# There's not enough ore for this cycle
 		emit_signal("asteroid_depleted")
 		
-		# Play "The asteroid is Depleted"
-		_audio_aura_depleted.play()
-		
-		## TO DO: START DESTROY ASTEROID ANIMATION so, when audio is done and the asteroid is queued_free there is not abrupt vanish
-		
 		# For now let's instantly hide it at least
 		hide()
+		
+		# Play "The asteroid is Depleted"
+		_audio_aura_depleted.play()			
+		
 		return [0, Kind.EMPTY]
 		
 func on_depleted_finished() -> void:			

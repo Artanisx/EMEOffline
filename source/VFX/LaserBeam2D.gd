@@ -22,6 +22,7 @@ var direction = Vector2.RIGHT
 func _ready() -> void:
 	set_physics_process(false)
 	fill.points[1] = Vector2.ZERO	
+	collision_mask = 2
 
 func _physics_process(delta: float) -> void:
 	#cast_to = (cast_to + beam_target * cast_speed * delta).clamped(max_length)	
@@ -45,7 +46,7 @@ func cast_beam() -> void:
 	beam_particles.position = cast_point * 0.5
 	beam_particles.process_material.emission_box_extents.x = cast_point.length() * 0.5
 	
-func appear() -> void:
+func appear() -> void:	
 	if tween.is_active():
 		tween.stop_all()
 		

@@ -56,6 +56,7 @@ scale_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
 
 [node name="LaserBeam2D" type="RayCast2D"]
+collision_mask = 2
 collide_with_areas = true
 script = ExtResource( 2 )
 

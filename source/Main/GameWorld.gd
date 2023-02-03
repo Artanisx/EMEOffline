@@ -14,6 +14,7 @@ onready var _space_ui_overview_table = $SpaceUI/OverviewHUD/VBoxContainer/Scroll
 onready var _space_ui_overview_selection_text = $SpaceUI/OverviewHUD/VBoxContainer/SELECTIONBOX/SELECTIONTEXT
 onready var _space_ui_overview_selection_icon = $SpaceUI/OverviewHUD/VBoxContainer/SELECTIONBOX/SELECTIONICON
 onready var _props = $Props
+onready var laser_beam_2d: RayCast2D = $LaserBeam2D
 
 # OVERVIEW
 var overview = {}
@@ -33,7 +34,7 @@ export var overview_range: int = 5000
 # DEBUGGING
 const max_zoom_out = 10
 var warnings_given: bool = false
-var DEBUG_SPEED_MINING: bool = true
+var DEBUG_SPEED_MINING: bool = false
 
 func _ready() -> void:	
 	# Loads player variables
@@ -50,6 +51,9 @@ func _ready() -> void:
 	
 func _process(delta) -> void:
 	update_space_ui()
+	
+	#Update the laserposition to the player position. It must not be parented or it will fail to work with rotations
+	laser_beam_2d.global_position = _player.global_position# + Vector2(20,0)
 
 func set_space_ui() -> void:
 	_space_ui_speed.max_value = _player.movement_speed	
@@ -85,7 +89,7 @@ func update_space_ui() -> void:
 	update_overview_ui()
 	
 	# update selection box (distance)
-	update_overview_selected()		
+	update_overview_selected()			
 
 func create_overview_dictionary() -> void:
 	# We need to add to overview dictionary all celestials that will compose our overview
@@ -298,7 +302,7 @@ func mine_asteroid() -> void:
 	_space_ui.show_mid_message("Beginning to mine.")
 	
 	# First we should check if we have an asteroid selected
-	asteroid_being_mined = overview[selected_instance_id]	
+	asteroid_being_mined = overview[selected_instance_id]
 	
 	if asteroid_being_mined.minable == false:
 		# trying to mine something that isn't minable, really?
@@ -337,6 +341,9 @@ func mine_asteroid() -> void:
 		
 	print("Moved to an asteroid, now it can mineeeee it")
 	# Ok, so we can get this show on the road after all. Start mining!
+	
+	# Set the target for the laser beam
+	laser_beam_2d.beam_target = asteroid_being_mined.global_position
 		
 	_space_ui_mining_button.get_node("MiningBar").value = 0	
 	if (DEBUG_SPEED_MINING == false):
@@ -346,6 +353,10 @@ func mine_asteroid() -> void:
 		_space_ui_mining_button.get_node("MiningBar").max_value = 1
 		_space_ui_mining_button.get_node("MiningCycle").wait_time = 1
 	_space_ui_mining_button.get_node("MiningCycle").start()	
+	
+	# Star the laser
+	laser_beam_2d.set_is_casting(true)
+	print("turning ON the laser")
 	
 	# Udpat ethe UI to show the action
 	_space_ui_action.text = "MINING"
@@ -364,6 +375,12 @@ func _on_SpaceUI_mining_button_pressed():
 		player_is_mining = false
 
 func _on_SpaceUI_mining_cycle_completed() -> void:	
+	# Cycle completed turn off the laser
+	laser_beam_2d.set_is_casting(false)	
+	
+	# switch it on again
+	laser_beam_2d.set_is_casting(true)	
+	
 	# First, get a reference to the selected object which we are mining
 	var celestial = get_selected_celestial()
 	
@@ -386,10 +403,14 @@ func _on_SpaceUI_mining_cycle_completed() -> void:
 		_space_ui.show_mid_message("Cargo hold is full.")
 		_space_ui_mining_button.get_node("MiningCycle").stop()
 		_space_ui_mining_button.get_node("MiningBar").value = 0
-		return
+		return	
 
 ## DEBUG! Probably we should link all asteroids (via code not inspectr) to this lone signal
 func _on_VeldsparAsteroid_asteroid_depleted() -> void:
+	# Cycle completed turn off the laser
+	laser_beam_2d.set_is_casting(false)	
+	print("Turning off the laser as asteroid is depleted")
+	
 	_space_ui_mining_button.get_node("MiningCycle").stop()
 	_space_ui_mining_button.get_node("MiningBar").value = 0
 		
@@ -402,7 +423,7 @@ func _on_VeldsparAsteroid_asteroid_depleted() -> void:
 	# not mining anymore
 	player_is_mining = false
 	
-	_space_ui.show_mid_message("The asteroid is depleted.")
+	_space_ui.show_mid_message("The asteroid is depleted.")	
 	
 func erase_element_from_overview(instance: int, also_erase_from_dictionary: bool = false) -> void:
 	if (also_erase_from_dictionary):
@@ -574,7 +595,7 @@ func _on_SpaceUI_overview_move_to() -> void:
 		player_is_warping = false
 		_player.warping(false)
 
-func _on_SpaceUI_overview_dock_to() -> void:
+func _on_SpaceUI_overview_dock_to() -> void:	
 	# first check if the selected celestial is dockable
 	
 	# if it is, check the distance.

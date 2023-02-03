@@ -53,243 +53,285 @@ offset_distance = 120.0
 [node name="Props" type="Node" parent="."]
 
 [node name="Asteroid (Veldspar)" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -71, -359 )
+position = Vector2( -981, -1939 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="Asteroid (Veldspar)2" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -274, -257 )
+position = Vector2( -1184, -1837 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="Asteroid (Veldspar)3" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 356, -54.0001 )
+position = Vector2( -554, -1634 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="Asteroid (Veldspar)4" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -350, 223 )
+position = Vector2( -1260, -1357 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="Asteroid (Veldspar)5" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 495, 299 )
+position = Vector2( -415, -1281 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="Asteroid (Veldspar)6" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 977, -664 )
+position = Vector2( 67, -2244 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="Asteroid (Veldspar)7" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 774, -562 )
+position = Vector2( -136, -2142 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid8" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 24867, 23758 )
+position = Vector2( 22420, 19827 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid9" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 24285, 24022 )
+position = Vector2( 21838, 20091 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid10" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 25006, 24111 )
+position = Vector2( 22559, 20180 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid11" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 24353, 24147 )
+position = Vector2( 21906, 20216 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid12" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 24150, 24249 )
+position = Vector2( 21703, 20318 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid13" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 24780, 24452 )
+position = Vector2( 22333, 20521 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid14" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 24074, 24729 )
+position = Vector2( 21627, 20798 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid15" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 24919, 24805 )
+position = Vector2( 22472, 20874 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid16" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 23901, 24188 )
+position = Vector2( 21454, 20257 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid17" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 23493, 22869 )
+position = Vector2( 21046, 18938 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid18" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 23290, 22971 )
+position = Vector2( 20843, 19040 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid19" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 23920, 23174 )
+position = Vector2( 21473, 19243 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid20" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 23214, 23451 )
+position = Vector2( 20767, 19520 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid21" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 24059, 23527 )
+position = Vector2( 21612, 19596 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid22" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 24464, 23678 )
+position = Vector2( 22017, 19747 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid23" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 24261, 23780 )
+position = Vector2( 21814, 19849 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid24" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 24891, 23983 )
+position = Vector2( 22444, 20052 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid25" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 22461, 24663 )
+position = Vector2( 20014, 20732 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid26" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 23306, 24739 )
+position = Vector2( 20859, 20808 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid27" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -2355, 1518 )
+position = Vector2( -3265, -62 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid28" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -1873, 555 )
+position = Vector2( -2783, -1025 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid29" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -2076, 657 )
+position = Vector2( -2986, -923 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid30" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -1446, 860 )
+position = Vector2( -2356, -720 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid31" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -2152, 1137 )
+position = Vector2( -3062, -443 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid32" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -1307, 1213 )
+position = Vector2( -2217, -367 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid33" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -16839, -24538 )
+position = Vector2( -14404, -21010 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid34" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -17042, -24436 )
+position = Vector2( -14607, -20908 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid35" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -16412, -24233 )
+position = Vector2( -13977, -20705 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid36" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -17118, -23956 )
+position = Vector2( -14683, -20428 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid37" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -16273, -23880 )
+position = Vector2( -13838, -20352 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid38" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -15954, -23898 )
+position = Vector2( -13519, -20370 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid39" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -15472, -24861 )
+position = Vector2( -13037, -21333 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid40" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -15675, -24759 )
+position = Vector2( -13240, -21231 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid41" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -15045, -24556 )
+position = Vector2( -12610, -21028 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid42" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -15751, -24279 )
+position = Vector2( -13316, -20751 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid43" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -14906, -24203 )
+position = Vector2( -12471, -20675 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid44" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -16610, -23714 )
+position = Vector2( -14175, -20186 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid45" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -16813, -23612 )
+position = Vector2( -14378, -20084 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid46" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -16183, -23409 )
+position = Vector2( -13748, -19881 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid47" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 1832, -812 )
+position = Vector2( 922, -2392 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid48" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 2677, -736 )
+position = Vector2( 1767, -2316 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid49" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -1147, -1814 )
+position = Vector2( -2057, -3394 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid50" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -665, -2777 )
+position = Vector2( -1575, -4357 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid51" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -868, -2675 )
+position = Vector2( -1778, -4255 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid52" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -238, -2472 )
+position = Vector2( -1148, -4052 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid53" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -944, -2195 )
+position = Vector2( -1854, -3775 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid54" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -98.9994, -2119 )
+position = Vector2( -1009, -3699 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid55" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -93.9994, -1404 )
+position = Vector2( -1004, -2984 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid56" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -297, -1302 )
+position = Vector2( -1207, -2882 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid57" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 333.001, -1099 )
+position = Vector2( -576.998, -2679 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid58" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -373, -822 )
+position = Vector2( -1283, -2402 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="StaticAsteroid59" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( 472.001, -746 )
+position = Vector2( -437.998, -2326 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="VeldsparAsteroid" parent="." instance=ExtResource( 7 )]
 position = Vector2( -245, -88 )
+
+[node name="VeldsparAsteroid4" parent="." instance=ExtResource( 7 )]
+position = Vector2( -16079, -23875 )
+
+[node name="VeldsparAsteroid11" parent="." instance=ExtResource( 7 )]
+position = Vector2( -16079, -23875 )
+
+[node name="VeldsparAsteroid5" parent="." instance=ExtResource( 7 )]
+position = Vector2( 24156, 23746 )
+
+[node name="VeldsparAsteroid12" parent="." instance=ExtResource( 7 )]
+position = Vector2( 23721, 23854 )
+
+[node name="VeldsparAsteroid13" parent="." instance=ExtResource( 7 )]
+position = Vector2( 23990, 24149 )
+
+[node name="VeldsparAsteroid14" parent="." instance=ExtResource( 7 )]
+position = Vector2( 24241, 24037 )
+
+[node name="VeldsparAsteroid15" parent="." instance=ExtResource( 7 )]
+position = Vector2( 24433, 23855 )
+
+[node name="VeldsparAsteroid16" parent="." instance=ExtResource( 7 )]
+position = Vector2( 24288, 23600 )
+
+[node name="VeldsparAsteroid17" parent="." instance=ExtResource( 7 )]
+position = Vector2( 23788, 24024 )
+
+[node name="VeldsparAsteroid6" parent="." instance=ExtResource( 7 )]
+position = Vector2( -16419, -23796 )
+
+[node name="VeldsparAsteroid7" parent="." instance=ExtResource( 7 )]
+position = Vector2( -16245, -24244 )
+
+[node name="VeldsparAsteroid8" parent="." instance=ExtResource( 7 )]
+position = Vector2( -15834, -23853 )
+
+[node name="VeldsparAsteroid9" parent="." instance=ExtResource( 7 )]
+position = Vector2( -16199, -23544 )
+
+[node name="VeldsparAsteroid10" parent="." instance=ExtResource( 7 )]
+position = Vector2( -16095, -23386 )
 
 [node name="VeldsparAsteroid2" parent="." instance=ExtResource( 7 )]
 position = Vector2( 250, -232 )
@@ -321,10 +363,10 @@ overview_selection_icon = ExtResource( 10 )
 warpable_to = true
 movable_to = false
 
-[node name="AsteroidBelt0" type="Area2D" parent="CELESTIALS/AsteroidBelts"]
+[node name="Spawn" type="Area2D" parent="CELESTIALS/AsteroidBelts"]
 position = Vector2( -10, 3 )
 script = ExtResource( 8 )
-overview_name = "Asteroid Belt 0"
+overview_name = "Spawn"
 overview_icon = ExtResource( 9 )
 overview_selection_icon = ExtResource( 10 )
 warpable_to = true
@@ -350,5 +392,19 @@ starting_theme = "BelowTheAsteroids"
 [connection signal="overview_move_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_move_to"]
 [connection signal="overview_warp_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_warp_to"]
 [connection signal="asteroid_depleted" from="VeldsparAsteroid" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid4" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid11" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid5" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid12" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid13" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid14" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid15" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid16" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid17" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid6" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid7" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid8" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid9" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="VeldsparAsteroid10" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
 [connection signal="asteroid_depleted" from="VeldsparAsteroid2" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
 [connection signal="asteroid_depleted" from="VeldsparAsteroid3" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]

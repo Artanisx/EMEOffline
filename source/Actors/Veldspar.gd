@@ -25,3 +25,17 @@ func selected(selected: bool) -> void:
 	
 	#Set the selected variable (from Asteroid)
 	self.selected = selected
+
+func _on_VeldsparAsteroid_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+#	if Input.is_action_pressed("left_click"):
+#		deselect_asteroids()			
+#		selected(true)		
+	# clicking on empty space deselects everything, so for the moment let's not allow selection by mouse click
+	pass
+		
+func deselect_asteroids() -> void:
+	var celestials = get_tree().get_nodes_in_group("celestials")
+	
+	for celestial in celestials:
+		if celestial.minable and celestial.is_selected():
+			celestial.selected(false)

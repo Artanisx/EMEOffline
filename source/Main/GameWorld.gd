@@ -253,6 +253,13 @@ func move_player_manually(target_position = Vector2.ZERO) -> void:
 		
 func _unhandled_input(event) -> void:	
 	if Input.is_action_pressed("left_click") and not player_is_mining: # Don't move if you're mining.
+		#Desleect any selection
+		selected_instance_id = 0
+		_space_ui_overview_selection_text.text = "Nothing is selected."
+		_space_ui_overview_selection_icon.texture = load("res://assets/art/ui/empty_icon.png")
+		_space_ui.set_selection_buttons(false, false, false, false)		
+		deselect_asteroids()
+		# move there
 		move_player_manually()				
 
 	if Input.is_action_just_released("zoom_out"):		
@@ -513,7 +520,7 @@ func update_overview_selected() -> void:
 		_space_ui.set_selection_buttons(celestial.movable_to, truly_warpable, celestial.dockable, celestial.minable)
 		
 	else:
-		# nothing has been seleted, let's clear this
+		# nothing has been seleted, let's clear this		
 		_space_ui_overview_selection_text.text = "Nothing is selected."
 		_space_ui_overview_selection_icon.texture = load("res://assets/art/ui/empty_icon.png")
 		_space_ui.set_selection_buttons(false, false, false, false)

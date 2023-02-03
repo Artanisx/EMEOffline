@@ -13,6 +13,10 @@ onready var moveto_button: TextureButton = $OverviewHUD/VBoxContainer/BUTTONSBOX
 onready var warpto_button: TextureButton = $OverviewHUD/VBoxContainer/BUTTONSBOX/WARPTOButton
 onready var dock: TextureButton = $OverviewHUD/VBoxContainer/BUTTONSBOX/DOCK
 onready var mine: TextureButton = $OverviewHUD/VBoxContainer/BUTTONSBOX/MINE
+onready var midhud: Panel = $MIDHUD
+onready var message: Label = $MIDHUD/MESSAGE
+onready var _mid_animation_player: AnimationPlayer = $MIDHUD/AnimationPlayer
+
 
 func _process(delta) -> void:
 	# MINING CYCLE TIMER
@@ -24,6 +28,13 @@ func set_selection_buttons(movable: bool, warpable: bool, dockable: bool, minabl
 	warpto_button.disabled = !warpable
 	dock.disabled = !dockable
 	mine.disabled = !minable			
+
+func show_mid_message(message_to_show: String) -> void:
+	message.text = message_to_show	
+	_mid_animation_player.play("FadeIn")
+	
+func fade_out_message() -> void:
+	_mid_animation_player.play("FadeOut")
 
 func _on_MiningButton_pressed():
 	emit_signal("mining_button_pressed")

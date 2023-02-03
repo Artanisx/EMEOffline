@@ -70,9 +70,9 @@ func update_space_ui() -> void:
 		_space_ui_action.text = "STOPPED"
 		_space_ui_target.text =  ""	
 		_player.warping(false)	
-	elif _player.get_instant_velocity() > 15 and player_is_warping:
+	elif _player.get_instant_velocity() > 15 and player_is_warping:		
 		_space_ui_action.text = "WARPING TO"
-		_space_ui_target.text = get_selected_celestial().overview_name
+		_space_ui_target.text = get_selected_celestial().overview_name		
 		_player.warping(true)	
 	elif not player_is_mining:
 		_space_ui_action.text = "STOPPED"
@@ -260,7 +260,11 @@ func _unhandled_input(event) -> void:
 		_space_ui.set_selection_buttons(false, false, false, false)		
 		deselect_asteroids()
 		# move there
-		move_player_manually()				
+		move_player_manually()
+	elif Input.is_action_pressed("left_click") and player_is_mining:
+		# player is trying to move, but we don't want to allow it, some feedback should be presented		
+		$AUDIO/AURA_INSUFFICIENTPOWER.play()
+		_space_ui.show_mid_message("Insufficient power. You are currently mining.")				
 
 	if Input.is_action_just_released("zoom_out"):		
 		#mouse_wheel down, zoom out
@@ -288,7 +292,10 @@ func mine_asteroid() -> void:
 	
 	if (selected_instance_id == 0):
 		# you can't mine without sleceting something first
+		_space_ui.show_mid_message("You cannot mine without an asteroid selected.")
 		return
+	
+	_space_ui.show_mid_message("Beginning to mine.")
 	
 	# First we should check if we have an asteroid selected
 	asteroid_being_mined = overview[selected_instance_id]	
@@ -304,7 +311,7 @@ func mine_asteroid() -> void:
 	
 	## Before starting the mining cycle, check if the ore hold is full
 	if (_player.player_cargo_hold >= _player.player_cargo_hold_capacity):
-		print("Cargo hold is full")
+		_space_ui.show_mid_message("Cargo hold is full.")
 		return
 	
 	# Consider RANGE! If out of range, we can't mine! We should move closer instead.
@@ -376,6 +383,7 @@ func _on_SpaceUI_mining_cycle_completed() -> void:
 		_player.player_cargo_hold += _player.player_mining_laser_yield
 	else:
 		print("Cargo hold full!!!")
+		_space_ui.show_mid_message("Cargo hold is full.")
 		_space_ui_mining_button.get_node("MiningCycle").stop()
 		_space_ui_mining_button.get_node("MiningBar").value = 0
 		return
@@ -393,6 +401,8 @@ func _on_VeldsparAsteroid_asteroid_depleted() -> void:
 	
 	# not mining anymore
 	player_is_mining = false
+	
+	_space_ui.show_mid_message("The asteroid is depleted.")
 	
 func erase_element_from_overview(instance: int, also_erase_from_dictionary: bool = false) -> void:
 	if (also_erase_from_dictionary):
@@ -586,11 +596,12 @@ func _on_SpaceUI_overview_warp_to() -> void:
 		var distance = round(_player.position.distance_to(get_selected_celestial().position))
 		if distance >= _player.warp_threashold:
 			# initaite warp
+			_space_ui.show_mid_message("WARP DRIVE ACTIVE.")
 			$AUDIO/AURA_WARPDRIVEACTIVE.play()
 			player_is_warping = true
 			_player.warping(true)
 			_player.face(_player.target_pos, true)			
 		else:
-			# can't warp, it's too close
-			print("Attempting to warp to a too closeby celestial.")
+			# can't warp, it's too close			
+			_space_ui.show_mid_message("Attempting to warp to a closeby celestial.")
 			return

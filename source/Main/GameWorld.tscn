@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/art/shaders/starnest.tres" type="Shader" id=1]
 [ext_resource path="res://source/Player/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/art/ui/asteroid_belt_icon_overview.png" type="Texture" id=9]
 [ext_resource path="res://assets/art/ui/asteroid_belt_icon.png" type="Texture" id=10]
 [ext_resource path="res://assets/audio/aura/warpdrive_active.mp3" type="AudioStream" id=11]
+[ext_resource path="res://assets/audio/aura/insufficient_power.mp3" type="AudioStream" id=12]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -336,6 +337,9 @@ movable_to = false
 
 [node name="AURA_WARPDRIVEACTIVE" type="AudioStreamPlayer" parent="AUDIO"]
 stream = ExtResource( 11 )
+
+[node name="AURA_INSUFFICIENTPOWER" type="AudioStreamPlayer" parent="AUDIO"]
+stream = ExtResource( 12 )
 
 [connection signal="mining_button_pressed" from="SpaceUI" to="." method="_on_SpaceUI_mining_button_pressed"]
 [connection signal="mining_cycle_completed" from="SpaceUI" to="." method="_on_SpaceUI_mining_cycle_completed"]

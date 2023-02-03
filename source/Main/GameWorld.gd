@@ -15,6 +15,7 @@ onready var _space_ui_overview_selection_text = $SpaceUI/OverviewHUD/VBoxContain
 onready var _space_ui_overview_selection_icon = $SpaceUI/OverviewHUD/VBoxContainer/SELECTIONBOX/SELECTIONICON
 onready var _props = $Props
 onready var laser_beam_2d: RayCast2D = $LaserBeam2D
+onready var _question_box: PopupDialog = $SpaceUI/QuestionBox
 
 # OVERVIEW
 var overview = {}
@@ -288,8 +289,9 @@ func _unhandled_input(event) -> void:
 			cur_zoom = Vector2(cur_zoom.x - 1, cur_zoom.y - 1)
 			_2dcamera.set_zoom(cur_zoom)	
 	
-	if Input.is_action_just_released("ui_cancel"):	
-		get_tree().quit()
+	if Input.is_action_just_released("ui_cancel"):
+		show_question_box("QUITTING", "Are you sure you want to quit?", true, "_on_QB_quit_yes", "_on_QB_quit_no")	
+		
 
 func mine_asteroid() -> void:
 	print("Minign time!")	
@@ -628,3 +630,29 @@ func _on_SpaceUI_overview_warp_to() -> void:
 			# can't warp, it's too close			
 			_space_ui.show_mid_message("Attempting to warp to a closeby celestial.")
 			return
+			
+# Callbacks for QuestionBox: QUITTING YES
+func _on_QB_quit_yes():
+	# Globalssave_to_Globals
+	# Globals.save
+	get_tree().quit()
+	
+# Callbacks for QuestionBox: QUITTING NO
+func _on_QB_quit_no():
+	#arlight then
+	pass
+
+func show_question_box(title, message, centered, callback_yes, callback_no) -> void:
+	# Clear the QuestionBox singla connections first	
+	_question_box.clear_connections()
+	
+	# Connect the signals to the specified callbacks
+	_question_box.connect("yes_button_pressed", self, callback_yes)	
+	_question_box.connect("no_button_pressed", self, callback_no)	
+	
+	# Show the question box
+	_question_box.set_message(title, message)
+	if centered:
+		_question_box.popup_centered()
+	else:
+		_question_box.popup()

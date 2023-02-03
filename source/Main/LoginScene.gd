@@ -191,6 +191,7 @@ func load_save(username: String) -> bool:
 	# CARGOHOLDEXT: 0-5			## What is the cargo Extender upgrade installed, from 0 to 5.
 	# CARGOVELDSPAR: 0-99999	## How much veldspar is in the cargo hold, if any
 	# POSITION: (0,0)			## The last position. It should be nearby the station at the beginning of the game.
+	# USERNAME: name			## The username (name of the sav, minus extension)
 	# #########
 	
 	Globals.set_loaded_user(
@@ -198,7 +199,8 @@ func load_save(username: String) -> bool:
 		int(str2var(file.get_line())),
 		int(str2var(file.get_line())),
 		int(str2var(file.get_line())),
-		StringHelper.string_to_vector2(str2var(file.get_line())))
+		StringHelper.string_to_vector2(str2var(file.get_line())),
+		str(str2var(file.get_line())))
 		
 	Globals.set_loaded_true()
 		
@@ -230,6 +232,7 @@ func new_save(username: String) -> bool:
 	# CARGOHOLDEXT: 0-5			## What is the cargo Extender upgrade installed, from 0 to 5.
 	# CARGOVELDSPAR: 0-99999	## How much veldspar is in the cargo hold, if any
 	# POSITION: (0,0)			## The last position. It should be nearby the station at the beginning of the game.
+	# USERNAME: name			## The username (name of the sav, minus extension)
 	# #########
 	
 	file.store_line("0")		# Credits
@@ -237,13 +240,14 @@ func new_save(username: String) -> bool:
 	file.store_line("0")		# No Cargo Extender
 	file.store_line("0")		# Cargo hold empty
 	file.store_line("(0,0)")	# Starting position
+	file.store_line(username)	# Username
 	
 	print("saved file:")	
 	print(username)	
 	
 	# Set these values in the globals
 	Globals.set_loaded_true()
-	Globals.set_loaded_user(0,1,0,0,Vector2.ZERO)
+	Globals.set_loaded_user(0,1,0,0,Vector2.ZERO,username)
 	
 	# This message box should probably go away
 	show_message_box("ACCOUNT CREATION", "Account " + username + " created", true)
@@ -285,7 +289,8 @@ func _on_QB_create_yes():
 						+ " MiningLaser: " + str(Globals.get_account_mininglaser()) 
 						+ " Cargo Extender: " + str(Globals.get_account_cargoextender()) 
 						+ " Cargo Hold: " + str(Globals.get_account_cargohold()) 
-						+ " and position: " + str(Globals.get_account_position()))
+						+ " and position: " + str(Globals.get_account_position())
+						+ " and username: " + str(Globals.get_account_username()))
 		print("Game should now load...")
 		# SOUND: AURA - "CONNECTING..."
 		_audio_aura_connecting.play()
@@ -364,7 +369,8 @@ func _on_CONNECTButton2_button_up():
 						+ " MiningLaser: " + str(Globals.get_account_mininglaser()) 
 						+ " Cargo Extender: " + str(Globals.get_account_cargoextender()) 
 						+ " Cargo Hold: " + str(Globals.get_account_cargohold()) 
-						+ " and position: " + str(Globals.get_account_position()))
+						+ " and position: " + str(Globals.get_account_position())
+						+ " and username: " + str(Globals.get_account_username()))
 				# Game should now load
 				# SOUND: AURA - "CONNECTING..."
 				_audio_aura_connecting.play()

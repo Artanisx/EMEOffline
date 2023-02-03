@@ -318,6 +318,7 @@ func mine_asteroid() -> void:
 	## Before starting the mining cycle, check if the ore hold is full
 	if (_player.player_cargo_hold >= _player.player_cargo_hold_capacity):
 		_space_ui.show_mid_message("Cargo hold is full.")
+		player_is_mining = false
 		return
 	
 	# Consider RANGE! If out of range, we can't mine! We should move closer instead.
@@ -407,6 +408,7 @@ func _on_SpaceUI_mining_cycle_completed() -> void:
 		_space_ui.show_mid_message("Cargo hold is full.")
 		_space_ui_mining_button.get_node("MiningCycle").stop()
 		_space_ui_mining_button.get_node("MiningBar").value = 0
+		player_is_mining = false
 		return	
 
 ## DEBUG! Probably we should link all asteroids (via code not inspectr) to this lone signal
@@ -633,9 +635,13 @@ func _on_SpaceUI_overview_warp_to() -> void:
 			
 # Callbacks for QuestionBox: QUITTING YES
 func _on_QB_quit_yes():
-	# Globalssave_to_Globals
-	# Globals.save
-	get_tree().quit()
+	#Save file before quitting
+	Globals.save_to_Globals(_player.player_credits, _player.player_mining_laser, _player.player_cargo_extender, _player.player_cargo_hold, _player.global_position)
+	if (Globals.save()):
+		get_tree().quit()
+	else:
+		# save() failed or didn't complete, shall we try again?
+		_on_QB_quit_yes()
 	
 # Callbacks for QuestionBox: QUITTING NO
 func _on_QB_quit_no():

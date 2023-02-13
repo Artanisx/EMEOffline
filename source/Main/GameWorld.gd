@@ -78,7 +78,7 @@ func update_space_ui() -> void:
 	elif _player.get_instant_velocity() > 15 and player_is_warping:		
 		_space_ui_action.text = "WARPING TO"
 		_space_ui_target.text = get_selected_celestial().overview_name
-		_space_ui_speed_labelms.text = str(_player.get_instant_velocity()/1000) + " au/s"		
+		_space_ui_speed_labelms.text = str(_player.get_instant_velocity()/1000) + " km/s"		
 		_player.warping(true)	
 	elif not player_is_mining:
 		_space_ui_action.text = "STOPPED"
@@ -216,7 +216,7 @@ func update_overview_ui() -> void:
 				if (celestial.warpable_to):
 					var au_distance = distance/1000
 					if (au_distance > 1):					
-						label.text = str(au_distance) + " au"				
+						label.text = str(au_distance) + " km"				
 					else:
 						label.text = str(distance) + " m"				
 				else:
@@ -559,7 +559,7 @@ func update_overview_selected() -> void:
 			if (celestial.warpable_to):
 				var au_distance = distance/1000
 				if (au_distance > 1):
-					_space_ui_overview_selection_text.text = name + "\nDistance: " + str(au_distance) + " au"
+					_space_ui_overview_selection_text.text = name + "\nDistance: " + str(au_distance) + " km"
 				else:
 					_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance) + " m"
 			

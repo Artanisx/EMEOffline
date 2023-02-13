@@ -213,7 +213,11 @@ func update_overview_ui() -> void:
 			if label != null:
 				# Check if it's a Warpable Celestial. Celestial are always shown
 				if (celestial.warpable_to):
-					label.text = str(distance) + " m"				
+					var au_distance = distance/1000
+					if (au_distance > 1):					
+						label.text = str(au_distance) + " au"				
+					else:
+						label.text = str(distance) + " m"				
 				else:
 					#this is not a warpable celestial. As such, it should be visible only if it's under the overview_range
 					if distance >= overview_range:
@@ -374,7 +378,12 @@ func _on_SpaceUI_mining_button_pressed():
 		mine_asteroid()
 	else:
 		# player is mining and wants to stop
+		print("Player wants to stop mining.")
+		laser_beam_2d.set_is_casting(false)	
+		laser_beam_2d.disappear()
+		_space_ui.show_mid_message("Mining stopped.")
 		_space_ui_mining_button.get_node("MiningCycle").stop()
+		_space_ui_mining_button.get_node("MiningBar").value = 0
 		player_is_mining = false
 
 func _on_SpaceUI_mining_cycle_completed() -> void:	
@@ -483,15 +492,17 @@ func set_overview_selected_instance(instance_id: int) -> void:
 	var name = 	celestial.overview_name
 
 	# Calculate the distance
-	var distance = str(round(_player.position.distance_to(celestial.position))) + " m"
+	var distance = get_distance_from_celestial(celestial) 
+	#var distance = str(get_distance_from_celestial(celestial)) + " m"
+	#var distance = str(round(_player.position.distance_to(celestial.position))) + " m"
 	
 	# If this is an asteroid we should also report the ore amount
 	if celestial.minable == true:
 		# Set the selection text to the node name and its distance and its ore contents
-		_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance) + "\nOre: " + str(celestial.ore_amount)		
+		_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance) + " m" + "\nOre: " + str(celestial.ore_amount)		
 	else:
 		# Set the selection text to the node name and its distance
-		_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)
+		_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance) + " m"
 	
 	# Set the correct icon now
 	_space_ui_overview_selection_icon.texture = celestial.overview_selection_icon
@@ -535,15 +546,21 @@ func update_overview_selected() -> void:
 		var name = 	celestial.overview_name
 
 		# Calculate the distance		
-		var distance = str(round(_player.position.distance_to(celestial.position))) + " m"
+		#var distance = round(_player.position.distance_to(celestial.position))
+		var distance = round(get_distance_from_celestial(celestial))
 		
 		# If this is an asteroid we should also report the ore amount
 		if celestial.minable == true:			
 			# Set the selection text to the node name and its distance and its ore contents
-			_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance) + "\nOre: " + str(celestial.ore_amount)					
+			_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance) + " m" + "\nOre: " + str(celestial.ore_amount)					
 		else:
 			# Set the selection text to the node name and its distance
-			_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance)
+			if (celestial.warpable_to):
+				var au_distance = distance/1000
+				if (au_distance > 1):
+					_space_ui_overview_selection_text.text = name + "\nDistance: " + str(au_distance) + " au"
+				else:
+					_space_ui_overview_selection_text.text = name + "\nDistance: " + str(distance) + " m"
 			
 		# Now we must set the Selection Box Buttons
 		

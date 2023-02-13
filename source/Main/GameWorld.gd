@@ -77,7 +77,8 @@ func update_space_ui() -> void:
 		_player.warping(false)	
 	elif _player.get_instant_velocity() > 15 and player_is_warping:		
 		_space_ui_action.text = "WARPING TO"
-		_space_ui_target.text = get_selected_celestial().overview_name		
+		_space_ui_target.text = get_selected_celestial().overview_name
+		_space_ui_speed_labelms.text = str(_player.get_instant_velocity()/1000) + " au/s"		
 		_player.warping(true)	
 	elif not player_is_mining:
 		_space_ui_action.text = "STOPPED"

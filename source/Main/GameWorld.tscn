@@ -299,59 +299,6 @@ scale = Vector2( 0.2, 0.2 )
 position = Vector2( -437.998, -2326 )
 scale = Vector2( 0.2, 0.2 )
 
-[node name="VeldsparAsteroid" parent="." instance=ExtResource( 7 )]
-position = Vector2( -245, -88 )
-
-[node name="VeldsparAsteroid4" parent="." instance=ExtResource( 7 )]
-position = Vector2( -16079, -23875 )
-
-[node name="VeldsparAsteroid11" parent="." instance=ExtResource( 7 )]
-position = Vector2( -16079, -23875 )
-
-[node name="VeldsparAsteroid5" parent="." instance=ExtResource( 7 )]
-position = Vector2( 24156, 23746 )
-
-[node name="VeldsparAsteroid12" parent="." instance=ExtResource( 7 )]
-position = Vector2( 23721, 23854 )
-
-[node name="VeldsparAsteroid13" parent="." instance=ExtResource( 7 )]
-position = Vector2( 23990, 24149 )
-
-[node name="VeldsparAsteroid14" parent="." instance=ExtResource( 7 )]
-position = Vector2( 24241, 24037 )
-
-[node name="VeldsparAsteroid15" parent="." instance=ExtResource( 7 )]
-position = Vector2( 24433, 23855 )
-
-[node name="VeldsparAsteroid16" parent="." instance=ExtResource( 7 )]
-position = Vector2( 24288, 23600 )
-
-[node name="VeldsparAsteroid17" parent="." instance=ExtResource( 7 )]
-position = Vector2( 23788, 24024 )
-
-[node name="VeldsparAsteroid6" parent="." instance=ExtResource( 7 )]
-position = Vector2( -16419, -23796 )
-
-[node name="VeldsparAsteroid7" parent="." instance=ExtResource( 7 )]
-position = Vector2( -16245, -24244 )
-
-[node name="VeldsparAsteroid8" parent="." instance=ExtResource( 7 )]
-position = Vector2( -15834, -23853 )
-
-[node name="VeldsparAsteroid9" parent="." instance=ExtResource( 7 )]
-position = Vector2( -16199, -23544 )
-
-[node name="VeldsparAsteroid10" parent="." instance=ExtResource( 7 )]
-position = Vector2( -16095, -23386 )
-
-[node name="VeldsparAsteroid2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 250, -232 )
-start_ore_amount = 2500.0
-
-[node name="VeldsparAsteroid3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 214, 176 )
-start_ore_amount = 300.0
-
 [node name="CELESTIALS" type="Node" parent="."]
 
 [node name="AsteroidBelts" type="Node" parent="CELESTIALS"]
@@ -383,6 +330,60 @@ overview_selection_icon = ExtResource( 10 )
 warpable_to = true
 movable_to = false
 
+[node name="VeldsparAsteroid5" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 24156, 23746 )
+
+[node name="VeldsparAsteroid12" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 23721, 23854 )
+
+[node name="VeldsparAsteroid13" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 23990, 24149 )
+
+[node name="VeldsparAsteroid14" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 24241, 24037 )
+
+[node name="VeldsparAsteroid15" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 24433, 23855 )
+
+[node name="VeldsparAsteroid16" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 24288, 23600 )
+
+[node name="VeldsparAsteroid17" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 23788, 24024 )
+
+[node name="VeldsparAsteroid4" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -16079, -23875 )
+
+[node name="VeldsparAsteroid11" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -16079, -23875 )
+
+[node name="VeldsparAsteroid6" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -16419, -23796 )
+
+[node name="VeldsparAsteroid7" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -16245, -24244 )
+
+[node name="VeldsparAsteroid8" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -15834, -23853 )
+
+[node name="VeldsparAsteroid9" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -16199, -23544 )
+
+[node name="VeldsparAsteroid10" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -16095, -23386 )
+
+[node name="VeldsparAsteroid" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -245, -88 )
+start_ore_amount = 300.0
+
+[node name="VeldsparAsteroid2" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 250, -232 )
+start_ore_amount = 2500.0
+
+[node name="VeldsparAsteroid3" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 214, 176 )
+start_ore_amount = 300.0
+
 [node name="AUDIO" type="Node" parent="."]
 
 [node name="AURA_WARPDRIVEACTIVE" type="AudioStreamPlayer" parent="AUDIO"]
@@ -402,20 +403,20 @@ starting_theme = "BelowTheAsteroids"
 [connection signal="overview_mine_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_mine_to"]
 [connection signal="overview_move_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_move_to"]
 [connection signal="overview_warp_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_warp_to"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid4" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid11" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid5" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid12" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid13" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid14" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid15" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid16" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid17" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid6" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid7" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid8" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid9" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid10" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid2" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
-[connection signal="asteroid_depleted" from="VeldsparAsteroid3" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid5" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid12" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid13" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid14" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid15" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid16" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid17" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid4" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid11" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid6" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid7" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid8" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid9" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid10" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid2" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
+[connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid3" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]

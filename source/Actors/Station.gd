@@ -25,7 +25,7 @@ func _init():
 	dockable = true
 	overview_visibile = true
 		
-	overview_name = "Deep Core Mining Inc. Refinery" 
+	overview_name = "DC Mining Refinery" 
 	overview_icon = load("res://assets/art/ui/station_icon_overview.png")
 	overview_selection_icon = load("res://assets/art/ui/station_icon.png")	
 	

@@ -606,6 +606,11 @@ func _on_SpaceUI_overview_move_to() -> void:
 		return
 	
 	if (overview_selected and get_selected_celestial().movable_to == true):
+		# Adjust the offset for the move action (a station is much bigger)
+		if (get_selected_celestial().dockable == true):
+			_player.offset_distance = 300
+		else:
+			_player.offset_distance = 120
 		_player.face(_player.target_pos)
 		player_is_warping = false
 		_player.warping(false)

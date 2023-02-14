@@ -388,7 +388,7 @@ start_ore_amount = 300.0
 [node name="Stations" type="Node" parent="CELESTIALS"]
 
 [node name="CaldariMiningStation" parent="CELESTIALS/Stations" instance=ExtResource( 15 )]
-position = Vector2( -471, 149 )
+position = Vector2( 638, -376 )
 
 [node name="AUDIO" type="Node" parent="."]
 

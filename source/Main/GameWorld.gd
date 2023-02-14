@@ -632,7 +632,17 @@ func _on_SpaceUI_overview_dock_to() -> void:
 
 
 func _on_SpaceUI_overview_mine_to() -> void:
-	mine_asteroid()
+	if (not player_is_mining):
+		mine_asteroid()
+	else:
+		# player is mining and wants to stop
+		print("Player wants to stop mining.")
+		laser_beam_2d.set_is_casting(false)	
+		laser_beam_2d.disappear()
+		_space_ui.show_mid_message("Mining stopped.")
+		_space_ui_mining_button.get_node("MiningCycle").stop()
+		_space_ui_mining_button.get_node("MiningBar").value = 0
+		player_is_mining = false
 
 func _on_SpaceUI_overview_warp_to() -> void:
 	#First checkif the selected celestial is warpable

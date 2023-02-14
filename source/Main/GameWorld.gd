@@ -274,7 +274,7 @@ func _unhandled_input(event) -> void:
 	elif Input.is_action_pressed("left_click") and player_is_mining:
 		# player is trying to move, but we don't want to allow it, some feedback should be presented		
 		$AUDIO/AURA_INSUFFICIENTPOWER.play()
-		_space_ui.show_mid_message("Insufficient power. You are currently mining.")				
+		_space_ui.show_mid_message("Insufficient power to move. You are currently mining.")				
 
 	if Input.is_action_just_released("zoom_out"):		
 		#mouse_wheel down, zoom out

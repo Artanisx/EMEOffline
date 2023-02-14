@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/art/shaders/starnest.tres" type="Shader" id=1]
 [ext_resource path="res://source/Player/Player.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://assets/audio/aura/insufficient_power.mp3" type="AudioStream" id=12]
 [ext_resource path="res://source/VFX/LaserBeam2D.tscn" type="PackedScene" id=13]
 [ext_resource path="res://source/UI/QuestionBox.tscn" type="PackedScene" id=14]
+[ext_resource path="res://source/Actors/CaldariMiningStation.tscn" type="PackedScene" id=15]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -383,6 +384,11 @@ start_ore_amount = 2500.0
 [node name="VeldsparAsteroid3" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( 214, 176 )
 start_ore_amount = 300.0
+
+[node name="Stations" type="Node" parent="CELESTIALS"]
+
+[node name="CaldariMiningStation" parent="CELESTIALS/Stations" instance=ExtResource( 15 )]
+position = Vector2( -471, 149 )
 
 [node name="AUDIO" type="Node" parent="."]
 

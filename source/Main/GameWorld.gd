@@ -512,7 +512,7 @@ func set_overview_selected_instance(instance_id: int) -> void:
 	selected_instance_id = instance_id
 	
 	# If it's an asteroid, select it
-	if (celestial.minable):
+	if (celestial.minable or celestial.dockable):
 		#Deselect previously selected asteroids
 		deselect_asteroids()
 		
@@ -586,7 +586,7 @@ func deselect_asteroids() -> void:
 	var celestials = get_tree().get_nodes_in_group("celestials")
 	
 	for celestial in celestials:
-		if celestial.minable and celestial.is_selected():
+		if celestial.minable or celestial.dockable and celestial.is_selected():
 			celestial.selected(false)
 
 func get_selected_celestial() -> Celestial:

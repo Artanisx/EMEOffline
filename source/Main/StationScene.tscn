@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/art/shaders/station_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://source/Main/StationScene.gd" type="Script" id=2]
 [ext_resource path="res://assets/audio/music/miner_stories.mp3" type="AudioStream" id=3]
 [ext_resource path="res://source/Main/StationGameMusicPlayer.gd" type="Script" id=4]
+[ext_resource path="res://source/UI/SceneTransition.tscn" type="PackedScene" id=5]
 
 [node name="StationScene" type="ColorRect"]
 material = ExtResource( 1 )
@@ -23,3 +24,5 @@ starting_theme = "MinerStories"
 stream = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameMusicPlayer"]
+
+[node name="SceneTransition" parent="." instance=ExtResource( 5 )]

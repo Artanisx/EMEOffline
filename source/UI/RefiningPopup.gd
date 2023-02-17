@@ -1,8 +1,8 @@
 extends PopupDialog
-onready var cargoand_refine: Label = $Panel/VBoxContainer/CargoandRefine
-onready var refine_button: Button = $Panel/VBoxContainer/HBoxContainer/RefineButton
-onready var close_button: Button = $Panel/VBoxContainer/HBoxContainer/CloseButton
-onready var progress_bar: ProgressBar = $Panel/VBoxContainer/ProgressBar
+onready var cargoand_refine: Label = $Panel/MarginContainer/VBoxContainer/CargoandRefine
+onready var refine_button: Button = $Panel/MarginContainer/VBoxContainer/HBoxContainer/RefineButton
+onready var close_button: Button = $Panel/MarginContainer/VBoxContainer/HBoxContainer/CloseButton
+onready var progress_bar: ProgressBar = $Panel/MarginContainer/VBoxContainer/ProgressBar
 
 export var refining_time: float = 10
 
@@ -17,6 +17,7 @@ func set_refine(cargohold: int, refining_fee: int, threshold: int):
 	self.cargo_hold = cargohold
 	self.refining_fee = refining_fee
 	self.threshold = threshold
+	progress_bar.value = 0
 	
 	var estimated_tritanium = self.cargo_hold / 5
 	var fee = estimated_tritanium / 100 * self.refining_fee
@@ -60,8 +61,10 @@ func _on_refining_complete() -> void:
 	
 	var final_tritanium = estimated_tritanium - fee
 	
+	var final_ore = cargo_hold%5  
+	
 	# signal
-	emit_signal("refining_complete", final_tritanium)
+	emit_signal("refining_complete", final_tritanium, final_ore)
 		
 	# close panel
 	hide()

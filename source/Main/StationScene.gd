@@ -47,11 +47,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if debug_mode:
 		# F1: MORE CARGO
 		if Input.is_key_pressed(16777244):
-			cargo = cargo + 100
+			cargo = cargo + 10
+			update_creds_cargo()
 		
 		# F2: MORE CREDS
 		if Input.is_key_pressed(16777245):
 			creds = creds + 1000
+			update_creds_cargo()
 	
 func undock() -> void:
 	# Undock for now simply loads back the game world scene
@@ -64,9 +66,10 @@ func _on_RefineButton_pressed() -> void:
 	refining_popup.set_refine(cargo, refining_fee, refining_threshold)
 	refining_popup.popup_centered()
 
-func _on_RefiningPopup_refining_complete(final_tritanium) -> void:
+func _on_RefiningPopup_refining_complete(final_tritanium, final_ore) -> void:
 	# we have finished a refining process, update tritanium
 	station_tritanium = final_tritanium
+	cargo = final_ore
 	
 	#Udpate ui
 	update_creds_cargo()

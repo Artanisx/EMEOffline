@@ -1,10 +1,27 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/art/shaders/station_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://source/Main/StationScene.gd" type="Script" id=2]
 [ext_resource path="res://assets/audio/music/miner_stories.mp3" type="AudioStream" id=3]
 [ext_resource path="res://source/Main/StationGameMusicPlayer.gd" type="Script" id=4]
 [ext_resource path="res://source/UI/SceneTransition.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/art/ui/dcm_mining_logo.png" type="Texture" id=6]
+[ext_resource path="res://source/UI/SpaceUIOverview.tres" type="StyleBox" id=7]
+[ext_resource path="res://assets/art/ui/station_button_cargoexpander_hover.png" type="Texture" id=8]
+[ext_resource path="res://assets/art/ui/station_button_cargoexpander_normal.png" type="Texture" id=9]
+[ext_resource path="res://assets/art/ui/station_button_mininglaser_pressed.png" type="Texture" id=10]
+[ext_resource path="res://assets/art/ui/station_button_mininglaser_hover.png" type="Texture" id=11]
+[ext_resource path="res://assets/art/ui/station_button_cargoexpander_pressed.png" type="Texture" id=12]
+[ext_resource path="res://assets/art/ui/station_button_undock_pressed.png" type="Texture" id=13]
+[ext_resource path="res://assets/art/ui/station_button_undock_hover.png" type="Texture" id=14]
+[ext_resource path="res://assets/art/ui/station_button_undock_normal.png" type="Texture" id=15]
+[ext_resource path="res://assets/art/ui/station_button_sell_pressed.png" type="Texture" id=16]
+[ext_resource path="res://assets/art/ui/station_button_sell_hover.png" type="Texture" id=17]
+[ext_resource path="res://assets/art/ui/station_button_mininglaser_normal.png" type="Texture" id=18]
+[ext_resource path="res://assets/art/ui/station_button_refine_normal.png" type="Texture" id=19]
+[ext_resource path="res://assets/art/ui/station_button_refine_pressed.png" type="Texture" id=20]
+[ext_resource path="res://assets/art/ui/station_button_refine_hover.png" type="Texture" id=21]
+[ext_resource path="res://assets/art/ui/station_button_sell_normal.png" type="Texture" id=22]
 
 [node name="StationScene" type="ColorRect"]
 material = ExtResource( 1 )
@@ -26,3 +43,163 @@ stream = ExtResource( 3 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameMusicPlayer"]
 
 [node name="SceneTransition" parent="." instance=ExtResource( 5 )]
+
+[node name="RightStationContainer" type="MarginContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -270.0
+
+[node name="RightStationPanel" type="PanelContainer" parent="RightStationContainer"]
+margin_right = 270.0
+margin_bottom = 720.0
+custom_styles/panel = ExtResource( 7 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RightStationContainer/RightStationPanel"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 269.0
+margin_bottom = 719.0
+alignment = 1
+
+[node name="StationLogo" type="TextureRect" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 9.0
+margin_right = 268.0
+margin_bottom = 137.0
+texture = ExtResource( 6 )
+stretch_mode = 6
+
+[node name="HSeparator" type="HSeparator" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 141.0
+margin_right = 268.0
+margin_bottom = 145.0
+
+[node name="Label" type="Label" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 149.0
+margin_right = 268.0
+margin_bottom = 163.0
+text = " CURRENT LOCATION"
+
+[node name="HSeparator2" type="HSeparator" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 167.0
+margin_right = 268.0
+margin_bottom = 171.0
+
+[node name="Label2" type="Label" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 175.0
+margin_right = 268.0
+margin_bottom = 257.0
+text = " REGION > SINQ LAISON
+ CONSTELLATION > CORIAULT
+ SOLAR SYSTEM > DODIXIE
+ STATION >  Dodixie IX - Moon 9 - Deep Core Mining Inc. "
+autowrap = true
+
+[node name="HSeparator3" type="HSeparator" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 261.0
+margin_right = 268.0
+margin_bottom = 265.0
+
+[node name="Label3" type="Label" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 269.0
+margin_right = 268.0
+margin_bottom = 283.0
+text = " STATION SERVICES"
+autowrap = true
+
+[node name="HSeparator4" type="HSeparator" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 287.0
+margin_right = 268.0
+margin_bottom = 291.0
+
+[node name="GridContainer" type="GridContainer" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 295.0
+margin_right = 268.0
+margin_bottom = 435.0
+columns = 3
+
+[node name="RefineButton" type="TextureButton" parent="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer"]
+margin_right = 68.0
+margin_bottom = 68.0
+hint_tooltip = "Refine mining ore"
+texture_normal = ExtResource( 19 )
+texture_pressed = ExtResource( 20 )
+texture_hover = ExtResource( 21 )
+
+[node name="SellButton" type="TextureButton" parent="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer"]
+margin_left = 72.0
+margin_right = 140.0
+margin_bottom = 68.0
+hint_tooltip = "Sell minerals"
+texture_normal = ExtResource( 22 )
+texture_pressed = ExtResource( 16 )
+texture_hover = ExtResource( 17 )
+
+[node name="VSeparator" type="VSeparator" parent="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 144.0
+margin_right = 212.0
+margin_bottom = 68.0
+
+[node name="BuyMiningLaserButton" type="TextureButton" parent="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer"]
+margin_top = 72.0
+margin_right = 68.0
+margin_bottom = 140.0
+hint_tooltip = "Buy Mining Lasers"
+texture_normal = ExtResource( 18 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 11 )
+
+[node name="BuyExpandedHoldButton" type="TextureButton" parent="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer"]
+margin_left = 72.0
+margin_top = 72.0
+margin_right = 140.0
+margin_bottom = 140.0
+hint_tooltip = "Buy Cargo Hold Expanders"
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 12 )
+texture_hover = ExtResource( 8 )
+
+[node name="UndockButton" type="TextureButton" parent="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer"]
+margin_left = 144.0
+margin_top = 72.0
+margin_right = 212.0
+margin_bottom = 140.0
+hint_tooltip = "Undock"
+texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 13 )
+texture_hover = ExtResource( 14 )
+
+[node name="HSeparator5" type="HSeparator" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 439.0
+margin_right = 268.0
+margin_bottom = 443.0
+
+[node name="Label4" type="Label" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 447.0
+margin_right = 268.0
+margin_bottom = 461.0
+text = " WALLET"
+autowrap = true
+
+[node name="HSeparator6" type="HSeparator" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 465.0
+margin_right = 268.0
+margin_bottom = 469.0
+
+[node name="CreditsAndCargoLabel" type="Label" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 473.0
+margin_right = 268.0
+margin_bottom = 504.0
+text = " Credits: 9999999999 ASK
+ Cargo Hold: 999999 m3"
+autowrap = true
+
+[node name="TextureSpacer" type="TextureRect" parent="RightStationContainer/RightStationPanel/VBoxContainer"]
+margin_top = 508.0
+margin_right = 268.0
+margin_bottom = 708.0
+rect_min_size = Vector2( 0, 200 )
+stretch_mode = 6
+
+[connection signal="pressed" from="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer/UndockButton" to="." method="_on_UndockButton_pressed"]

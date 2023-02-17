@@ -18,6 +18,7 @@ var creds: int = 0
 var cargo: int = 0
 var laser: int = 0
 var cargoext: int = 0
+var pos: Vector2 = Vector2.ZERO
 var station_tritanium: int = 0
 
 # Animation
@@ -31,6 +32,7 @@ func _ready() -> void:
 	cargo = Globals.get_account_cargohold()
 	laser = Globals.get_account_mininglaser()
 	cargoext = Globals.get_account_cargoextender()
+	pos = Globals.get_account_position()
 	
 	update_creds_cargo()
 	
@@ -68,8 +70,16 @@ func fade_out_message() -> void:
 	animation_player.play("FadeOut")
 	
 func undock() -> void:
-	# Undock for now simply loads back the game world scene
-	scene_transition.transition_to("res://source/Main/GameWorld.tscn")
+	#Save file before undocking
+	Globals.save_to_Globals(creds, laser, cargoext, cargo, pos)
+	if (Globals.save()):
+		# All good, undock now!
+		scene_transition.transition_to("res://source/Main/GameWorld.tscn")
+	else:
+		# save() failed or didn't complete!		
+		printerr("Failed to save, aborting dock sequence.")
+		show_mid_message("Unable to undock!")
+		return
 
 func _on_UndockButton_pressed() -> void:
 	undock()

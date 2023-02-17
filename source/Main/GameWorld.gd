@@ -16,6 +16,7 @@ onready var _space_ui_overview_selection_icon = $SpaceUI/OverviewHUD/VBoxContain
 onready var _props = $Props
 onready var laser_beam_2d: RayCast2D = $LaserBeam2D
 onready var _question_box: PopupDialog = $SpaceUI/QuestionBox
+onready var _transition_rect := $SceneTransition
 
 # OVERVIEW
 var overview = {}
@@ -621,6 +622,36 @@ func _on_SpaceUI_overview_move_to() -> void:
 		player_is_warping = false
 		_player.warping(false)
 
+func dock() -> void:
+	_space_ui.show_mid_message("Docking permission requested...")				
+	$AUDIO/AURA_DOCKINGREQUESTED.play()
+	
+	#wait for the request to finish...
+	yield($AUDIO/AURA_DOCKINGREQUESTED, "finished")
+	
+	# ACCEPT REQUEST
+	$AUDIO/AURA_DOCKINGACCEPTED.play()
+	
+	_space_ui.show_mid_message("Docking request accepted.")	
+	
+	#wait for the request to finish...
+	yield($AUDIO/AURA_DOCKINGACCEPTED, "finished")	
+	
+	#Transition to login scene as a test
+	
+	#Save file before docking
+	Globals.save_to_Globals(_player.player_credits, _player.player_mining_laser, _player.player_cargo_extender, _player.player_cargo_hold, _player.global_position)
+	if (Globals.save()):
+		# All good, dock now!
+		_transition_rect.transition_to("res://source/Main/StationScene.tscn")
+	else:
+		# save() failed or didn't complete!		
+		printerr("Failed to save, aborting dock sequence.")
+		$AUDIO/AURA_DOCKINGDENIED.play()		
+		_space_ui.show_mid_message("Docking request denied.")	
+		return
+	
+
 func _on_SpaceUI_overview_dock_to() -> void:	
 	var selected_celestial = get_selected_celestial()
 	
@@ -628,15 +659,14 @@ func _on_SpaceUI_overview_dock_to() -> void:
 	if (overview_selected and selected_celestial.dockable == true):
 		# if it is, check the distance.
 		if (get_distance_from_celestial(selected_celestial) <= selected_celestial.docking_range):
-			# we are close enough to initiate a docking sequence
-			pass
+			dock()
 		else:				
 			# it's too far. Check if it's in warping distance			
 			var distance = round(_player.position.distance_to(selected_celestial.position))
 			if distance >= _player.warp_threashold:	
 				warp_to_celestial(selected_celestial)
 			else:
-				_space_ui.show_mid_message("Docking...")	
+				_space_ui.show_mid_message("Moving to station...")	
 				# we're not far enough for a warp, move it it instead
 				_player.offset_distance = get_selected_celestial().offset_distance
 				_player.face(_player.target_pos)
@@ -644,22 +674,8 @@ func _on_SpaceUI_overview_dock_to() -> void:
 				_player.warping(false)
 				
 			# Wait for it to reach the station
-			yield(_player, "movement_completed")
-			
-			print("Station reached...")	
-			$AUDIO/AURA_DOCKINGREQUESTED.play()
-			
-			#wait for the request to finish...
-			yield($AUDIO/AURA_DOCKINGREQUESTED, "finished")
-			
-			# DENY REQUEST >.<
-			$AUDIO/AURA_DOCKINGDENIED.play()
-			
-			_space_ui.show_mid_message("Docking request denied.")	
-			
-			# now dock (but now must be after we're close enough, so we need a signal)			
-			
-		pass
+			yield(_player, "movement_completed")	
+			dock()
 	else:
 		# player tried to dock on something not dockable, tecnically not possible
 		print("Player is docking on something not dockable.")
@@ -708,7 +724,8 @@ func _on_QB_quit_yes():
 		get_tree().quit()
 	else:
 		# save() failed or didn't complete, shall we try again?
-		_on_QB_quit_yes()
+		# we don't allow qutting if save fails
+		printerr("Save failed. I won't allow you to quit. Try again.")
 	
 # Callbacks for QuestionBox: QUITTING NO
 func _on_QB_quit_no():

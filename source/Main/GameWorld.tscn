@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/art/shaders/starnest.tres" type="Shader" id=1]
 [ext_resource path="res://source/Player/Player.tscn" type="PackedScene" id=2]
@@ -17,6 +17,8 @@
 [ext_resource path="res://source/Actors/CaldariMiningStation.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/audio/aura/docking_denied.mp3" type="AudioStream" id=16]
 [ext_resource path="res://assets/audio/aura/docking_requested.mp3" type="AudioStream" id=17]
+[ext_resource path="res://assets/audio/aura/docking_accepted.mp3" type="AudioStream" id=18]
+[ext_resource path="res://source/UI/SceneTransition.tscn" type="PackedScene" id=19]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -391,7 +393,7 @@ start_ore_amount = 300.0
 
 [node name="CaldariMiningStation" parent="CELESTIALS/Stations" instance=ExtResource( 15 )]
 position = Vector2( 638, -376 )
-offset_distance = 300
+offset_distance = 320
 
 [node name="AUDIO" type="Node" parent="."]
 
@@ -407,10 +409,15 @@ stream = ExtResource( 16 )
 [node name="AURA_DOCKINGREQUESTED" type="AudioStreamPlayer" parent="AUDIO"]
 stream = ExtResource( 17 )
 
+[node name="AURA_DOCKINGACCEPTED" type="AudioStreamPlayer" parent="AUDIO"]
+stream = ExtResource( 18 )
+
 [node name="GameMusicPlayer" parent="." instance=ExtResource( 4 )]
 starting_theme = "BelowTheAsteroids"
 
 [node name="LaserBeam2D" parent="." instance=ExtResource( 13 )]
+
+[node name="SceneTransition" parent="." instance=ExtResource( 19 )]
 
 [connection signal="mining_button_pressed" from="SpaceUI" to="." method="_on_SpaceUI_mining_button_pressed"]
 [connection signal="mining_cycle_completed" from="SpaceUI" to="." method="_on_SpaceUI_mining_cycle_completed"]

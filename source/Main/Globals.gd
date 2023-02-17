@@ -10,6 +10,7 @@ var account_cargoextender: int = 0
 var account_cargohold: int = 0
 var account_position: Vector2 = Vector2()
 var account_username: String = ""
+var station_trit: int = 0
 
 func set_loaded_true(): 
 	loaded_from_login = true
@@ -27,6 +28,10 @@ func set_loaded_user(credits: int, mininglaser: int, cargoextender: int, cargoho
 	account_cargohold = cargohold
 	account_position = position
 	account_username = username
+
+## Station tritanium is not saved in the save (YET)
+func save_station_tritanium(trit: int) -> void:
+	station_trit = trit	
 	
 func get_account_credits() -> int:
 	return account_credits
@@ -45,6 +50,10 @@ func get_account_position() -> Vector2:
 	
 func get_account_username() -> String:
 	return account_username
+	
+## Station tritanium is not saved in the save (YET)	
+func get_station_tritanium() -> int:
+	return station_trit
 	
 ## This will save the current open (in theory...) savegame with the variables on Global
 ## It's not this function task to make sure Globals are up to date, though.

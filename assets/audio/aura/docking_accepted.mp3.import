@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/docking_accepted.mp3-13cf8887e0b0321f7dbee382e211f0bb.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/aura/docking_accepted.mp3"
+dest_files=[ "res://.import/docking_accepted.mp3-13cf8887e0b0321f7dbee382e211f0bb.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

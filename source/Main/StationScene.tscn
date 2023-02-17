@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/art/shaders/station_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://source/Main/StationScene.gd" type="Script" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://assets/art/ui/station_button_refine_pressed.png" type="Texture" id=20]
 [ext_resource path="res://assets/art/ui/station_button_refine_hover.png" type="Texture" id=21]
 [ext_resource path="res://assets/art/ui/station_button_sell_normal.png" type="Texture" id=22]
+[ext_resource path="res://source/UI/RefiningPopup.tscn" type="PackedScene" id=23]
 
 [node name="StationScene" type="ColorRect"]
 material = ExtResource( 1 )
@@ -202,4 +203,16 @@ margin_bottom = 708.0
 rect_min_size = Vector2( 0, 200 )
 stretch_mode = 6
 
+[node name="RefiningPopup" parent="." instance=ExtResource( 23 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -225.0
+margin_top = -100.0
+margin_right = 225.0
+margin_bottom = 100.0
+
+[connection signal="pressed" from="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer/RefineButton" to="." method="_on_RefineButton_pressed"]
 [connection signal="pressed" from="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer/UndockButton" to="." method="_on_UndockButton_pressed"]
+[connection signal="refining_complete" from="RefiningPopup" to="." method="_on_RefiningPopup_refining_complete"]

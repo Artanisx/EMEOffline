@@ -636,6 +636,7 @@ func _on_SpaceUI_overview_dock_to() -> void:
 			if distance >= _player.warp_threashold:	
 				warp_to_celestial(selected_celestial)
 			else:
+				_space_ui.show_mid_message("Docking...")	
 				# we're not far enough for a warp, move it it instead
 				_player.offset_distance = get_selected_celestial().offset_distance
 				_player.face(_player.target_pos)
@@ -647,7 +648,13 @@ func _on_SpaceUI_overview_dock_to() -> void:
 			
 			print("Station reached...")	
 			$AUDIO/AURA_DOCKINGREQUESTED.play()
+			
+			#wait for the request to finish...
+			yield($AUDIO/AURA_DOCKINGREQUESTED, "finished")
+			
+			# DENY REQUEST >.<
 			$AUDIO/AURA_DOCKINGDENIED.play()
+			
 			_space_ui.show_mid_message("Docking request denied.")	
 			
 			# now dock (but now must be after we're close enough, so we need a signal)			

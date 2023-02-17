@@ -2,6 +2,9 @@ extends ColorRect
 onready var scene_transition: ColorRect = $SceneTransition
 onready var credits_and_cargo_label: Label = $RightStationContainer/RightStationPanel/VBoxContainer/CreditsAndCargoLabel
 onready var refining_popup: Popup = $RefiningPopup
+onready var message: Label = $MIDHUD/MESSAGE
+onready var animation_player: AnimationPlayer = $MIDHUD/AnimationPlayer
+
 
 ## The animation speed
 export var animation_speed: float = 0.01
@@ -49,11 +52,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.is_key_pressed(16777244):
 			cargo = cargo + 10
 			update_creds_cargo()
+			show_mid_message("You cheated!")
 		
 		# F2: MORE CREDS
 		if Input.is_key_pressed(16777245):
 			creds = creds + 1000
 			update_creds_cargo()
+			show_mid_message("You cheated!")
+
+func show_mid_message(message_to_show: String) -> void:
+	message.text = message_to_show	
+	animation_player.play("FadeIn")
+	
+func fade_out_message() -> void:
+	animation_player.play("FadeOut")
 	
 func undock() -> void:
 	# Undock for now simply loads back the game world scene
@@ -73,3 +85,8 @@ func _on_RefiningPopup_refining_complete(final_tritanium, final_ore) -> void:
 	
 	#Udpate ui
 	update_creds_cargo()
+	
+	show_mid_message("Refining complete!")
+	
+func _on_RefiningPopup_send_message(message) -> void:
+	show_mid_message(message)

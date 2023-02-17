@@ -12,6 +12,7 @@ var threshold: int = 0
 var timer
 
 signal refining_complete
+signal send_message
 
 func set_refine(cargohold: int, refining_fee: int, threshold: int):
 	self.cargo_hold = cargohold
@@ -42,6 +43,7 @@ func refine() -> void:
 	# check if there's enough ore for refine
 	if (cargo_hold < threshold):
 		print("You can't refine as you don't have enough ore.")
+		emit_signal("send_message", "Not enough ore to refine.")
 		return
 		
 	# If there are, disable buttons so the player can't be stupid

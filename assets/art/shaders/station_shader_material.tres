@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://assets/art/shaders/stration_shader.tres" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/is_card = true
+shader_param/iTime = 0.0
+shader_param/iFrame = 0
+shader_param/iChannelResolution1 = Vector2( 0, 0 )

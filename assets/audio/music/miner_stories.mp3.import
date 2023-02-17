@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/miner_stories.mp3-3e763be0b668295c9c8e591f723dbe72.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/miner_stories.mp3"
+dest_files=[ "res://.import/miner_stories.mp3-3e763be0b668295c9c8e591f723dbe72.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

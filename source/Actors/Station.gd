@@ -15,9 +15,6 @@ var selected: bool = false
 ## The docking distance
 export var docking_range: int = 500
 
-## The offset distance, to avoid the player to get inside of the station when moving/warping
-export var offset_distance: int = 150
-
 ## Constructor
 # ------------
 func _init():

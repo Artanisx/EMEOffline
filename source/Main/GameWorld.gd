@@ -31,7 +31,6 @@ var asteroid_being_mined: Celestial = null
 
 ## Celestial over this distance will not be shown in the overview
 export var overview_range: int = 5000
-export var regular_offset_distance: int = 120
 
 # DEBUGGING
 const max_zoom_out = 10
@@ -608,10 +607,7 @@ func _on_SpaceUI_overview_move_to() -> void:
 	
 	if (overview_selected and get_selected_celestial().movable_to == true):
 		# Adjust the offset for the move action (a station is much bigger)
-		if (get_selected_celestial().dockable == true):
-			_player.offset_distance = get_selected_celestial().offset_distance
-		else:
-			_player.offset_distance = regular_offset_distance
+		_player.offset_distance = get_selected_celestial().offset_distance
 		_player.face(_player.target_pos)
 		player_is_warping = false
 		_player.warping(false)
@@ -634,9 +630,11 @@ func _on_SpaceUI_overview_dock_to() -> void:
 		if (get_distance_from_celestial(selected_celestial) <= selected_celestial.docking_range):
 			# we are close enough to initiate a docking sequence
 			pass
-		else:
-			# it's too far, Warp to it first, then dock
-			pass		
+		else:				
+			# it's too far, Warp to it first
+			warp_to_celestial(selected_celestial)
+			
+			# now dock (but now must be after we're close enough, so we need a signal)
 		pass
 	else:
 		# player tried to dock on something not dockable, tecnically not possible
@@ -660,7 +658,10 @@ func warp_to_celestial(celestial: Celestial) -> void:
 	if (overview_selected and celestial.warpable_to == true):
 		# Then check if it's distant enough to initiate a warp sequence
 		var distance = round(_player.position.distance_to(celestial.position))
-		if distance >= _player.warp_threashold:
+		if distance >= _player.warp_threashold:			
+			# Set the offset distance so you don't get inside of it...
+			_player.offset_distance = celestial.offset_distance
+						
 			# initaite warp
 			_space_ui.show_mid_message("WARP DRIVE ACTIVE.")
 			$AUDIO/AURA_WARPDRIVEACTIVE.play()
@@ -674,21 +675,6 @@ func warp_to_celestial(celestial: Celestial) -> void:
 
 func _on_SpaceUI_overview_warp_to() -> void:
 	warp_to_celestial(get_selected_celestial())
-#	#First checkif the selected celestial is warpable
-#	if (overview_selected and get_selected_celestial().warpable_to == true):
-#		# THen check if it's distant enough to initiate a warp sequence
-#		var distance = round(_player.position.distance_to(get_selected_celestial().position))
-#		if distance >= _player.warp_threashold:
-#			# initaite warp
-#			_space_ui.show_mid_message("WARP DRIVE ACTIVE.")
-#			$AUDIO/AURA_WARPDRIVEACTIVE.play()
-#			player_is_warping = true
-#			_player.warping(true)
-#			_player.face(_player.target_pos, true)			
-#		else:
-#			# can't warp, it's too close			
-#			_space_ui.show_mid_message("Attempting to warp to a closeby celestial.")
-#			return
 			
 # Callbacks for QuestionBox: QUITTING YES
 func _on_QB_quit_yes():

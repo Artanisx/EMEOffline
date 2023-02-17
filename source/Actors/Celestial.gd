@@ -34,6 +34,9 @@ export var dockable: bool = false
 ## Should this element appear on the overview? Default: true
 export var overview_visibile: bool = true
 
+## The offset distance, to avoid the player to get inside of the station when moving/warping
+export var offset_distance: int = 120
+
 ## Global position offset. This get's added to the base global_position.
 ## If you want it to coincide with global_position, leave it to 0
 export var offset_global_position: float = 0

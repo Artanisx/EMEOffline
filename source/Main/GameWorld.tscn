@@ -389,6 +389,7 @@ start_ore_amount = 300.0
 
 [node name="CaldariMiningStation" parent="CELESTIALS/Stations" instance=ExtResource( 15 )]
 position = Vector2( 638, -376 )
+offset_distance = 300
 
 [node name="AUDIO" type="Node" parent="."]
 

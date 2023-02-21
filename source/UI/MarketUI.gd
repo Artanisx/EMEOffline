@@ -17,7 +17,8 @@ const mining_laser_III_cost = 90000
 const mining_laser_IV_cost = 180000
 const mining_laser_V_cost = 250000
 
-signal upgrade_complete
+signal mining_laser_upgrade_complete
+signal cargo_extender_upgrade_complete
 signal send_message
 
 # Set the Market UI and pass relevant data
@@ -176,14 +177,86 @@ func set_mode_mining_laser() -> void:
 		
 func _on_market_buy_selected(index: int) -> void:
 	match index:
-		102:
-			emit_signal("send_message", "You want to buy Mining Laser II!")			
+		102:			
+			buy_mining_laser(2)		
 		103:
-			print("mining laser III clicked")
+			buy_mining_laser(3)
 		104:
-			print("mining laser IV clicked")
+			buy_mining_laser(4)
 		105:
-			print("mining laser V clicked")
+			buy_mining_laser(5)
+
+func buy_mining_laser(mining_laser: int) -> void:
+	if (current_mining_laser >= mining_laser):
+		# user is trying to downgrade or buy the same
+		emit_signal("send_message", "You can't buy that!")
+		return
+	
+	match mining_laser:
+		2:
+			if (current_credits < mining_laser_II_cost):
+				emit_signal("send_message", "Not enough credits!")
+				return
+			else:
+				# Subtracts credits for the buy
+				current_credits = current_credits - mining_laser_II_cost
+				
+				# Upgrade the mining laser accordingly
+				current_mining_laser = 2
+				
+				# Send signal
+				emit_signal("mining_laser_upgrade_complete", current_mining_laser, current_credits)
+				
+				# close panel
+				hide()
+		3:
+			if (current_credits < mining_laser_III_cost):
+				emit_signal("send_message", "Not enough credits!")
+				return
+			else:
+				# Subtracts credits for the buy
+				current_credits = current_credits - mining_laser_III_cost
+				
+				# Upgrade the mining laser accordingly
+				current_mining_laser = 3
+				
+				# Send signal
+				emit_signal("mining_laser_upgrade_complete", current_mining_laser, current_credits)
+				
+				# close panel
+				hide()
+		4:
+			if (current_credits < mining_laser_IV_cost):
+				emit_signal("send_message", "Not enough credits!")
+				return
+			else:
+				# Subtracts credits for the buy
+				current_credits = current_credits - mining_laser_IV_cost
+				
+				# Upgrade the mining laser accordingly
+				current_mining_laser = 4
+				
+				# Send signal
+				emit_signal("mining_laser_upgrade_complete", current_mining_laser, current_credits)
+				
+				# close panel
+				hide()
+		5:
+			if (current_credits < mining_laser_V_cost):
+				emit_signal("send_message", "Not enough credits!")
+				return	
+			else:
+				# Subtracts credits for the buy
+				current_credits = current_credits - mining_laser_V_cost
+				
+				# Upgrade the mining laser accordingly
+				current_mining_laser = 5
+				
+				# Send signal
+				emit_signal("mining_laser_upgrade_complete", current_mining_laser, current_credits)
+				
+				# close panel
+				hide()			
 
 func set_mode_cargo_extender() -> void:
 	pass

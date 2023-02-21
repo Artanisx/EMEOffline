@@ -327,4 +327,5 @@ environment = SubResource( 8 )
 [connection signal="send_message" from="RefiningPopup" to="." method="_on_RefiningPopup_send_message"]
 [connection signal="sale_complete" from="SellPopup" to="." method="_on_SellPopup_sale_complete"]
 [connection signal="send_message" from="SellPopup" to="." method="_on_SellPopup_send_message"]
+[connection signal="mining_laser_upgrade_complete" from="Market" to="." method="_on_Market_mining_laser_upgrade_complete"]
 [connection signal="send_message" from="Market" to="." method="_on_Market_send_message"]

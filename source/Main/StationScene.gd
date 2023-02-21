@@ -66,7 +66,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		# F2: MORE CREDS
 		if Input.is_key_pressed(16777245):
-			creds = creds + 1000
+			creds = creds + 10000
 			update_creds_cargo()
 			show_mid_message("You cheated!")
 			
@@ -125,6 +125,9 @@ func _on_SellPopup_sale_complete(final_sale, final_trit) -> void:
 	station_tritanium = final_trit
 	creds = creds + final_sale
 	
+	# Save data to globals  (but not to file yet) so one could sell again and get proper results
+	Globals.save_to_Globals(creds, laser, cargoext, cargo, pos, station_tritanium)
+	
 	#Udpate ui
 	update_creds_cargo()
 	
@@ -134,10 +137,20 @@ func _on_SellPopup_send_message(message) -> void:
 	show_mid_message(message)
 
 func _on_BuyMiningLaserButton_pressed() -> void:
-	#market_popup.set_market("MiningLaser", creds)
-	## func set_market(market_mode: String = "MiningLaser", cur_creds: int = 0, cur_mining_laser = Globals.get_account_mininglaser(), cur_cargo_ext = Globals.get_account_cargoextender()) -> void:
-	market_popup.set_market("MiningLaser", creds, 1, 0)
+	market_popup.set_market("MiningLaser", creds)	
 	market_popup.popup_centered()
 
 func _on_Market_send_message(message) -> void:
 	show_mid_message(message)
+
+func _on_Market_mining_laser_upgrade_complete(current_mining_laser, current_credits) -> void:
+	creds = current_credits
+	laser = current_mining_laser
+	
+	# Save data to globals  (but not to file yet) so one could buy again and get proper results
+	Globals.save_to_Globals(creds, laser, cargoext, cargo, pos, station_tritanium)
+	
+	#Update ui
+	update_creds_cargo()
+	
+	show_mid_message("Upgrade complete!")

@@ -13,6 +13,8 @@ var cargo_ext_II_icon = load("res://assets/art/ui/station_icon_cargo_expanderII.
 var cargo_ext_III_icon = load("res://assets/art/ui/station_icon_cargo_expanderIII.png")
 var cargo_ext_IV_icon = load("res://assets/art/ui/station_icon_cargo_expanderIV.png")
 var cargo_ext_V_icon = load("res://assets/art/ui/station_icon_cargo_expanderV.png")
+var mining_logo = load("res://assets/art/ui/station_button_mininglaser_normal.png")
+var cargo_logo = load("res://assets/art/ui/station_button_cargoexpander_normal.png")
 
 var market_mode: String = ""
 var current_credits: int = 0
@@ -27,8 +29,8 @@ const mining_laser_V_cost = 250000
 const cargo_ext_I_cost = 5000
 const cargo_ext_II_cost = 15000
 const cargo_ext_III_cost = 35000
-const cargo_ext_IV_cost = 800000
-const cargo_ext_V_cost = 200000
+const cargo_ext_IV_cost = 80000
+const cargo_ext_V_cost = 20000
 
 signal mining_laser_upgrade_complete
 signal cargo_extender_upgrade_complete
@@ -53,6 +55,9 @@ func set_market(market_mode: String = "MiningLaser", cur_creds: int = 0, cur_min
 		set_mode_cargo_extender()
 
 func set_mode_mining_laser() -> void:
+	_market_logo.texture = mining_logo
+	_market_title.text = "STATION MARKET - MINING LASER"
+	
 	# For mining lasers we have 4, from Mining Laser II to Mining Laser V so we need 4 rows
 	for x in 4:
 		var icon := TextureRect.new()	
@@ -199,6 +204,9 @@ func set_mode_mining_laser() -> void:
 		_market_ui_table.add_child(buy_button)
 		
 func set_mode_cargo_extender() -> void:
+	_market_logo.texture = cargo_logo
+	_market_title.text = "STATION MARKET - CARGO HOLD EXTENDER"
+	
 	# For cargo extender we have 5, from Cargo Extender I to Cargo Extender V so we need 5 rows
 	for x in 5:
 		var icon := TextureRect.new()	

@@ -64,6 +64,7 @@ func update_space_ui() -> void:
 	_space_ui_speed.value = clamp(_player.get_instant_velocity(), 0, _space_ui_speed.max_value)
 	_space_ui_speed_labelms.text = str(_player.get_instant_velocity()) + " m/s"
 	_space_ui_speed.hint_tooltip = "Current Speed is: " + str(_player.get_instant_velocity()) + " m/s"
+	_space_ui_cargohold.max_value = _player.player_cargo_hold_capacity
 	_space_ui_cargohold.value = clamp(_player.player_cargo_hold, 0, _player.player_cargo_hold_capacity)
 	_space_ui_cargohold.hint_tooltip = "Cargo Hold has: [" + str(_player.player_cargo_hold) + " \\ " + str(_player.player_cargo_hold_capacity) + "m3] of Veldsar"
 	_space_ui_hull.value = clamp(_player.player_hull_integrity, 0, 1000)

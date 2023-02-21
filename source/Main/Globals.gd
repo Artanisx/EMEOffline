@@ -10,7 +10,7 @@ var account_cargoextender: int = 0
 var account_cargohold: int = 0
 var account_position: Vector2 = Vector2()
 var account_username: String = ""
-var station_trit: int = 0
+var account_station_tritanium: int = 0
 
 func set_loaded_true(): 
 	loaded_from_login = true
@@ -21,18 +21,15 @@ func set_loaded_false():
 func is_game_being_loaded() -> bool:
 	return loaded_from_login
 	
-func set_loaded_user(credits: int, mininglaser: int, cargoextender: int, cargohold: int, position: Vector2, username: String) -> void:
+func set_loaded_user(credits: int, mininglaser: int, cargoextender: int, cargohold: int, position: Vector2, username: String, stat_trit: int) -> void:
 	account_credits = credits
 	account_mininglaser = mininglaser
 	account_cargoextender = cargoextender
 	account_cargohold = cargohold
 	account_position = position
 	account_username = username
+	account_station_tritanium = stat_trit
 
-## Station tritanium is not saved in the save (YET)
-func save_station_tritanium(trit: int) -> void:
-	station_trit = trit	
-	
 func get_account_credits() -> int:
 	return account_credits
 	
@@ -51,10 +48,10 @@ func get_account_position() -> Vector2:
 func get_account_username() -> String:
 	return account_username
 	
-## Station tritanium is not saved in the save (YET)	
-func get_station_tritanium() -> int:
-	return station_trit
+func get_account_station_tritanium() -> int:
+	return account_station_tritanium
 	
+
 ## This will save the current open (in theory...) savegame with the variables on Global
 ## It's not this function task to make sure Globals are up to date, though.
 func save() -> bool:
@@ -75,6 +72,7 @@ func save() -> bool:
 	# CARGOVELDSPAR: 0-99999	## How much veldspar is in the cargo hold, if any
 	# POSITION: (0,0)			## The last position. It should be nearby the station at the beginning of the game.
 	# USERNAME: name			## The username (name of the sav, minus extension)
+	# STATION TRITANIUM: 0-99999			## The tritanium available in the station.
 	# #########
 	
 	file.store_line(str(account_credits))		# Credits
@@ -83,11 +81,14 @@ func save() -> bool:
 	file.store_line(str(account_cargohold))		# Cargo hold 
 	file.store_line(str(account_position))	# position
 	file.store_line(str(account_username))	# Username
+	file.store_line(str(account_station_tritanium))	# station tritanium
 	return true
 	
-func save_to_Globals(creds: int, minlaser: int, cargoxt: int, cargohol: int, pos: Vector2) -> void:
+# Save all data to the global function, including station tritanium	
+func save_to_Globals(creds: int, minlaser: int, cargoxt: int, cargohol: int, pos: Vector2, stat_trit: int) -> void:
 	account_credits = creds
 	account_mininglaser = minlaser
 	account_cargoextender = cargoxt
 	account_cargohold = cargohol
 	account_position = pos
+	account_station_tritanium = stat_trit

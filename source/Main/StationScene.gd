@@ -33,7 +33,7 @@ func _ready() -> void:
 	laser = Globals.get_account_mininglaser()
 	cargoext = Globals.get_account_cargoextender()
 	pos = Globals.get_account_position()
-	station_tritanium = Globals.get_station_tritanium()
+	station_tritanium = Globals.get_account_station_tritanium()
 	
 	update_creds_cargo()
 	
@@ -72,11 +72,7 @@ func fade_out_message() -> void:
 	
 func undock() -> void:
 	#Save file before undocking
-	Globals.save_to_Globals(creds, laser, cargoext, cargo, pos)
-	
-	# Stave station tritanium in globals
-	# BEWARE! Station tritanium is NOT saved in the account so it's lost on game closure
-	Globals.save_station_tritanium(station_tritanium)
+	Globals.save_to_Globals(creds, laser, cargoext, cargo, pos, station_tritanium)
 	
 	if (Globals.save()):
 		# All good, undock now!

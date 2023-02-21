@@ -640,7 +640,8 @@ func dock() -> void:
 	#Transition to login scene as a test
 	
 	#Save file before docking
-	Globals.save_to_Globals(_player.player_credits, _player.player_mining_laser, _player.player_cargo_extender, _player.player_cargo_hold, _player.global_position)
+	# We're passing station tritanium already in the globals as we don't need to save it when docking, it's already there
+	Globals.save_to_Globals(_player.player_credits, _player.player_mining_laser, _player.player_cargo_extender, _player.player_cargo_hold, _player.global_position, Globals.get_account_station_tritanium())
 	if (Globals.save()):
 		# All good, dock now!
 		_transition_rect.transition_to("res://source/Main/StationScene.tscn")
@@ -719,7 +720,8 @@ func _on_SpaceUI_overview_warp_to() -> void:
 # Callbacks for QuestionBox: QUITTING YES
 func _on_QB_quit_yes():
 	#Save file before quitting
-	Globals.save_to_Globals(_player.player_credits, _player.player_mining_laser, _player.player_cargo_extender, _player.player_cargo_hold, _player.global_position)
+	#For station tritanium we don'th ave it saved on the player as it is not used outside of stations, so we save what's already in the globals (station trit cannot be changed outside of the station so there's no danger the value might change)
+	Globals.save_to_Globals(_player.player_credits, _player.player_mining_laser, _player.player_cargo_extender, _player.player_cargo_hold, _player.global_position, Globals.get_account_station_tritanium())
 	if (Globals.save()):
 		get_tree().quit()
 	else:

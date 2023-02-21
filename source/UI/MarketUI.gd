@@ -4,7 +4,10 @@ onready var _market_logo: TextureRect = $Panel/MarginContainer/VBoxContainer/HBo
 onready var _market_title: Label = $Panel/MarginContainer/VBoxContainer/HBoxContainer/MarketTitle
 onready var _market_ui_table: GridContainer = $Panel/MarginContainer/VBoxContainer/GridContainer
 
-var mining_laser_icon = load("res://assets/art/ui/station_button_mininglaser_normal.png")	
+var mining_laser_II_icon = load("res://assets/art/ui/station_icon_mininglaserII.png")	
+var mining_laser_III_icon = load("res://assets/art/ui/station_icon_mininglaserIII.png")
+var mining_laser_IV_icon = load("res://assets/art/ui/station_icon_mininglaserIV.png")
+var mining_laser_V_icon = load("res://assets/art/ui/station_icon_mininglaserV.png")
 var cargo_ext_icon = load("res://assets/art/ui/station_button_cargoexpander_normal.png")
 
 var market_mode: String = ""
@@ -42,8 +45,18 @@ func set_market(market_mode: String = "MiningLaser", cur_creds: int = 0, cur_min
 func set_mode_mining_laser() -> void:
 	# For mining lasers we have 4, from Mining Laser II to Mining Laser V so we need 4 rows
 	for x in 4:
-		var icon := TextureRect.new()				
-		icon.texture = mining_laser_icon
+		var icon := TextureRect.new()	
+		
+		match x:
+			0:
+				icon.texture = mining_laser_II_icon
+			1:
+				icon.texture = mining_laser_III_icon
+			2:
+				icon.texture = mining_laser_IV_icon
+			3: 
+				icon.texture = mining_laser_V_icon
+		
 		icon.margin_right = 68
 		icon.margin_bottom = 68			
 		icon.rect_size.x = 68

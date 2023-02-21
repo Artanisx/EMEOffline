@@ -296,10 +296,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -170.0
-margin_top = -312.0
-margin_right = 176.0
-margin_bottom = -216.0
+margin_left = -171.0
+margin_top = -346.0
+margin_right = 175.0
+margin_bottom = -250.0
 custom_styles/panel = ExtResource( 7 )
 
 [node name="MESSAGE" type="Label" parent="MIDHUD"]
@@ -327,3 +327,4 @@ environment = SubResource( 8 )
 [connection signal="send_message" from="RefiningPopup" to="." method="_on_RefiningPopup_send_message"]
 [connection signal="sale_complete" from="SellPopup" to="." method="_on_SellPopup_sale_complete"]
 [connection signal="send_message" from="SellPopup" to="." method="_on_SellPopup_send_message"]
+[connection signal="send_message" from="Market" to="." method="_on_Market_send_message"]

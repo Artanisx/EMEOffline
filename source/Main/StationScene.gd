@@ -134,5 +134,10 @@ func _on_SellPopup_send_message(message) -> void:
 	show_mid_message(message)
 
 func _on_BuyMiningLaserButton_pressed() -> void:
-	market_popup.set_market("MiningLaser", creds)
+	#market_popup.set_market("MiningLaser", creds)
+	## func set_market(market_mode: String = "MiningLaser", cur_creds: int = 0, cur_mining_laser = Globals.get_account_mininglaser(), cur_cargo_ext = Globals.get_account_cargoextender()) -> void:
+	market_popup.set_market("MiningLaser", creds, 1, 0)
 	market_popup.popup_centered()
+
+func _on_Market_send_message(message) -> void:
+	show_mid_message(message)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/art/shaders/station_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://source/Main/StationScene.gd" type="Script" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://assets/art/ui/station_button_sell_normal.png" type="Texture" id=22]
 [ext_resource path="res://source/UI/RefiningPopup.tscn" type="PackedScene" id=23]
 [ext_resource path="res://source/UI/SellPopup.tscn" type="PackedScene" id=24]
+[ext_resource path="res://source/UI/MarketUI.tscn" type="PackedScene" id=25]
 
 [sub_resource type="Animation" id=6]
 resource_name = "FadeIn"
@@ -287,6 +288,8 @@ stretch_mode = 6
 
 [node name="SellPopup" parent="." instance=ExtResource( 24 )]
 
+[node name="Market" parent="." instance=ExtResource( 25 )]
+
 [node name="MIDHUD" type="Panel" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
@@ -318,6 +321,7 @@ environment = SubResource( 8 )
 
 [connection signal="pressed" from="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer/RefineButton" to="." method="_on_RefineButton_pressed"]
 [connection signal="pressed" from="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer/SellButton" to="." method="_on_SellButton_pressed"]
+[connection signal="pressed" from="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer/BuyMiningLaserButton" to="." method="_on_BuyMiningLaserButton_pressed"]
 [connection signal="pressed" from="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer/UndockButton" to="." method="_on_UndockButton_pressed"]
 [connection signal="refining_complete" from="RefiningPopup" to="." method="_on_RefiningPopup_refining_complete"]
 [connection signal="send_message" from="RefiningPopup" to="." method="_on_RefiningPopup_send_message"]

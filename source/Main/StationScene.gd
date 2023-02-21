@@ -5,6 +5,7 @@ onready var refining_popup: Popup = $RefiningPopup
 onready var message: Label = $MIDHUD/MESSAGE
 onready var animation_player: AnimationPlayer = $MIDHUD/AnimationPlayer
 onready var sell_popup: PopupDialog = $SellPopup
+onready var market_popup: PopupDialog = $Market
 
 
 ## The animation speed
@@ -131,3 +132,7 @@ func _on_SellPopup_sale_complete(final_sale, final_trit) -> void:
 
 func _on_SellPopup_send_message(message) -> void:
 	show_mid_message(message)
+
+func _on_BuyMiningLaserButton_pressed() -> void:
+	market_popup.set_market("MiningLaser", creds)
+	market_popup.popup_centered()

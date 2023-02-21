@@ -5,7 +5,6 @@
 [ext_resource path="res://assets/art/ui/station_button_mininglaser_normal.png" type="Texture" id=3]
 
 [node name="Market" type="PopupDialog"]
-visible = true
 margin_right = 469.0
 margin_bottom = 481.0
 script = ExtResource( 2 )
@@ -33,12 +32,12 @@ margin_bottom = 475.0
 margin_right = 463.0
 margin_bottom = 68.0
 
-[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MarketLogo" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 68.0
 margin_bottom = 68.0
 texture = ExtResource( 3 )
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MarketTitle" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 72.0
 margin_top = 27.0
 margin_right = 463.0
@@ -76,17 +75,15 @@ margin_left = 184.0
 margin_top = 1.0
 margin_right = 325.0
 margin_bottom = 66.0
-text = "BLABLABLABLABLABL
-BLBLABLABL
-BLALBLABLAL
-LBABLBALBLABBA"
+text = "BLBLALABLABLALBALBLBALBLABLABLABLALBLBLABLBLBLALBLBLABLLBALBLABALLBB"
+autowrap = true
 
 [node name="COST" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
 margin_left = 329.0
 margin_top = 27.0
 margin_right = 417.0
 margin_bottom = 41.0
-text = "60000 credits"
+text = "99999 credits"
 
 [node name="BuyButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
 margin_left = 421.0
@@ -255,3 +252,5 @@ margin_bottom = 468.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "CLOSE"
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]

@@ -96,7 +96,7 @@ func _on_RefineButton_pressed() -> void:
 
 func _on_RefiningPopup_refining_complete(final_tritanium, final_ore) -> void:
 	# we have finished a refining process, update tritanium
-	station_tritanium = final_tritanium
+	station_tritanium = station_tritanium + final_tritanium
 	cargo = final_ore
 	
 	#Udpate ui

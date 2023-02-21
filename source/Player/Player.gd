@@ -34,9 +34,11 @@ var player_credits: int = 0
 export var player_mining_laser: int = 1
 var player_cargo_extender: int = 0
 var player_cargo_hold: int = 0
-var player_cargo_hold_capacity: int = 1000 # unused yet
+var player_cargo_hold_capacity: int = 1000
 var player_hull_integrity: int = 1000 # unused yet
 var player_top_speed: int = 100	# unused yet
+
+const base_cargo_hold: int = 1000
 
 # MINING LASER STAT
 var player_mining_laser_cycle: float = 5
@@ -83,6 +85,22 @@ func set_mining_laser():
 			player_mining_laser_cycle = 2
 			player_mining_laser_range = 1000
 			player_mining_laser_yield = 400
+
+# Set the correct cargo stats, following the installed cargo extender
+func set_cargo_ext():
+	match player_cargo_extender:
+		0:
+			player_cargo_hold_capacity = base_cargo_hold			
+		1:
+			player_cargo_hold_capacity = base_cargo_hold + 1000
+		2:
+			player_cargo_hold_capacity = base_cargo_hold + 2000
+		3:
+			player_cargo_hold_capacity = base_cargo_hold + 4000
+		4:
+			player_cargo_hold_capacity = base_cargo_hold + 6000
+		5:
+			player_cargo_hold_capacity = base_cargo_hold + 9000
 
 func calculate_offset_target_position(target_pos: Vector2) -> Vector2:	
 	# Check if there's an offset set
@@ -213,6 +231,7 @@ func SetPlayer(cred: int, mining: int, cargoxt: int, cargoh: int, pos: Vector2) 
 	player_cargo_hold = cargoh
 	position = pos
 	set_mining_laser()
+	set_cargo_ext()
 
 ## Emit warp particles
 func warping(is_warping: bool):

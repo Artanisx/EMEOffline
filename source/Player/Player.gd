@@ -174,6 +174,10 @@ func move(target_pos: Vector2) -> void:
 	# Calcualte the offset
 	target_pos = calculate_offset_target_position(target_pos)
 	
+	# Clamp it so it doesn't go outside the map
+	target_pos.x = clamp(target_pos.x, -30000, 28600)	
+	target_pos.y = clamp(target_pos.y, -30214, 28881)
+	
 	# Calculate the duration the total movement should take
 	# The duration should be distance / velocity
 	var distance_vector = global_position - target_pos

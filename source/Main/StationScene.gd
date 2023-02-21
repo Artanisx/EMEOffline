@@ -128,3 +128,6 @@ func _on_SellPopup_sale_complete(final_sale, final_trit) -> void:
 	update_creds_cargo()
 	
 	show_mid_message("Sale complete!")
+
+func _on_SellPopup_send_message(message) -> void:
+	show_mid_message(message)

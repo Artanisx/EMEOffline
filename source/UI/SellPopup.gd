@@ -9,6 +9,7 @@ var threshold: int = 0
 var ask_per_threshold: int = 0
 
 signal sale_complete
+signal send_message
 
 func set_sale(current_tritanium: int, sale_fee: int, sale_threshold: int, ask_x_threshold: int):	
 	self.current_trit = current_tritanium
@@ -27,10 +28,12 @@ func sell() -> void:
 	
 	var final_sale = estimated_sale - fee
 	var final_trit = 0
-		
-	# signal
-	emit_signal("sale_complete", final_sale, final_trit)
-		
+	
+	if (final_sale > 0):
+		emit_signal("sale_complete", final_sale, final_trit)
+	else:
+		emit_signal("send_message", "Not enough tritanium to sell.")
+	
 	# close panel
 	hide()
 

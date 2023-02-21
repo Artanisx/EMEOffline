@@ -1,0 +1,257 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://source/UI/SpaceUIOverview.tres" type="StyleBox" id=1]
+[ext_resource path="res://source/UI/MarketUI.gd" type="Script" id=2]
+[ext_resource path="res://assets/art/ui/station_button_mininglaser_normal.png" type="Texture" id=3]
+
+[node name="Market" type="PopupDialog"]
+visible = true
+margin_right = 469.0
+margin_bottom = 481.0
+script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+margin_right = 463.0
+margin_bottom = 475.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+margin_right = 463.0
+margin_bottom = 68.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 68.0
+margin_bottom = 68.0
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 72.0
+margin_top = 27.0
+margin_right = 463.0
+margin_bottom = 41.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0, 0.988235, 1, 1 )
+text = "STATION MARKET - MINING LASER"
+align = 2
+
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+margin_top = 72.0
+margin_right = 463.0
+margin_bottom = 76.0
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer"]
+margin_top = 80.0
+margin_right = 463.0
+margin_bottom = 436.0
+columns = 5
+
+[node name="ICON" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_right = 68.0
+margin_bottom = 68.0
+texture = ExtResource( 3 )
+
+[node name="NAME" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 72.0
+margin_top = 27.0
+margin_right = 180.0
+margin_bottom = 41.0
+text = "MINING LASER II"
+
+[node name="DESCRIPTION" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 184.0
+margin_top = 1.0
+margin_right = 325.0
+margin_bottom = 66.0
+text = "BLABLABLABLABLABL
+BLBLABLABL
+BLALBLABLAL
+LBABLBALBLABBA"
+
+[node name="COST" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 329.0
+margin_top = 27.0
+margin_right = 417.0
+margin_bottom = 41.0
+text = "60000 credits"
+
+[node name="BuyButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 421.0
+margin_right = 459.0
+margin_bottom = 68.0
+text = "BUY"
+
+[node name="ICON2" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 72.0
+margin_right = 68.0
+margin_bottom = 140.0
+texture = ExtResource( 3 )
+
+[node name="NAME2" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 72.0
+margin_top = 99.0
+margin_right = 180.0
+margin_bottom = 113.0
+text = "MINING LASER II"
+
+[node name="DESCRIPTION2" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 184.0
+margin_top = 73.0
+margin_right = 325.0
+margin_bottom = 138.0
+text = "BLABLABLABLABLABL
+BLBLABLABL
+BLALBLABLAL
+LBABLBALBLABBA"
+
+[node name="COST2" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 329.0
+margin_top = 99.0
+margin_right = 417.0
+margin_bottom = 113.0
+text = "60000 credits"
+
+[node name="BuyButton2" type="Button" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 421.0
+margin_top = 72.0
+margin_right = 459.0
+margin_bottom = 140.0
+text = "BUY"
+
+[node name="ICON3" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 144.0
+margin_right = 68.0
+margin_bottom = 212.0
+texture = ExtResource( 3 )
+
+[node name="NAME3" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 72.0
+margin_top = 171.0
+margin_right = 180.0
+margin_bottom = 185.0
+text = "MINING LASER II"
+
+[node name="DESCRIPTION3" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 184.0
+margin_top = 145.0
+margin_right = 325.0
+margin_bottom = 210.0
+text = "BLABLABLABLABLABL
+BLBLABLABL
+BLALBLABLAL
+LBABLBALBLABBA"
+
+[node name="COST3" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 329.0
+margin_top = 171.0
+margin_right = 417.0
+margin_bottom = 185.0
+text = "60000 credits"
+
+[node name="BuyButton3" type="Button" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 421.0
+margin_top = 144.0
+margin_right = 459.0
+margin_bottom = 212.0
+text = "BUY"
+
+[node name="ICON4" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 216.0
+margin_right = 68.0
+margin_bottom = 284.0
+texture = ExtResource( 3 )
+
+[node name="NAME4" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 72.0
+margin_top = 243.0
+margin_right = 180.0
+margin_bottom = 257.0
+text = "MINING LASER II"
+
+[node name="DESCRIPTION4" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 184.0
+margin_top = 217.0
+margin_right = 325.0
+margin_bottom = 282.0
+text = "BLABLABLABLABLABL
+BLBLABLABL
+BLALBLABLAL
+LBABLBALBLABBA"
+
+[node name="COST4" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 329.0
+margin_top = 243.0
+margin_right = 417.0
+margin_bottom = 257.0
+text = "60000 credits"
+
+[node name="BuyButton4" type="Button" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 421.0
+margin_top = 216.0
+margin_right = 459.0
+margin_bottom = 284.0
+text = "BUY"
+
+[node name="ICON5" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 288.0
+margin_right = 68.0
+margin_bottom = 356.0
+texture = ExtResource( 3 )
+
+[node name="NAME5" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 72.0
+margin_top = 315.0
+margin_right = 180.0
+margin_bottom = 329.0
+text = "MINING LASER II"
+
+[node name="DESCRIPTION5" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 184.0
+margin_top = 289.0
+margin_right = 325.0
+margin_bottom = 354.0
+text = "BLABLABLABLABLABL
+BLBLABLABL
+BLALBLABLAL
+LBABLBALBLABBA"
+
+[node name="COST5" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 329.0
+margin_top = 315.0
+margin_right = 417.0
+margin_bottom = 329.0
+text = "60000 credits"
+
+[node name="BuyButton5" type="Button" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 421.0
+margin_top = 288.0
+margin_right = 459.0
+margin_bottom = 356.0
+text = "BUY"
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+margin_top = 440.0
+margin_right = 463.0
+margin_bottom = 444.0
+
+[node name="CloseButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+margin_left = 205.0
+margin_top = 448.0
+margin_right = 257.0
+margin_bottom = 468.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "CLOSE"

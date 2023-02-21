@@ -154,3 +154,20 @@ func _on_Market_mining_laser_upgrade_complete(current_mining_laser, current_cred
 	update_creds_cargo()
 	
 	show_mid_message("Upgrade complete!")
+
+func _on_BuyExpandedHoldButton_pressed() -> void:
+	market_popup.set_market("CargoExtender", creds)	
+	market_popup.popup_centered()	
+
+
+func _on_Market_cargo_extender_upgrade_complete(current_cargo_expander, current_credits) -> void:
+	creds = current_credits
+	cargoext = current_cargo_expander
+	
+	# Save data to globals  (but not to file yet) so one could buy again and get proper results
+	Globals.save_to_Globals(creds, laser, cargoext, cargo, pos, station_tritanium)
+	
+	#Update ui
+	update_creds_cargo()
+	
+	show_mid_message("Upgrade complete!")

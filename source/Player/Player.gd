@@ -31,7 +31,7 @@ enum MINING_LASER {MINING_LASER_I = 1, MINING_LASER_II = 2, MINING_LASER_III = 3
 enum CARGO_EXTENDER {NO_CARGO_EXTENDER = 0, CARGO_EXTENDER_I = 1, CARGO_EXTENDER_II = 2, CARGO_EXTENDER_III = 3, CARGO_EXTENDER_IV = 4, CARGO_EXTENDER_V = 5}
 
 var player_credits: int = 0
-export var player_mining_laser: int = 1
+var player_mining_laser: int = 1
 var player_cargo_extender: int = 0
 var player_cargo_hold: int = 0
 var player_cargo_hold_capacity: int = 1000
@@ -92,7 +92,7 @@ func set_cargo_ext():
 		0:
 			player_cargo_hold_capacity = base_cargo_hold			
 		1:
-			player_cargo_hold_capacity = base_cargo_hold + 1000
+			player_cargo_hold_capacity = base_cargo_hold + 1000			
 		2:
 			player_cargo_hold_capacity = base_cargo_hold + 2000
 		3:
@@ -230,7 +230,7 @@ func SetPlayer(cred: int, mining: int, cargoxt: int, cargoh: int, pos: Vector2) 
 			
 	player_cargo_hold = cargoh
 	position = pos
-	set_mining_laser()
+	set_mining_laser()	
 	set_cargo_ext()
 
 ## Emit warp particles

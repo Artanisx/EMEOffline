@@ -31,7 +31,7 @@ enum MINING_LASER {MINING_LASER_I = 1, MINING_LASER_II = 2, MINING_LASER_III = 3
 enum CARGO_EXTENDER {NO_CARGO_EXTENDER = 0, CARGO_EXTENDER_I = 1, CARGO_EXTENDER_II = 2, CARGO_EXTENDER_III = 3, CARGO_EXTENDER_IV = 4, CARGO_EXTENDER_V = 5}
 
 var player_credits: int = 0
-var player_mining_laser: int = 0
+export var player_mining_laser: int = 1
 var player_cargo_extender: int = 0
 var player_cargo_hold: int = 0
 var player_cargo_hold_capacity: int = 1000 # unused yet
@@ -39,8 +39,8 @@ var player_hull_integrity: int = 1000 # unused yet
 var player_top_speed: int = 100	# unused yet
 
 # MINING LASER STAT
-var player_mining_laser_cycle: int = 5
-var player_mining_laser_range: int = 500
+var player_mining_laser_cycle: float = 5
+var player_mining_laser_range: int = 100
 var player_mining_laser_yield: int = 100
 
 # Player velocity vector
@@ -59,6 +59,30 @@ func _ready() -> void:
 func _process(delta):
 	_space_dust.global_position = global_position		
 	calculate_instant_velocity(delta)	
+
+# Set the correct mining laser stats, following the installed mining laser
+func set_mining_laser():
+	match player_mining_laser:
+		1:
+			player_mining_laser_cycle = 5
+			player_mining_laser_range = 500
+			player_mining_laser_yield = 100
+		2:
+			player_mining_laser_cycle = 5
+			player_mining_laser_range = 500
+			player_mining_laser_yield = 150
+		3:
+			player_mining_laser_cycle = 5
+			player_mining_laser_range = 500
+			player_mining_laser_yield = 300
+		4:
+			player_mining_laser_cycle = 2.5
+			player_mining_laser_range = 1000
+			player_mining_laser_yield = 200
+		5:
+			player_mining_laser_cycle = 2
+			player_mining_laser_range = 1000
+			player_mining_laser_yield = 400
 
 func calculate_offset_target_position(target_pos: Vector2) -> Vector2:	
 	# Check if there's an offset set
@@ -188,6 +212,7 @@ func SetPlayer(cred: int, mining: int, cargoxt: int, cargoh: int, pos: Vector2) 
 			
 	player_cargo_hold = cargoh
 	position = pos
+	set_mining_laser()
 
 ## Emit warp particles
 func warping(is_warping: bool):

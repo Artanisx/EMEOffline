@@ -36,7 +36,7 @@ export var overview_range: int = 5000
 # DEBUGGING
 const max_zoom_out = 10
 var warnings_given: bool = false
-var DEBUG_SPEED_MINING: bool = true
+var DEBUG_SPEED_MINING: bool = false
 
 func _ready() -> void:	
 	# Loads player variables
@@ -86,7 +86,7 @@ func update_space_ui() -> void:
 		_space_ui_target.text =  ""		
 		_player.warping(false)
 		
-	_space_ui_mining_button.hint_tooltip = _player.MINING_LASER.keys()[_player.player_mining_laser] + "\n\nCycle: " + str(_player.player_mining_laser_cycle) + " seconds\nRange: " + str(_player.player_mining_laser_range) + " m\nYield: [" + str(_player.player_mining_laser_yield) + " m3]"	
+	_space_ui_mining_button.hint_tooltip = _player.MINING_LASER.keys()[_player.player_mining_laser-1] + "\n\nCycle: " + str(_player.player_mining_laser_cycle) + " seconds\nRange: " + str(_player.player_mining_laser_range) + " m\nYield: [" + str(_player.player_mining_laser_yield) + " m3]"	
 	
 	# Update the overview
 	update_overview_ui()

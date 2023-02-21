@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/art/shaders/station_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://source/Main/StationScene.gd" type="Script" id=2]
@@ -94,6 +94,15 @@ tracks/1/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+
+[sub_resource type="Environment" id=8]
+background_mode = 4
+background_energy = 1.2
+tonemap_mode = 3
+tonemap_white = 2.06
+dof_blur_far_distance = 9.45
+glow_bloom = 0.31
+glow_high_quality = true
 
 [node name="StationScene" type="ColorRect"]
 material = ExtResource( 1 )
@@ -303,6 +312,9 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MIDHUD"]
 anims/FadeIn = SubResource( 6 )
 anims/FadeOut = SubResource( 7 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 8 )
 
 [connection signal="pressed" from="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer/RefineButton" to="." method="_on_RefineButton_pressed"]
 [connection signal="pressed" from="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer/SellButton" to="." method="_on_SellButton_pressed"]

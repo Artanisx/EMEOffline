@@ -4,6 +4,7 @@ onready var credits_and_cargo_label: Label = $RightStationContainer/RightStation
 onready var refining_popup: Popup = $RefiningPopup
 onready var message: Label = $MIDHUD/MESSAGE
 onready var animation_player: AnimationPlayer = $MIDHUD/AnimationPlayer
+onready var sell_popup: PopupDialog = $SellPopup
 
 
 ## The animation speed
@@ -12,6 +13,11 @@ export var animation_speed: float = 0.01
 ## The mining fee
 export var refining_fee: int = 5
 export var refining_threshold: int = 100
+
+## The sale fee
+export var sale_fee: int = 5
+export var sale_threshold: int = 1 #Number of trit unit for a sale
+export var sale_ASK_threshold: int = 100 #Number of ASK for each threshold sale
 
 # Player variables
 var creds: int = 0
@@ -62,6 +68,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			creds = creds + 1000
 			update_creds_cargo()
 			show_mid_message("You cheated!")
+			
+		# F3: MORE TRITS
+		if Input.is_key_pressed(16777246):
+			station_tritanium = station_tritanium + 10
+			update_creds_cargo()
+			show_mid_message("You cheated!")
 
 func show_mid_message(message_to_show: String) -> void:
 	message.text = message_to_show	
@@ -102,3 +114,17 @@ func _on_RefiningPopup_refining_complete(final_tritanium, final_ore) -> void:
 	
 func _on_RefiningPopup_send_message(message) -> void:
 	show_mid_message(message)
+
+func _on_SellButton_pressed() -> void:	
+	sell_popup.set_sale(station_tritanium, sale_fee, sale_threshold, sale_ASK_threshold)
+	sell_popup.popup_centered()
+
+func _on_SellPopup_sale_complete(final_sale, final_trit) -> void:
+	# we have finished selling tritanium, update values
+	station_tritanium = final_trit
+	creds = creds + final_sale
+	
+	#Udpate ui
+	update_creds_cargo()
+	
+	show_mid_message("Sale complete!")

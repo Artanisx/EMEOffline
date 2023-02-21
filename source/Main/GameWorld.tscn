@@ -2533,45 +2533,59 @@ movable_to = false
 
 [node name="VeldsparAsteroid5" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( 24156, 23746 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid12" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( 23721, 23854 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid13" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( 23990, 24149 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid14" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( 24241, 24037 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid15" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( 24433, 23855 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid16" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( 24288, 23600 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid17" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( 23788, 24024 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid4" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( -16079, -23875 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid11" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( -16079, -23875 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid6" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( -16419, -23796 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid7" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( -16245, -24244 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid8" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( -15834, -23853 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid9" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( -16199, -23544 )
+start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid10" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( -16095, -23386 )
+start_ore_amount = 2000.0
 
 [node name="Stations" type="Node" parent="CELESTIALS"]
 

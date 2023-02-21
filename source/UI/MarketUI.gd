@@ -30,7 +30,7 @@ const cargo_ext_I_cost = 5000
 const cargo_ext_II_cost = 15000
 const cargo_ext_III_cost = 35000
 const cargo_ext_IV_cost = 80000
-const cargo_ext_V_cost = 20000
+const cargo_ext_V_cost = 120000
 
 signal mining_laser_upgrade_complete
 signal cargo_extender_upgrade_complete

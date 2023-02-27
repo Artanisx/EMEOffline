@@ -28,6 +28,9 @@ var cargoext: int = 0
 var pos: Vector2 = Vector2.ZERO
 var station_tritanium: int = 0
 
+var is_tutorial_running: bool = false
+var is_first_login: bool = false
+
 # Animation
 var timer = 0
 
@@ -44,11 +47,28 @@ func _ready() -> void:
 	
 	update_creds_cargo()
 	
-	show_mid_message("Your ship has been repaired!")
+	show_mid_message("Your ship has been repaired!")	
 	
 	# Show the cursor again in case it was hidden by death
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
+	# Tutorial
+	start_tutorial()
+
+func start_tutorial() -> void:
+	# Check if this is the first time the player is entering the universe and he's doing the tutorial
+	if (station_tritanium == 1):
+		# It is not possible to obtain a single unit of tritanium through normal play
+		# This means it's the first login and currently doing the tuttorial
+		is_first_login = true
+		is_tutorial_running = true
+		print("Station tutorial time!")
+	else:
+		is_first_login = false
+		is_tutorial_running = false
+		print("No tutorial time!")
+		return
+
 func update_creds_cargo() -> void:	
 	credits_and_cargo_label.text = "Credits: " + str(creds) + " ASK\nCargo Hold: " + str(cargo) + " m3 Veldspar\nTritanium: " + str(station_tritanium) + " m3"
 

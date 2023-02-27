@@ -51,6 +51,8 @@ func get_account_username() -> String:
 func get_account_station_tritanium() -> int:
 	return account_station_tritanium
 	
+func set_account_station_tritanium(amount: int) -> void:
+	account_station_tritanium = amount
 
 ## This will save the current open (in theory...) savegame with the variables on Global
 ## It's not this function task to make sure Globals are up to date, though.

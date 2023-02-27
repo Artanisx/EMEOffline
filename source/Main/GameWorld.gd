@@ -30,10 +30,16 @@ var player_is_mining: bool = false
 var player_is_warping: bool = false
 var asteroid_being_mined: Celestial = null
 var current_offset_before_warp: Vector2 = Vector2.ZERO #to save the current offset before a warp/ click ot move
+var is_tutorial_running: bool = false
+var is_first_login: bool = false
 
 ## Celestial over this distance will not be shown in the overview
 export var overview_range: int = 5000
 export var player_destruction_credit_percentage_penalty: int = 10 #10% penalty
+export var tutorial_speed: float = 0.2
+
+signal tutorial_station_selected
+signal tutorial_station_dock_selected	
 
 # DEBUGGING
 const max_zoom_out = 10
@@ -52,6 +58,212 @@ func _ready() -> void:
 	
 	# Create Overview UI, adding rows as required
 	create_overview_ui()
+	
+	# Tutorial
+	start_tutorial()
+	
+func start_tutorial() -> void:	
+	# Check if this is the first time the player is entering the universe
+	if (_player.position == Vector2.ZERO and _player.player_credits == 0 and _player.player_cargo_hold == 0 and Globals.get_account_station_tritanium() == 0 ):
+		# This is the first login
+		is_first_login = true
+		is_tutorial_running = true
+		
+		#TUTORIAL START
+		_space_ui.show_mid_message("Welcome to EME!")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Click on an empty point in space to move.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Note you can only move when not mining.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Try it now.")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+			
+		# Let's the player move for 5 seconds
+		is_tutorial_running = false		
+		yield(_player, "movement_completed")
+		is_tutorial_running = true
+		_space_ui.show_mid_message("Good job.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(1)
+		_space_ui.show_mid_message("This is the overview!")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Use to to warp to distant locations.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Use it also to select asteroids to mine.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(2)
+		_space_ui.show_mid_message("This is the selection screen.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Use these buttons to take action on selected items.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(3)
+		_space_ui.show_mid_message("This will move the ship towards the celestial.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("It's available only if the celestial is close.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(4)
+		_space_ui.show_mid_message("This will warp the ship towards the celestial.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("It's available only if the celestial is far.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(5)
+		_space_ui.show_mid_message("This will dock the ship to the station.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("If the station is far, it will warp to it first.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("If not in dock range, it will move to it first.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(6)
+		_space_ui.show_mid_message("This will start mining the selected asteroid.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Only available if you select an asteroid.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Clicking this or the mining button is the same.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(7)
+		_space_ui.show_mid_message("This will start show your ship info.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(8)
+		_space_ui.show_mid_message("The RED BAR is your Hull integrity.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("If it reaches 0 your ship is destroyed.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("You will lose some credits to rebuild it.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(9)
+		_space_ui.show_mid_message("The GREEN BAR shows your current speed.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("You'll also see your current action here.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(10)
+		_space_ui.show_mid_message("The YELLOW BAR shows your cargo hold.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Moving the cursor on it will show more info.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(11)
+		_space_ui.show_mid_message("Click this to mine the selected asteroid.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Click on it again to stop mining.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Remember you can't move during mining.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Put the cursor on it to show details.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(1)
+		_space_ui.show_mid_message("It's time to dock the station.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")
+		_space_ui.show_mid_message("Select <DC Mining Refinery> in the overview.")		
+		yield(self, "tutorial_station_selected")
+		_space_ui.show_mid_message("Good job.")
+		yield(get_tree().create_timer(3.0*tutorial_speed), "timeout")	
+		
+		# Check it the player asked to skip the tutorial
+		if (!is_tutorial_running):
+			_space_ui.show_mid_message("Tutorial aborted.")
+			return
+		
+		_space_ui.show_arrow(5)
+		_space_ui.show_mid_message("Now click DOCK to dock the station.")
+		yield(self, "tutorial_station_dock_selected")	
+		
+		#Make the arrow invisible now
+		_space_ui.show_arrow(12)
+		
+		#Set account tritanium to 1 so the game scene tutorial  won't be shown again
+		Globals.set_account_station_tritanium(1)
+				
+		# Tutorial is over
+		is_tutorial_running = false
+	else:
+		is_first_login = false
+		print("No tutorial time!")
+		return		
+
+func abort_tutorial() -> void:	
+	is_tutorial_running = false
+	
+	#Set station tritanium to 2 it will also skip station tutorial
+	Globals.set_account_station_tritanium(2)
+	
+	#Make the arrow invisible now
+	_space_ui.show_arrow(12)
 	
 func _process(delta) -> void:
 	update_space_ui()
@@ -269,45 +481,51 @@ func move_player_manually(target_position = Vector2.ZERO) -> void:
 	player_is_warping = false	
 		
 func _unhandled_input(event) -> void:
-	if (_player.player_hull_integrity <= 0):
-		# hide cursor so the player can't easily click on the overview
-		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-		return
+	if (is_tutorial_running):
+		# The only unhandled input we accept when the tutorial is running is escape to skip it
 		
-	if Input.is_action_pressed("left_click") and not player_is_mining: # Don't move if you're mining.
-		#Desleect any selection
-		selected_instance_id = 0
-		_space_ui_overview_selection_text.text = "Nothing is selected."
-		_space_ui_overview_selection_icon.texture = load("res://assets/art/ui/empty_icon.png")
-		_space_ui.set_selection_buttons(false, false, false, false)		
-		deselect_asteroids()
-		# move there
-		move_player_manually()
-	elif Input.is_action_pressed("left_click") and player_is_mining:
-		# player is trying to move, but we don't want to allow it, some feedback should be presented		
-		$AUDIO/AURA_INSUFFICIENTPOWER.play()
-		_space_ui.show_mid_message("Insufficient power to move. You are currently mining.")				
-
-	if Input.is_action_just_released("zoom_out"):		
-		#mouse_wheel down, zoom out
-		var cur_zoom = _2dcamera.get_zoom()
-		
-		if cur_zoom.x < max_zoom_out:
-			 #we're not too much zoomed out
-			cur_zoom = Vector2(cur_zoom.x + 1, cur_zoom.y + 1)
-			_2dcamera.set_zoom(cur_zoom)
+		if Input.is_action_just_released("ui_cancel"):
+			show_question_box("TUTORIAL", "Are you sure you want to skip the tutorial?", true, "_on_TUT_quit_yes", "_on_TUT_quit_no")	
+	else:	
+		if (_player.player_hull_integrity <= 0):
+			# hide cursor so the player can't easily click on the overview
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+			return
 			
-	if Input.is_action_just_released("zoom_in"):		
-		#mouse_wheel up, zoom in
-		var cur_zoom = _2dcamera.get_zoom()		
+		if Input.is_action_pressed("left_click") and not player_is_mining: # Don't move if you're mining.
+			#Desleect any selection
+			selected_instance_id = 0
+			_space_ui_overview_selection_text.text = "Nothing is selected."
+			_space_ui_overview_selection_icon.texture = load("res://assets/art/ui/empty_icon.png")
+			_space_ui.set_selection_buttons(false, false, false, false)		
+			deselect_asteroids()
+			# move there
+			move_player_manually()
+		elif Input.is_action_pressed("left_click") and player_is_mining:
+			# player is trying to move, but we don't want to allow it, some feedback should be presented		
+			$AUDIO/AURA_INSUFFICIENTPOWER.play()
+			_space_ui.show_mid_message("Insufficient power to move. You are currently mining.")				
+
+		if Input.is_action_just_released("zoom_out"):		
+			#mouse_wheel down, zoom out
+			var cur_zoom = _2dcamera.get_zoom()
+			
+			if cur_zoom.x < max_zoom_out:
+				 #we're not too much zoomed out
+				cur_zoom = Vector2(cur_zoom.x + 1, cur_zoom.y + 1)
+				_2dcamera.set_zoom(cur_zoom)
+				
+		if Input.is_action_just_released("zoom_in"):		
+			#mouse_wheel up, zoom in
+			var cur_zoom = _2dcamera.get_zoom()		
+			
+			if cur_zoom.x > 1:						
+				 #we're not too much zoomed in
+				cur_zoom = Vector2(cur_zoom.x - 1, cur_zoom.y - 1)
+				_2dcamera.set_zoom(cur_zoom)	
 		
-		if cur_zoom.x > 1:						
-			 #we're not too much zoomed in
-			cur_zoom = Vector2(cur_zoom.x - 1, cur_zoom.y - 1)
-			_2dcamera.set_zoom(cur_zoom)	
-	
-	if Input.is_action_just_released("ui_cancel"):
-		show_question_box("QUITTING", "Are you sure you want to quit?", true, "_on_QB_quit_yes", "_on_QB_quit_no")	
+		if Input.is_action_just_released("ui_cancel"):
+			show_question_box("QUITTING", "Are you sure you want to quit?", true, "_on_QB_quit_yes", "_on_QB_quit_no")	
 		
 
 func mine_asteroid() -> void:
@@ -524,12 +742,15 @@ func set_overview_selected_instance(instance_id: int) -> void:
 	selected_instance_id = instance_id
 	
 	# If it's an asteroid, select it
-	if (celestial.minable or celestial.dockable):
+	if (celestial.minable or celestial.dockable):		
 		#Deselect previously selected asteroids
 		deselect_asteroids()
 		
 		# Selec this one
 		celestial.selected(true)
+		
+		# Emit signal for tutorial
+		emit_signal("tutorial_station_selected")
 
 func set_player_target_to_selected_overview() -> void:
 	if selected_instance_id != 0:
@@ -634,6 +855,8 @@ func _on_SpaceUI_overview_move_to() -> void:
 		_player.warping(false)
 
 func dock() -> void:
+	emit_signal("tutorial_station_dock_selected")
+	
 	_space_ui.show_mid_message("Docking permission requested...")				
 	$AUDIO/AURA_DOCKINGREQUESTED.play()
 	
@@ -743,6 +966,15 @@ func _on_QB_quit_yes():
 # Callbacks for QuestionBox: QUITTING NO
 func _on_QB_quit_no():
 	#arlight then
+	pass
+
+#Callbacks for QUestionBox: TUTORIAL SKIP YES
+func _on_TUT_quit_yes():
+	abort_tutorial()
+	
+#Callbacks for QUestionBox: TUTORIAL SKIP NO
+func _on_TUT_quit_no():
+	#alright then
 	pass
 
 func show_question_box(title, message, centered, callback_yes, callback_no) -> void:

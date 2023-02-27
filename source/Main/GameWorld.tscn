@@ -2600,6 +2600,90 @@ overview_selection_icon = ExtResource( 10 )
 warpable_to = true
 movable_to = false
 
+[node name="SpaceAnomaly" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -13670, -20729 )
+
+[node name="SpaceAnomaly2" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -4095, -27434 )
+
+[node name="SpaceAnomaly5" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -2021, -25733 )
+
+[node name="SpaceAnomaly7" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -21074, -11399 )
+
+[node name="SpaceAnomaly8" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -24727, 1210 )
+
+[node name="SpaceAnomaly10" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -23687, 2783 )
+
+[node name="SpaceAnomaly11" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -22875, -33 )
+
+[node name="SpaceAnomaly12" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -16456, -2088 )
+
+[node name="SpaceAnomaly13" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -4837, -11424 )
+
+[node name="SpaceAnomaly14" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( 9649, -17513 )
+
+[node name="SpaceAnomaly15" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -3239, -26418 )
+
+[node name="SpaceAnomaly16" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( 26190, -28321 )
+
+[node name="SpaceAnomaly17" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( 25936, -27382 )
+
+[node name="SpaceAnomaly18" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( 27687, -28727 )
+
+[node name="SpaceAnomaly19" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( 4474, 6207 )
+
+[node name="SpaceAnomaly20" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -15024, 11129 )
+
+[node name="SpaceAnomaly21" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -14097, 9147 )
+
+[node name="SpaceAnomaly22" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -22791, 14837 )
+
+[node name="SpaceAnomaly23" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -1151, 15924 )
+
+[node name="SpaceAnomaly24" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( 14429, 11358 )
+
+[node name="SpaceAnomaly25" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( 16579, 9799 )
+
+[node name="SpaceAnomaly26" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( 15746, 11573 )
+
+[node name="SpaceAnomaly27" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( 6527, 8885 )
+
+[node name="SpaceAnomaly28" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -20835, 24313 )
+
+[node name="SpaceAnomaly3" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -16763, -24167 )
+
+[node name="SpaceAnomaly4" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -15722, -24152 )
+
+[node name="SpaceAnomaly6" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( 24846, 23934 )
+
+[node name="SpaceAnomaly9" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( 23496, 23341 )
+
 [node name="VeldsparAsteroid5" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( 24156, 23746 )
 start_ore_amount = 2000.0
@@ -2686,9 +2770,6 @@ starting_theme = "BelowTheAsteroids"
 
 [node name="SceneTransition" parent="." instance=ExtResource( 19 )]
 
-[node name="SpaceAnomaly" parent="." instance=ExtResource( 22 )]
-position = Vector2( -638, -362 )
-
 [connection signal="mining_button_pressed" from="SpaceUI" to="." method="_on_SpaceUI_mining_button_pressed"]
 [connection signal="mining_cycle_completed" from="SpaceUI" to="." method="_on_SpaceUI_mining_cycle_completed"]
 [connection signal="overview_dock_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_dock_to"]
@@ -2696,6 +2777,7 @@ position = Vector2( -638, -362 )
 [connection signal="overview_move_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_move_to"]
 [connection signal="overview_warp_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_warp_to"]
 [connection signal="death" from="Player" to="." method="_on_Player_death"]
+[connection signal="hurt" from="Player" to="." method="_on_Player_hurt"]
 [connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid5" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
 [connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid12" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
 [connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid13" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]

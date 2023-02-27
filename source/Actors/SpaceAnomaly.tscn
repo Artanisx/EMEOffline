@@ -8,6 +8,8 @@ radius = 137.033
 
 [node name="SpaceAnomaly" type="KinematicBody2D" groups=["anomalies"]]
 script = ExtResource( 1 )
+anomaly_speed = 50
+random_movement_chance = 50
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )

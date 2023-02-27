@@ -26,6 +26,7 @@ var warp_move_action: bool = false
 
 signal movement_completed
 signal death
+signal hurt
 
 # PLAYER ACCOUNT STATS
 enum MINING_LASER {MINING_LASER_I = 1, MINING_LASER_II = 2, MINING_LASER_III = 3, MINING_LASER_IV = 4, MINING_LASER_V = 5}
@@ -55,6 +56,8 @@ export var offset_distance: float = 100
 ## DEBUG
 var god_mode: bool = false
 
+
+
 func _ready() -> void:
 	## Add the two tweens needed for rotation and movement
 	add_child(rotation_tween)
@@ -79,8 +82,11 @@ func damage_player(node):
 				
 	var damage = node.get_touch_damage()
 	player_hull_integrity -= damage	
+	
 	if (player_hull_integrity <= 0):
 		player_death()	
+	else:
+		emit_signal("hurt")	
 		
 func player_death() -> void:
 	print("I'm dead")

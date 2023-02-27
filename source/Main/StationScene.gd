@@ -34,7 +34,7 @@ var timer = 0
 # DEBUG MODE
 var debug_mode = true
 
-func _ready() -> void:
+func _ready() -> void:	
 	creds = Globals.get_account_credits()
 	cargo = Globals.get_account_cargohold()
 	laser = Globals.get_account_mininglaser()
@@ -45,6 +45,9 @@ func _ready() -> void:
 	update_creds_cargo()
 	
 	show_mid_message("Your ship has been repaired!")
+	
+	# Show the cursor again in case it was hidden by death
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 func update_creds_cargo() -> void:	
 	credits_and_cargo_label.text = "Credits: " + str(creds) + " ASK\nCargo Hold: " + str(cargo) + " m3 Veldspar\nTritanium: " + str(station_tritanium) + " m3"

@@ -11,13 +11,22 @@ export var anomaly_target_reach_offset: int = 25
 export var random_movement_chance: int = 40
 
 var player: Node = null
+var world: Node = null
 var velocity: Vector2 = Vector2.ZERO
 var random_position_reached: bool = false
 var current_target_position: Vector2 = Vector2.ZERO
 
+signal chasing
+
 func _ready() -> void:
 	# Get player node
 	player = get_node("/root/GameWorld/Player")	
+	
+	# Get the main scene node
+	world = get_node("/root/GameWorld")	
+	
+	# Connect the chasing signal
+	connect("chasing", world, "_on_space_anomaly_chasing")
 	
 	# Seeds RNG
 	randomize()
@@ -74,6 +83,7 @@ func check_position_reached() -> void:
 			#or rather it should go towards the player not really chase him
 			current_target_position = player.position
 			print("Anomaly has targetted the player!")
+			emit_signal("chasing")
 
 func get_random_position() -> Vector2:	
 	# set an area around tot px  from the anomaly

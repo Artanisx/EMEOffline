@@ -264,7 +264,12 @@ func move_player_manually(target_position = Vector2.ZERO) -> void:
 	# Player is definitely not warping
 	player_is_warping = false	
 		
-func _unhandled_input(event) -> void:	
+func _unhandled_input(event) -> void:
+	if (_player.player_hull_integrity <= 0):
+		# hide cursor so the player can't easily click on the overview
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		return
+		
 	if Input.is_action_pressed("left_click") and not player_is_mining: # Don't move if you're mining.
 		#Desleect any selection
 		selected_instance_id = 0
@@ -753,6 +758,7 @@ func show_question_box(title, message, centered, callback_yes, callback_no) -> v
 
 
 func _on_Player_death() -> void:
+	$LaserBeam2D.hide()
 	_space_ui.show_mid_message("You have been destroyed.")	
 	
 	yield(get_tree().create_timer(3.0), "timeout")
@@ -774,3 +780,11 @@ func _on_Player_death() -> void:
 		# save() failed or didn't complete!		
 		printerr("Failed to save, aborting!")			
 		_space_ui.show_mid_message("Error. This shouldn't happen...")		
+
+func _on_space_anomaly_chasing() -> void:
+	if (_player.player_hull_integrity > 0):
+		_space_ui.show_mid_message("Warning. Space Anomaly approaching.")
+
+func _on_Player_hurt() -> void:
+	if (_player.player_hull_integrity > 0):
+		_space_ui.show_mid_message("Hull integrity falling.")

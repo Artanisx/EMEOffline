@@ -20,6 +20,7 @@ export var low_distance_rotation_duration = 1
 export var low_distance_scalar = 2
 ## How far should a celestial be to be warpable
 export var warp_threashold = 5000
+export var sun_damage = 10
 var last_position: Vector2 = Vector2.ZERO
 var regular_speed = 0
 var warp_move_action: bool = false
@@ -77,6 +78,22 @@ func check_collisions() -> void:
 		if body.is_in_group("anomalies"):
 			damage_player(body)
 			
+	# check collision with sun
+	for body in get_overlapping_bodies():
+		if body.is_in_group("star"):			
+			damage_player_by_star()
+
+func damage_player_by_star() -> void:
+	if god_mode:
+		return
+	
+	player_hull_integrity -= sun_damage
+				
+	if (player_hull_integrity <= 0):
+		player_death()	
+	else:
+		emit_signal("hurt")	
+		
 func damage_player(node):
 	if god_mode:
 		return

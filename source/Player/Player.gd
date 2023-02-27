@@ -63,9 +63,12 @@ func restore_regular_offset() -> void:
 func _ready() -> void:
 	## Add the two tweens needed for rotation and movement
 	add_child(rotation_tween)
-	rotation_tween.connect("tween_all_completed", self, "_on_rotation_tween_completed")		
+	var err1 = rotation_tween.connect("tween_all_completed", self, "_on_rotation_tween_completed")		
 	add_child(movement_tween)	
-	movement_tween.connect("tween_all_completed", self, "_on_movement_tween_completed")	
+	var err2 = movement_tween.connect("tween_all_completed", self, "_on_movement_tween_completed")	
+	
+	if err1 != OK or err2 != OK:
+		printerr("Error while connecting the signal!")
 
 func _process(delta):
 	_space_dust.global_position = global_position		
@@ -153,18 +156,18 @@ func set_cargo_ext():
 		5:
 			player_cargo_hold_capacity = base_cargo_hold + 9000
 
-func calculate_offset_target_position(target_pos: Vector2) -> Vector2:	
+func calculate_offset_target_position(real_target_pos: Vector2) -> Vector2:	
 	# Check if there's an offset set
 	if offset_distance > 0:
 		# There's an offset
 		var direction = (self.global_position - target_pos).normalized()
 				
-		return target_pos + direction * offset_distance
+		return real_target_pos + direction * offset_distance
 	else:
-		return target_pos			
+		return real_target_pos			
 								
 
-func calculate_instant_velocity(delta: float) -> void:
+func calculate_instant_velocity(_delta: float) -> void:
 	var current_position = self.global_position		
 	
 	var instSpeed = (last_position-current_position).length()		
@@ -184,20 +187,23 @@ func get_instant_velocity() -> int:
 func map(value, start1, stop1, start2, stop2):
 	return (value - start1) / (stop1 - start1) * (stop2 - start2) + start2
 	
-func face(target_pos: Vector2, is_this_warp_action: bool = false) -> void:	
+func face(face_target_pos: Vector2, is_this_warp_action: bool = false) -> void:	
 	if (is_this_warp_action == true):
 		warp_move_action = true
 	else:
 		warp_move_action = false
 	
 	# stop current rotation
-	rotation_tween.remove_all()
+	var err1 = rotation_tween.remove_all()
 	
 	# stop current movement
-	movement_tween.remove_all()
+	var err2 = movement_tween.remove_all()
+	
+	if (err1 != true or err2 != true):
+		printerr("Error removing tweens!")
 	
 	# vector from the ship to the target
-	var v = target_pos - self.global_position		
+	var v = face_target_pos - self.global_position		
 		
 	# get the angle of that vector
 	var angle = v.angle()	
@@ -215,23 +221,29 @@ func face(target_pos: Vector2, is_this_warp_action: bool = false) -> void:
 		#print("slow rotation")
 	
 	
-	rotation_tween.interpolate_property(self, "rotation_degrees", global_rotation_degrees, angle, rotation_duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)	
-	rotation_tween.start()	
+	var err3 = rotation_tween.interpolate_property(self, "rotation_degrees", global_rotation_degrees, angle, rotation_duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)	
+	var err4 = rotation_tween.start()	
+	
+	if (err3 != true or err4 != true):
+		printerr("Error while rotating.")
 
-func move(target_pos: Vector2) -> void:	
+func move(move_target_pos: Vector2) -> void:	
 	# stop current movement
-	movement_tween.remove_all()
+	var err = movement_tween.remove_all()
+	
+	if (err != true):
+		printerr("Error while removing movement tween.")
 	
 	# Calcualte the offset
-	target_pos = calculate_offset_target_position(target_pos)
+	move_target_pos = calculate_offset_target_position(move_target_pos)
 	
 	# Clamp it so it doesn't go outside the map
-	target_pos.x = clamp(target_pos.x, -30000, 28600)	
-	target_pos.y = clamp(target_pos.y, -30214, 28881)
+	move_target_pos.x = clamp(move_target_pos.x, -30000, 28600)	
+	move_target_pos.y = clamp(move_target_pos.y, -30214, 28881)
 	
 	# Calculate the duration the total movement should take
 	# The duration should be distance / velocity
-	var distance_vector = global_position - target_pos
+	var distance_vector = global_position - move_target_pos
 	var distance = distance_vector.length()	
 	
 	# NORMAL MOVE ACTION
@@ -241,18 +253,18 @@ func move(target_pos: Vector2) -> void:
 		if (movement_speed * low_distance_scalar  <= distance):
 			# Distance is enough that we can calculate it 
 			duration = distance / movement_speed
-			movement_tween.interpolate_property(self, "position", global_position, target_pos, duration, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+			var _err2 = movement_tween.interpolate_property(self, "position", global_position, move_target_pos, duration, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 		else:
 			# Distance is quite low, set a low dur
 			duration = low_distance_rotation_duration
-			movement_tween.interpolate_property(self, "position", global_position, target_pos, duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)		
+			var _err3 = movement_tween.interpolate_property(self, "position", global_position, move_target_pos, duration, Tween.TRANS_SINE, Tween.EASE_IN_OUT)		
 	else:
 		# This is a WARP action
 		print("warping")
 		duration = distance / warp_movement_speed
-		movement_tween.interpolate_property(self, "position", global_position, target_pos, duration, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+		var _err4 = movement_tween.interpolate_property(self, "position", global_position, move_target_pos, duration, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
 		
-	movement_tween.start()	
+	var _err5 = movement_tween.start()	
 
 func SetPlayer(cred: int, mining: int, cargoxt: int, cargoh: int, pos: Vector2) -> void:
 	player_credits = cred

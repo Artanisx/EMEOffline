@@ -26,7 +26,7 @@ func _ready() -> void:
 	world = get_node("/root/GameWorld")	
 	
 	# Connect the chasing signal
-	connect("chasing", world, "_on_space_anomaly_chasing")
+	var _err = connect("chasing", world, "_on_space_anomaly_chasing")
 	
 	# Seeds RNG
 	randomize()

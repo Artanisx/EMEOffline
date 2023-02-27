@@ -11,9 +11,9 @@ var ask_per_threshold: int = 0
 signal sale_complete
 signal send_message
 
-func set_sale(current_tritanium: int, sale_fee: int, sale_threshold: int, ask_x_threshold: int):	
+func set_sale(current_tritanium: int, fun_sale_fee: int, sale_threshold: int, ask_x_threshold: int):	
 	self.current_trit = current_tritanium
-	self.sale_fee = sale_fee
+	self.sale_fee = fun_sale_fee
 	self.threshold = sale_threshold
 	self.ask_per_threshold = ask_x_threshold
 	

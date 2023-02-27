@@ -10,7 +10,7 @@ class_name Station
 
 # Member variables
 # ----------------
-var selected: bool = false
+var station_selected: bool = false
 
 ## The docking distance
 export var docking_range: int = 500
@@ -32,12 +32,12 @@ func _init():
 	overview_icon = load("res://assets/art/ui/station_icon_overview.png")
 	overview_selection_icon = load("res://assets/art/ui/station_icon.png")	
 	
-func selected(selected: bool) -> void:
+func selected(fun_selected: bool) -> void:
 	#Toggle selection circle visibility
-	$SelectionCircle.visible = selected
+	$SelectionCircle.visible = fun_selected
 	
 	#Set the selected variable (from Asteroid)
-	self.selected = selected
+	station_selected = fun_selected
 	
 func is_selected() -> bool:
-	return selected
+	return station_selected

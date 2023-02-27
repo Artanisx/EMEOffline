@@ -97,8 +97,12 @@ func show_question_box(title, message, centered, callback_yes, callback_no) -> v
 	_question_box.clear_connections()
 	
 	# Connect the signals to the specified callbacks
-	_question_box.connect("yes_button_pressed", self, callback_yes)	
-	_question_box.connect("no_button_pressed", self, callback_no)	
+	var err1 = _question_box.connect("yes_button_pressed", self, callback_yes)	
+	var err2 = _question_box.connect("no_button_pressed", self, callback_no)	
+	
+	if err1 != OK or err2 != OK:
+		printerr("Error while connecting the signal!")
+
 	
 	# Show the question box
 	_question_box.set_message(title, message)

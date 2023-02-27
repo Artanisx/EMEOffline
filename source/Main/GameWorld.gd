@@ -42,7 +42,7 @@ signal tutorial_station_selected
 signal tutorial_station_dock_selected	
 
 # DEBUGGING
-const max_zoom_out = 10
+const max_zoom_out = 1
 var warnings_given: bool = false
 var DEBUG_SPEED_MINING: bool = false
 
@@ -265,7 +265,7 @@ func abort_tutorial() -> void:
 	#Make the arrow invisible now
 	_space_ui.show_arrow(12)
 	
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	update_space_ui()
 	
 	#Update the laserposition to the player position. It must not be parented or it will fail to work with rotations
@@ -354,7 +354,7 @@ func create_new_overview_line_ui(celestial: Celestial) -> void:
 	name_x.rect_size.x = 154
 	name_x.rect_size.y = 20
 	name_x.rect_min_size.y = 14		
-	name_x.connect("pressed", self, "_on_overview_selected", [celestial.get_instance_id()])		#instance id is the index for the signal callback
+	var _err = name_x.connect("pressed", self, "_on_overview_selected", [celestial.get_instance_id()])		#instance id is the index for the signal callback
 	_space_ui_overview_table.add_child(space_label_x)
 	_space_ui_overview_table.add_child(icon)
 	_space_ui_overview_table.add_child(vsep_xa)
@@ -411,7 +411,7 @@ func create_overview_ui() -> void:
 		name_x.rect_size.x = 154
 		name_x.rect_size.y = 20
 		name_x.rect_min_size.y = 14		
-		name_x.connect("pressed", self, "_on_overview_selected", [celestial.get_instance_id()])		#instance id is the index for the signal callback
+		var _err2 = name_x.connect("pressed", self, "_on_overview_selected", [celestial.get_instance_id()])		#instance id is the index for the signal callback
 		_space_ui_overview_table.add_child(space_label_x)
 		_space_ui_overview_table.add_child(icon)
 		_space_ui_overview_table.add_child(vsep_xa)
@@ -480,7 +480,7 @@ func move_player_manually(target_position = Vector2.ZERO) -> void:
 	# Player is definitely not warping
 	player_is_warping = false	
 		
-func _unhandled_input(event) -> void:
+func _unhandled_input(_event) -> void:
 	if (is_tutorial_running):
 		# The only unhandled input we accept when the tutorial is running is escape to skip it
 		
@@ -982,8 +982,8 @@ func show_question_box(title, message, centered, callback_yes, callback_no) -> v
 	_question_box.clear_connections()
 	
 	# Connect the signals to the specified callbacks
-	_question_box.connect("yes_button_pressed", self, callback_yes)	
-	_question_box.connect("no_button_pressed", self, callback_no)	
+	var _err1 = _question_box.connect("yes_button_pressed", self, callback_yes)	
+	var _err2 = _question_box.connect("no_button_pressed", self, callback_no)	
 	
 	# Show the question box
 	_question_box.set_message(title, message)

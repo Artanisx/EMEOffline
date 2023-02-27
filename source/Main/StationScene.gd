@@ -38,7 +38,7 @@ var timer = 0
 
 # DEBUG MODE
 var debug_mode = true
-var FORCE_TUTORIAL: bool = true
+var FORCE_TUTORIAL: bool = false
 
 signal tutorial_refine_button_pressed
 signal tutorial_refine_completed
@@ -260,12 +260,12 @@ func abort_tutorial() -> void:
 func update_creds_cargo() -> void:	
 	credits_and_cargo_label.text = "Credits: " + str(creds) + " ASK\nCargo Hold: " + str(cargo) + " m3 Veldspar\nTritanium: " + str(station_tritanium) + " m3"
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	timer = timer + animation_speed
 	
 	self.material.set_shader_param("iTime", timer)		
 	
-func _unhandled_input(event: InputEvent) -> void:			
+func _unhandled_input(_event: InputEvent) -> void:			
 	if (is_tutorial_running):
 		# The only unhandled input we accept when the tutorial is running is escape to skip it		
 		if Input.is_action_just_released("ui_cancel"):
@@ -337,8 +337,8 @@ func _on_RefiningPopup_refining_complete(final_tritanium, final_ore) -> void:
 	show_mid_message("Refining complete!")
 	
 	
-func _on_RefiningPopup_send_message(message) -> void:
-	show_mid_message(message)
+func _on_RefiningPopup_send_message(fun_message) -> void:
+	show_mid_message(fun_message)
 
 func _on_SellButton_pressed() -> void:	
 	if (is_tutorial_running):
@@ -363,15 +363,15 @@ func _on_SellPopup_sale_complete(final_sale, final_trit) -> void:
 	
 	show_mid_message("Sale complete!")
 
-func _on_SellPopup_send_message(message) -> void:
-	show_mid_message(message)
+func _on_SellPopup_send_message(fun_message) -> void:
+	show_mid_message(fun_message)
 
 func _on_BuyMiningLaserButton_pressed() -> void:
 	market_popup.set_market("MiningLaser", creds)	
 	market_popup.popup_centered()
 
-func _on_Market_send_message(message) -> void:
-	show_mid_message(message)
+func _on_Market_send_message(fun_message) -> void:
+	show_mid_message(fun_message)
 
 func _on_Market_mining_laser_upgrade_complete(current_mining_laser, current_credits) -> void:
 	creds = current_credits

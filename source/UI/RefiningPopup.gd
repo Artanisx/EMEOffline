@@ -14,16 +14,16 @@ var timer
 signal refining_complete
 signal send_message
 
-func set_refine(cargohold: int, refining_fee: int, threshold: int):
-	self.cargo_hold = cargohold
-	self.refining_fee = refining_fee
-	self.threshold = threshold
+func set_refine(fun_cargohold: int, fun_refining_fee: int, fun_threshold: int):
+	self.cargo_hold = fun_cargohold
+	self.refining_fee = fun_refining_fee
+	self.threshold = fun_threshold
 	progress_bar.value = 0
 	
 	var estimated_tritanium = self.cargo_hold / 5
 	var fee = estimated_tritanium / 100 * self.refining_fee
 	
-	cargoand_refine.text = "  Cargo Hold: Veldspar " + str(cargohold) + " m3" + "\n" + "  Estimated Tritanium: " + str(estimated_tritanium) + " m3 (-" + str(fee) + " m3 refining fee)" + "\nRefining Threshold: " + str(self.threshold) + " m3\n\nRemainder ore will be destroyed in the process."
+	cargoand_refine.text = "  Cargo Hold: Veldspar " + str(cargo_hold) + " m3" + "\n" + "  Estimated Tritanium: " + str(estimated_tritanium) + " m3 (-" + str(fee) + " m3 refining fee)" + "\nRefining Threshold: " + str(self.threshold) + " m3\n\nRemainder ore will be destroyed in the process."
 	
 	# Create the timer
 	timer = Timer.new()
@@ -32,7 +32,7 @@ func set_refine(cargohold: int, refining_fee: int, threshold: int):
 	timer.connect("timeout",self,"_on_refining_complete") 
 	add_child(timer)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if timer == null:
 		return
 	elif timer.is_stopped() == false:

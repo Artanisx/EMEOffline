@@ -39,7 +39,7 @@ signal send_message
 # Set the Market UI and pass relevant data
 # As default it will prepare a Mining Laser market
 # It will also have default values for everything so you can only pass the relevant data which should be credits
-func set_market(market_mode: String = "MiningLaser", cur_creds: int = 0, cur_mining_laser = Globals.get_account_mininglaser(), cur_cargo_ext = Globals.get_account_cargoextender()) -> void:
+func set_market(fun_market_mode: String = "MiningLaser", cur_creds: int = 0, cur_mining_laser = Globals.get_account_mininglaser(), cur_cargo_ext = Globals.get_account_cargoextender()) -> void:
 	# First we clear out the placeholder nodes
 	for n in _market_ui_table.get_children():
 		_market_ui_table.remove_child(n)
@@ -49,9 +49,9 @@ func set_market(market_mode: String = "MiningLaser", cur_creds: int = 0, cur_min
 	current_mining_laser = cur_mining_laser
 	current_cargo_expander = cur_cargo_ext
 		
-	if (market_mode == "MiningLaser"):
+	if (fun_market_mode == "MiningLaser"):
 		set_mode_mining_laser()
-	elif(market_mode == "CargoExtender"):
+	elif(fun_market_mode == "CargoExtender"):
 		set_mode_cargo_extender()
 
 func set_mode_mining_laser() -> void:
@@ -196,7 +196,7 @@ func set_mode_mining_laser() -> void:
 				
 				button_id = 105
 				
-		buy_button.connect("pressed", self, "_on_market_buy_selected", [button_id])		#signals the item selected		
+		var _err2 = buy_button.connect("pressed", self, "_on_market_buy_selected", [button_id])		#signals the item selected		
 		_market_ui_table.add_child(icon)
 		_market_ui_table.add_child(name)
 		_market_ui_table.add_child(desc)
@@ -365,7 +365,7 @@ func set_mode_cargo_extender() -> void:
 				
 				button_id = 205
 				
-		buy_button.connect("pressed", self, "_on_market_buy_selected", [button_id])		#signals the item selected		
+		var _err3 = buy_button.connect("pressed", self, "_on_market_buy_selected", [button_id])		#signals the item selected		
 		_market_ui_table.add_child(icon)
 		_market_ui_table.add_child(name)
 		_market_ui_table.add_child(desc)

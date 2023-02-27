@@ -19,7 +19,7 @@ onready var _mid_animation_player: AnimationPlayer = $MIDHUD/AnimationPlayer
 onready var right_arrow: TextureRect = $OverviewHUD/RightArrow
 
 
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	# MINING CYCLE TIMER
 	if (_mining_cycle.is_stopped() != true):
 		_mining_bar.value = _mining_bar.max_value - _mining_cycle.time_left	

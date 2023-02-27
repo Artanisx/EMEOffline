@@ -71,11 +71,11 @@ func _ready():
 		printerr("DEV - You forgot to add the AudioStream to the asteroid. I'll add it myself.")
 		_audio_aura_depleted = AudioStreamPlayer.new()
 		_audio_aura_depleted.stream = load("res://assets/audio/aura/asteroid_depleted.mp3")
-		_audio_aura_depleted.connect("finished", self, "on_depleted_finished")	
+		var _err = _audio_aura_depleted.connect("finished", self, "on_depleted_finished")	
 		add_child(_audio_aura_depleted)		
 		
 	# Connect the finished signal
-	_audio_aura_depleted.connect("finished", self, "on_depleted_finished")	
+	var _err2 = _audio_aura_depleted.connect("finished", self, "on_depleted_finished")	
 	
 	# Add the tween and its signal
 	add_child(scale_tween)	
@@ -122,8 +122,8 @@ func get_mined(mined_amount: int) -> Array:
 		var vec_scale_to = Vector2(scale.x * scale_to, scale.y * scale_to)
 		
 		
-		scale_tween.interpolate_property(self, "scale", scale, vec_scale_to, 0.5, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
-		scale_tween.start()				
+		var _err = scale_tween.interpolate_property(self, "scale", scale, vec_scale_to, 0.5, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+		var _err2 = scale_tween.start()				
 		
 		# Return this mined amount so it can be added to the cargo hold
 		return [mined_amount, AsteroidKind]	

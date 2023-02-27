@@ -70,6 +70,10 @@ config/icon="res://assets/art/ui/Icon.png"
 
 Globals="*res://source/Main/Globals.gd"
 
+[debug]
+
+gdscript/warnings/integer_division=false
+
 [display]
 
 window/size/width=1280

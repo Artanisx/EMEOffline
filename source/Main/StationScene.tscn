@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://assets/art/shaders/station_shader_material.tres" type="Material" id=1]
 [ext_resource path="res://source/Main/StationScene.gd" type="Script" id=2]
@@ -25,6 +25,14 @@
 [ext_resource path="res://source/UI/RefiningPopup.tscn" type="PackedScene" id=23]
 [ext_resource path="res://source/UI/SellPopup.tscn" type="PackedScene" id=24]
 [ext_resource path="res://source/UI/MarketUI.tscn" type="PackedScene" id=25]
+[ext_resource path="res://assets/art/ui/right_arrow.png" type="Texture" id=26]
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0, 0.0392157, 0.517647, 0.721569 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 
 [sub_resource type="Animation" id=6]
 resource_name = "FadeIn"
@@ -298,7 +306,7 @@ margin_left = -171.0
 margin_top = -346.0
 margin_right = 175.0
 margin_bottom = -250.0
-custom_styles/panel = ExtResource( 7 )
+custom_styles/panel = SubResource( 8 )
 
 [node name="MESSAGE" type="Label" parent="MIDHUD"]
 anchor_right = 1.0
@@ -313,6 +321,15 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MIDHUD"]
 anims/FadeIn = SubResource( 6 )
 anims/FadeOut = SubResource( 7 )
+
+[node name="RightArrow" type="TextureRect" parent="."]
+visible = false
+margin_left = 927.0
+margin_top = 304.0
+margin_right = 1527.0
+margin_bottom = 761.0
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 26 )
 
 [connection signal="pressed" from="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer/RefineButton" to="." method="_on_RefineButton_pressed"]
 [connection signal="pressed" from="RightStationContainer/RightStationPanel/VBoxContainer/GridContainer/SellButton" to="." method="_on_SellButton_pressed"]

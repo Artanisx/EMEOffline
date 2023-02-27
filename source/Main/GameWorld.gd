@@ -36,7 +36,7 @@ var is_first_login: bool = false
 ## Celestial over this distance will not be shown in the overview
 export var overview_range: int = 5000
 export var player_destruction_credit_percentage_penalty: int = 10 #10% penalty
-export var tutorial_speed: float = 0.2
+export var tutorial_speed: float = 1.0
 
 signal tutorial_station_selected
 signal tutorial_station_dock_selected	

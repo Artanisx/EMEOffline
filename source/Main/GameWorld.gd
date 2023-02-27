@@ -34,7 +34,7 @@ var asteroid_being_mined: Celestial = null
 export var overview_range: int = 5000
 
 # DEBUGGING
-const max_zoom_out = 1
+const max_zoom_out = 10
 var warnings_given: bool = false
 var DEBUG_SPEED_MINING: bool = false
 

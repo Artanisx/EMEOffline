@@ -22,15 +22,15 @@ func _ready() -> void:
 	ore_amount = start_ore_amount
 	
 	if start_ore_amount > 5000:
-		scale = Vector2(0.5, 0.5)
+		scale = Vector2(1, 1)
 		#collision_shape_2d.shape.radius = collision_shape_2d.shape.radius * 5		
 	elif start_ore_amount > 2500:
-		scale = Vector2(0.25, 0.25)
+		scale = Vector2(0.5, 0.5)
 		#collision_shape_2d.shape.radius = collision_shape_2d.shape.radius * 2.5
 	elif start_ore_amount > 1000:
-		scale = Vector2(0.1, 0.1)		
+		scale = Vector2(0.25, 0.25)		
 	else:
-		scale = Vector2(0.05, 0.05)
+		scale = Vector2(0.1, 0.1)
 		#collision_shape_2d.shape.radius = collision_shape_2d.shape.radius / 2
 	
 func selected(selected: bool) -> void:

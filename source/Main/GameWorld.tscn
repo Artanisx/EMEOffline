@@ -2708,11 +2708,11 @@ position = Vector2( 23788, 24024 )
 start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid4" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( -16079, -23875 )
+position = Vector2( -16089, -23877 )
 start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid11" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( -16079, -23875 )
+position = Vector2( -16048, -24074 )
 start_ore_amount = 2000.0
 
 [node name="VeldsparAsteroid6" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
@@ -2751,6 +2751,9 @@ energy = 0.75
 range_z_min = -2048
 range_z_max = 2048
 script = ExtResource( 20 )
+__meta__ = {
+"_edit_lock_": true
+}
 star_color = "PulsatingRedStar"
 
 [node name="Sprite" type="Sprite" parent="CELESTIALS/AsteroidBelts/Star"]

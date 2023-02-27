@@ -3,7 +3,7 @@ extends KinematicBody2D
 class_name SpaceAnomaly
 
 export var rotation_speed: float = 0.2
-export var touch_damage: int = 5
+export var touch_damage: int = 3
 export var anomaly_speed: int = 100
 export var anomaly_detection_range: int = 2500 #player must be inside this range for the anomaly to actually move around
 export var anomaly_random_area_range: int = 1000
@@ -14,10 +14,6 @@ var player: Node = null
 var velocity: Vector2 = Vector2.ZERO
 var random_position_reached: bool = false
 var current_target_position: Vector2 = Vector2.ZERO
-
-
-signal damage
-signal decision_made(chase)
 
 func _ready() -> void:
 	# Get player node

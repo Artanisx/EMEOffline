@@ -32,6 +32,7 @@ var asteroid_being_mined: Celestial = null
 
 ## Celestial over this distance will not be shown in the overview
 export var overview_range: int = 5000
+export var player_destruction_credit_percentage_penalty: int = 10 #10% penalty
 
 # DEBUGGING
 const max_zoom_out = 10
@@ -752,11 +753,24 @@ func show_question_box(title, message, centered, callback_yes, callback_no) -> v
 
 
 func _on_Player_death() -> void:
-	_space_ui.show_mid_message("You have been destroyed.")
+	_space_ui.show_mid_message("You have been destroyed.")	
 	
-	# wait 1 second
-	yield(get_tree().create_timer(1.0), "timeout")
+	yield(get_tree().create_timer(3.0), "timeout")
 	
-	# Save and quit
-	_on_QB_quit_yes()
-		
+	var destruction_penalty = _player.player_credits / 100 * player_destruction_credit_percentage_penalty
+	
+	_space_ui.show_mid_message("You lost " + str(destruction_penalty) + " credits.")
+	
+	_player.player_credits = _player.player_credits - destruction_penalty
+	
+	yield(get_tree().create_timer(4.0), "timeout")
+	
+	# Dock the station
+	Globals.save_to_Globals(_player.player_credits, _player.player_mining_laser, _player.player_cargo_extender, _player.player_cargo_hold, Vector2.ZERO, Globals.get_account_station_tritanium())
+	if (Globals.save()):
+		# All good, go to login now
+		_transition_rect.transition_to("res://source/Main/StationScene.tscn")
+	else:
+		# save() failed or didn't complete!		
+		printerr("Failed to save, aborting!")			
+		_space_ui.show_mid_message("Error. This shouldn't happen...")		

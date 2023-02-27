@@ -44,6 +44,8 @@ func _ready() -> void:
 	
 	update_creds_cargo()
 	
+	show_mid_message("Your ship has been repaired!")
+	
 func update_creds_cargo() -> void:	
 	credits_and_cargo_label.text = "Credits: " + str(creds) + " ASK\nCargo Hold: " + str(cargo) + " m3 Veldspar\nTritanium: " + str(station_tritanium) + " m3"
 

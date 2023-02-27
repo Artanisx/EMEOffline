@@ -2687,7 +2687,7 @@ starting_theme = "BelowTheAsteroids"
 [node name="SceneTransition" parent="." instance=ExtResource( 19 )]
 
 [node name="SpaceAnomaly" parent="." instance=ExtResource( 22 )]
-position = Vector2( -614, -379 )
+position = Vector2( -638, -362 )
 
 [connection signal="mining_button_pressed" from="SpaceUI" to="." method="_on_SpaceUI_mining_button_pressed"]
 [connection signal="mining_cycle_completed" from="SpaceUI" to="." method="_on_SpaceUI_mining_cycle_completed"]

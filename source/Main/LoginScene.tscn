@@ -64,7 +64,7 @@ align = 1
 margin_top = 358.0
 margin_right = 1280.0
 margin_bottom = 372.0
-text = "Version alpha 0.144         "
+text = "Version Beta  1.0 - Build 160         "
 align = 1
 
 [node name="HEADEREMPTY2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]

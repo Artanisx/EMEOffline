@@ -2595,6 +2595,65 @@ warpable_to = true
 movable_to = false
 offset_distance = 320
 
+[node name="VeldsparAsteroid5" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 24156, 23746 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid12" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 23721, 23854 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid13" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 23990, 24149 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid14" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 24241, 24037 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid15" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 24433, 23855 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid16" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 24288, 23600 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid17" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( 23788, 24024 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid4" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -16089, -23877 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid11" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -16048, -24074 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid6" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -16419, -23796 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid7" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -16261, -24255 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid8" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -15834, -23853 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid9" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -16199, -23544 )
+start_ore_amount = 2000.0
+
+[node name="VeldsparAsteroid10" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
+position = Vector2( -16095, -23386 )
+start_ore_amount = 2000.0
+
+[node name="SpaceAnomaly3" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
+position = Vector2( -16561, -24152 )
+
 [node name="SpaceAnomaly" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
 position = Vector2( -13670, -20729 )
 
@@ -2667,9 +2726,6 @@ position = Vector2( 6527, 8885 )
 [node name="SpaceAnomaly28" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
 position = Vector2( -20835, 24313 )
 
-[node name="SpaceAnomaly3" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
-position = Vector2( -16763, -24167 )
-
 [node name="SpaceAnomaly4" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
 position = Vector2( -15722, -24152 )
 
@@ -2678,62 +2734,6 @@ position = Vector2( 24846, 23934 )
 
 [node name="SpaceAnomaly9" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
 position = Vector2( 23496, 23341 )
-
-[node name="VeldsparAsteroid5" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( 24156, 23746 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid12" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( 23721, 23854 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid13" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( 23990, 24149 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid14" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( 24241, 24037 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid15" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( 24433, 23855 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid16" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( 24288, 23600 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid17" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( 23788, 24024 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid4" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( -16089, -23877 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid11" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( -16048, -24074 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid6" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( -16419, -23796 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid7" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( -16245, -24244 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid8" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( -15834, -23853 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid9" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( -16199, -23544 )
-start_ore_amount = 2000.0
-
-[node name="VeldsparAsteroid10" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
-position = Vector2( -16095, -23386 )
-start_ore_amount = 2000.0
 
 [node name="StarArea2D" type="KinematicBody2D" parent="CELESTIALS/AsteroidBelts" groups=["star"]]
 position = Vector2( -16728, 20174 )

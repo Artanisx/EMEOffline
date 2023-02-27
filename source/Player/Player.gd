@@ -56,7 +56,8 @@ export var offset_distance: float = 100
 ## DEBUG
 var god_mode: bool = false
 
-
+func restore_regular_offset() -> void:
+	offset_distance = 100
 
 func _ready() -> void:
 	## Add the two tweens needed for rotation and movement

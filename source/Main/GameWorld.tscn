@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/art/shaders/starnest.tres" type="Shader" id=1]
 [ext_resource path="res://source/Player/Player.tscn" type="PackedScene" id=2]
@@ -19,9 +19,10 @@
 [ext_resource path="res://assets/audio/aura/docking_requested.mp3" type="AudioStream" id=17]
 [ext_resource path="res://assets/audio/aura/docking_accepted.mp3" type="AudioStream" id=18]
 [ext_resource path="res://source/UI/SceneTransition.tscn" type="PackedScene" id=19]
-[ext_resource path="res://assets/art/particles/glowing_circle.png" type="Texture" id=20]
-[ext_resource path="res://assets/art/ui/cursor.png" type="Texture" id=21]
+[ext_resource path="res://source/Main/Star.gd" type="Script" id=20]
+[ext_resource path="res://assets/art/lights/light.png" type="Texture" id=21]
 [ext_resource path="res://source/Actors/SpaceAnomaly.tscn" type="PackedScene" id=22]
+[ext_resource path="res://assets/art/lights/light_shadow_light_blob.png" type="Texture" id=23]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -39,44 +40,63 @@ shader_param/saturation = 0.75
 shader_param/iResolution = Vector2( 192, 192 )
 shader_param/iMouse = Vector2( 0, 0 )
 
-[sub_resource type="ParticlesMaterial" id=2]
-emission_shape = 1
-emission_sphere_radius = 1.0
-flag_disable_z = true
-direction = Vector3( -1, -1, 0 )
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 13.22
-initial_velocity_random = 0.06
-angular_velocity = 0.29
-angular_velocity_random = 0.1
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-radial_accel = 0.88
-radial_accel_random = 0.01
-scale = 0.25
-scale_random = 0.1
-color = Color( 0.0352941, 0.482353, 0.933333, 1 )
-hue_variation = 0.05
-hue_variation_random = 0.2
+[sub_resource type="Animation" id=3]
+resource_name = "PulsatingBlueStar"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2.5, 3.7, 5 ),
+"transitions": PoolRealArray( 2, 1, 1, 1, 0.5 ),
+"update": 0,
+"values": [ 0.75, 0.8, 1.0, 0.8, 0.75 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0.0862745, 1, 1 ), Color( 0.0431373, 0.760784, 0.980392, 1 ), Color( 0, 0.0862745, 1, 1 ) ]
+}
 
-[sub_resource type="Gradient" id=3]
-offsets = PoolRealArray( 0, 0.503916, 1 )
-colors = PoolColorArray( 0, 0.0771484, 1, 1, 0, 0.802543, 0.998547, 1, 0, 1, 0.985352, 1 )
-
-[sub_resource type="GradientTexture" id=4]
-gradient = SubResource( 3 )
-
-[sub_resource type="ParticlesMaterial" id=5]
-flag_disable_z = true
-gravity = Vector3( 0, 0, 0 )
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale = 0.3
-scale_random = 0.1
-color = Color( 0, 1, 0.776471, 1 )
-color_ramp = SubResource( 4 )
-hue_variation = 0.06
-hue_variation_random = 0.03
+[sub_resource type="Animation" id=2]
+resource_name = "PulsatingRedStar"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2.5, 3.7, 5 ),
+"transitions": PoolRealArray( 2, 1, 1, 1, 0.5 ),
+"update": 0,
+"values": [ 0.75, 0.8, 1.0, 0.8, 0.75 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.937255, 0.215686, 0.0862745, 1 ), Color( 0.980392, 0.701961, 0.0431373, 1 ), Color( 1, 0.152941, 0, 1 ) ]
+}
 
 [node name="GameWorld" type="Node2D"]
 script = ExtResource( 6 )
@@ -357,21 +377,6 @@ scale = Vector2( 0.2, 0.2 )
 [node name="Asteroid (Veldspar)10" parent="Props" instance=ExtResource( 3 )]
 position = Vector2( -22769, 15332 )
 scale = Vector2( 0.2, 0.2 )
-
-[node name="Asteroid (Veldspar)11" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -16691, 20379 )
-rotation = -2.70975
-scale = Vector2( 0.36, -0.120078 )
-
-[node name="Asteroid (Veldspar)252" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -16877, 20342 )
-rotation = -2.70975
-scale = Vector2( 0.36, -0.120078 )
-
-[node name="Asteroid (Veldspar)253" parent="Props" instance=ExtResource( 3 )]
-position = Vector2( -16894, 20419 )
-rotation = -2.70975
-scale = Vector2( 0.36, -0.120078 )
 
 [node name="StaticAsteroid60" parent="Props" instance=ExtResource( 3 )]
 position = Vector2( -23219, 13982 )
@@ -2553,22 +2558,6 @@ scale = Vector2( 0.2, 0.2 )
 position = Vector2( -24248, 63.9927 )
 scale = Vector2( 0.2, 0.2 )
 
-[node name="SpaceAnomalyParticle1" type="Particles2D" parent="Props"]
-position = Vector2( -16996, 20264 )
-amount = 200
-lifetime = 10.0
-process_material = SubResource( 2 )
-texture = ExtResource( 21 )
-
-[node name="SpaceAnomalyParticle2" type="Particles2D" parent="Props"]
-position = Vector2( -16996, 20264 )
-amount = 50
-lifetime = 10.0
-explosiveness = 0.62
-randomness = 0.13
-process_material = SubResource( 5 )
-texture = ExtResource( 20 )
-
 [node name="CELESTIALS" type="Node" parent="."]
 
 [node name="AsteroidBelts" type="Node" parent="CELESTIALS"]
@@ -2591,14 +2580,15 @@ overview_selection_icon = ExtResource( 10 )
 warpable_to = true
 movable_to = false
 
-[node name="Spawn" type="Area2D" parent="CELESTIALS/AsteroidBelts"]
+[node name="Sun" type="Area2D" parent="CELESTIALS/AsteroidBelts"]
 position = Vector2( -16727, 20172 )
 script = ExtResource( 8 )
-overview_name = "Space Anomaly"
+overview_name = "Dodixie (Sun)"
 overview_icon = ExtResource( 9 )
 overview_selection_icon = ExtResource( 10 )
 warpable_to = true
 movable_to = false
+offset_distance = 320
 
 [node name="SpaceAnomaly" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 22 )]
 position = Vector2( -13670, -20729 )
@@ -2739,6 +2729,23 @@ start_ore_amount = 2000.0
 [node name="VeldsparAsteroid10" parent="CELESTIALS/AsteroidBelts" instance=ExtResource( 7 )]
 position = Vector2( -16095, -23386 )
 start_ore_amount = 2000.0
+
+[node name="Star" type="Light2D" parent="CELESTIALS/AsteroidBelts"]
+position = Vector2( -16728, 20174 )
+texture = ExtResource( 21 )
+color = Color( 0.0380682, 0.681523, 0.982696, 1 )
+energy = 0.951038
+script = ExtResource( 20 )
+star_color = "PulsatingBlueStar"
+
+[node name="Sprite" type="Sprite" parent="CELESTIALS/AsteroidBelts/Star"]
+position = Vector2( 1, -3 )
+scale = Vector2( 2.64844, 2.64844 )
+texture = ExtResource( 23 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CELESTIALS/AsteroidBelts/Star"]
+anims/PulsatingBlueStar = SubResource( 3 )
+anims/PulsatingRedStar = SubResource( 2 )
 
 [node name="Stations" type="Node" parent="CELESTIALS"]
 

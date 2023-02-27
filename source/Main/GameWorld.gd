@@ -29,6 +29,7 @@ var selected_instance_id: int = 0	#when an item is selceted in the overview, thi
 var player_is_mining: bool = false
 var player_is_warping: bool = false
 var asteroid_being_mined: Celestial = null
+var current_offset_before_warp: Vector2 = Vector2.ZERO #to save the current offset before a warp/ click ot move
 
 ## Celestial over this distance will not be shown in the overview
 export var overview_range: int = 5000
@@ -256,6 +257,9 @@ func move_player_manually(target_position = Vector2.ZERO) -> void:
 	else:
 		# Called with argument, get the passed position
 		_player.target_pos = target_position
+	
+	# Before a manual move, the base offset should be restore
+	_player.restore_regular_offset() 	
 		
 	#_player.first_target_set = true #allows the player to be moved. It needs to start false before any input or the player starting position would be accepted as a target to move			
 	_player.face(_player.target_pos)
@@ -706,7 +710,7 @@ func warp_to_celestial(celestial: Celestial) -> void:
 	if (overview_selected and celestial.warpable_to == true):
 		# Then check if it's distant enough to initiate a warp sequence
 		var distance = round(_player.position.distance_to(celestial.position))
-		if distance >= _player.warp_threashold:			
+		if distance >= _player.warp_threashold:	
 			# Set the offset distance so you don't get inside of it...
 			_player.offset_distance = celestial.offset_distance
 						
@@ -715,7 +719,7 @@ func warp_to_celestial(celestial: Celestial) -> void:
 			$AUDIO/AURA_WARPDRIVEACTIVE.play()
 			player_is_warping = true
 			_player.warping(true)
-			_player.face(_player.target_pos, true)			
+			_player.face(_player.target_pos, true)
 		else:
 			# can't warp, it's too close			
 			_space_ui.show_mid_message("Attempting to warp to a closeby celestial.")

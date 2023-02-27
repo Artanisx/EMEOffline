@@ -749,3 +749,14 @@ func show_question_box(title, message, centered, callback_yes, callback_no) -> v
 		_question_box.popup_centered()
 	else:
 		_question_box.popup()
+
+
+func _on_Player_death() -> void:
+	_space_ui.show_mid_message("You have been destroyed.")
+	
+	# wait 1 second
+	yield(get_tree().create_timer(1.0), "timeout")
+	
+	# Save and quit
+	_on_QB_quit_yes()
+		

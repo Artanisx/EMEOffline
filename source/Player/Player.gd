@@ -25,6 +25,7 @@ var regular_speed = 0
 var warp_move_action: bool = false
 
 signal movement_completed
+signal death
 
 # PLAYER ACCOUNT STATS
 enum MINING_LASER {MINING_LASER_I = 1, MINING_LASER_II = 2, MINING_LASER_III = 3, MINING_LASER_IV = 4, MINING_LASER_V = 5}
@@ -35,7 +36,7 @@ var player_mining_laser: int = 1
 var player_cargo_extender: int = 0
 var player_cargo_hold: int = 0
 var player_cargo_hold_capacity: int = 1000
-var player_hull_integrity: int = 1000 # unused yet
+var player_hull_integrity: int = 1000 
 var player_top_speed: int = 100	# unused yet
 
 const base_cargo_hold: int = 1000
@@ -51,6 +52,9 @@ var first_target_set = false
 # This will offset any movement by this amount, stopping before it's reached. WIth a 0 it reaches dead center of the target global position
 export var offset_distance: float = 100
 
+## DEBUG
+var god_mode: bool = false
+
 func _ready() -> void:
 	## Add the two tweens needed for rotation and movement
 	add_child(rotation_tween)
@@ -61,6 +65,29 @@ func _ready() -> void:
 func _process(delta):
 	_space_dust.global_position = global_position		
 	calculate_instant_velocity(delta)	
+	check_collisions()
+	
+func check_collisions() -> void:
+	# Check for anomalies collision for damaging purposes
+	for body in get_overlapping_bodies():
+		if body.is_in_group("anomalies"):
+			damage_player(body)
+			
+func damage_player(node):
+	if god_mode:
+		return
+				
+	var damage = node.get_touch_damage()
+	player_hull_integrity -= damage	
+	if (player_hull_integrity <= 0):
+		player_death()	
+		
+func player_death() -> void:
+	print("I'm dead")
+	emit_signal("death")
+	# Stop collision and hide (TEMP)
+	$CollisionShape2D.disabled = true
+	hide()	
 
 # Set the correct mining laser stats, following the installed mining laser
 func set_mining_laser():

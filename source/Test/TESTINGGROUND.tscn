@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://source/Test/Testplayer.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/ships/venture.png" type="Texture" id=2]
 [ext_resource path="res://source/VFX/LaserBeam2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/Actors/VeldsparAsteroid.tscn" type="PackedScene" id=4]
 [ext_resource path="res://source/Test/TESTINGGROUND.gd" type="Script" id=5]
+[ext_resource path="res://source/Actors/SpaceAnomaly.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -39,3 +40,6 @@ position = Vector2( 470, 250 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="LaserBeam2D"]
 environment = SubResource( 1 )
+
+[node name="SpaceAnomaly" parent="." instance=ExtResource( 6 )]
+position = Vector2( 230, 268 )

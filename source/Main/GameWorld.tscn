@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/art/shaders/starnest.tres" type="Shader" id=1]
 [ext_resource path="res://source/Player/Player.tscn" type="PackedScene" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://source/UI/SceneTransition.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/art/particles/glowing_circle.png" type="Texture" id=20]
 [ext_resource path="res://assets/art/ui/cursor.png" type="Texture" id=21]
+[ext_resource path="res://source/Actors/SpaceAnomaly.tscn" type="PackedScene" id=22]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -2685,12 +2686,16 @@ starting_theme = "BelowTheAsteroids"
 
 [node name="SceneTransition" parent="." instance=ExtResource( 19 )]
 
+[node name="SpaceAnomaly" parent="." instance=ExtResource( 22 )]
+position = Vector2( -614, -379 )
+
 [connection signal="mining_button_pressed" from="SpaceUI" to="." method="_on_SpaceUI_mining_button_pressed"]
 [connection signal="mining_cycle_completed" from="SpaceUI" to="." method="_on_SpaceUI_mining_cycle_completed"]
 [connection signal="overview_dock_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_dock_to"]
 [connection signal="overview_mine_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_mine_to"]
 [connection signal="overview_move_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_move_to"]
 [connection signal="overview_warp_to" from="SpaceUI" to="." method="_on_SpaceUI_overview_warp_to"]
+[connection signal="death" from="Player" to="." method="_on_Player_death"]
 [connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid5" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
 [connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid12" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
 [connection signal="asteroid_depleted" from="CELESTIALS/AsteroidBelts/VeldsparAsteroid13" to="." method="_on_VeldsparAsteroid_asteroid_depleted"]
